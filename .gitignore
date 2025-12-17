@@ -1,0 +1,18 @@
+.cache
+data/analyzed/*
+data/combined/*
+data/jtotal/*
+data/ufret/*
+__pycache__/*
+
+# 環境変数ファイル（機密情報）
+.env
+.env.local
+
+# IDE設定
+.idea/
+.vscode/
+*.swp
+
+# macOS
+.DS_Store
