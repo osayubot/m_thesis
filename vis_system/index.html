@@ -172,12 +172,6 @@
         margin-right: -6px;
         background: rgba(255, 255, 255, 0.06);
       }
-      .plutchiks {
-        display: flex;
-      }
-      .plutchiks p {
-        font-size: 14px;
-      }
     </style>
   </head>
 
@@ -187,7 +181,7 @@
         <label for="jsonSelector">データセット</label>
         <br />
         <select id="jsonSelector">
-          <optgroup label="MDS（大域的距離を保持）">
+          <optgroup label="MDS">
             <option value="mds_odo_pie_data.json">MDS - 王道進行ベース</option>
             <option value="mds_komuro_pie_data.json">
               MDS - 小室進行ベース
@@ -196,7 +190,7 @@
               MDS - 丸サ進行ベース
             </option>
           </optgroup>
-          <optgroup label="UMAP（局所・大域のバランス）">
+          <optgroup label="UMAP">
             <option value="umap_odo_pie_data.json">
               UMAP - 王道進行ベース
             </option>
@@ -207,7 +201,7 @@
               UMAP - 丸サ進行ベース
             </option>
           </optgroup>
-          <optgroup label="t-SNE（クラスタ発見に特化）">
+          <optgroup label="t-SNE">
             <option value="tsne_odo_pie_data.json">
               t-SNE - 王道進行ベース
             </option>
@@ -1440,20 +1434,12 @@
 
       main();
     </script>
-    <div class="plutchiks">
-      <img
-        src="./plutchiks-model-of-emotions.png"
-        alt="プルチックの円環"
-        width="240px"
-      />
-      <div>
-        <h4>プルチックの円環</h4>
-        <p>プルチックが提唱した感情の円環モデル。</p>
-        <p>
-          このモデルは、感情を8つのカテゴリに分類し、それらを円環上に配置したもの。
-        </p>
-        <p>色付けはプルチックの円環に従った。</p>
-      </div>
-    </div>
+
+    <iframe
+      src="./README.html"
+      width="100%"
+      height="5600px"
+      style="margin-top: 40px"
+    ></iframe>
   </body>
 </html>

@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>README.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+
+    <style>
+      /* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+      /*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+      body {
+        font-family: var(
+          --vscode-markdown-font-family,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe WPC",
+          "Segoe UI",
+          "Ubuntu",
+          "Droid Sans",
+          sans-serif
+        );
+        font-size: var(--vscode-markdown-font-size, 14px);
+        padding: 0 26px;
+        line-height: var(--vscode-markdown-line-height, 22px);
+        word-wrap: break-word;
+      }
+
+      #code-csp-warning {
+        position: fixed;
+        top: 0;
+        right: 0;
+        color: white;
+        margin: 16px;
+        text-align: center;
+        font-size: 12px;
+        font-family: sans-serif;
+        background-color: #444444;
+        cursor: pointer;
+        padding: 6px;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+      }
+
+      #code-csp-warning:hover {
+        text-decoration: none;
+        background-color: #007acc;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+      }
+
+      body.scrollBeyondLastLine {
+        margin-bottom: calc(100vh - 22px);
+      }
+
+      body.showEditorSelection .code-line {
+        position: relative;
+      }
+
+      body.showEditorSelection .code-active-line:before,
+      body.showEditorSelection .code-line:hover:before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: -12px;
+        height: 100%;
+      }
+
+      body.showEditorSelection li.code-active-line:before,
+      body.showEditorSelection li.code-line:hover:before {
+        left: -30px;
+      }
+
+      .vscode-light.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.15);
+      }
+
+      .vscode-light.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(0, 0, 0, 0.4);
+      }
+
+      .vscode-light.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-dark.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.4);
+      }
+
+      .vscode-dark.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 255, 255, 0.6);
+      }
+
+      .vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+        border-left: none;
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-active-line:before {
+        border-left: 3px solid rgba(255, 160, 0, 0.7);
+      }
+
+      .vscode-high-contrast.showEditorSelection .code-line:hover:before {
+        border-left: 3px solid rgba(255, 160, 0, 1);
+      }
+
+      .vscode-high-contrast.showEditorSelection
+        .code-line
+        .code-line:hover:before {
+        border-left: none;
+      }
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      a:focus,
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: 1px solid -webkit-focus-ring-color;
+        outline-offset: -1px;
+      }
+
+      hr {
+        border: 0;
+        height: 2px;
+        border-bottom: 2px solid;
+      }
+
+      h1 {
+        padding-bottom: 0.3em;
+        line-height: 1.2;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-weight: normal;
+      }
+
+      table {
+        border-collapse: collapse;
+      }
+
+      table > thead > tr > th {
+        text-align: left;
+        border-bottom: 1px solid;
+      }
+
+      table > thead > tr > th,
+      table > thead > tr > td,
+      table > tbody > tr > th,
+      table > tbody > tr > td {
+        padding: 5px 10px;
+      }
+
+      table > tbody > tr + tr > td {
+        border-top: 1px solid;
+      }
+
+      blockquote {
+        margin: 0 7px 0 5px;
+        padding: 0 16px 0 10px;
+        border-left-width: 5px;
+        border-left-style: solid;
+      }
+
+      code {
+        font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New",
+          monospace, "Droid Sans Fallback";
+        font-size: 1em;
+        line-height: 1.357em;
+      }
+
+      body.wordWrap pre {
+        white-space: pre-wrap;
+      }
+
+      pre:not(.hljs),
+      pre.hljs code > div {
+        padding: 16px;
+        border-radius: 3px;
+        overflow: auto;
+      }
+
+      pre code {
+        color: var(--vscode-editor-foreground);
+        tab-size: 4;
+      }
+
+      /** Theming */
+
+      .vscode-light pre {
+        background-color: rgba(220, 220, 220, 0.4);
+      }
+
+      .vscode-dark pre {
+        background-color: rgba(10, 10, 10, 0.4);
+      }
+
+      .vscode-high-contrast pre {
+        background-color: rgb(0, 0, 0);
+      }
+
+      .vscode-high-contrast h1 {
+        border-color: rgb(0, 0, 0);
+      }
+
+      .vscode-light table > thead > tr > th {
+        border-color: rgba(0, 0, 0, 0.69);
+      }
+
+      .vscode-dark table > thead > tr > th {
+        border-color: rgba(255, 255, 255, 0.69);
+      }
+
+      .vscode-light h1,
+      .vscode-light hr,
+      .vscode-light table > tbody > tr + tr > td {
+        border-color: rgba(0, 0, 0, 0.18);
+      }
+
+      .vscode-dark h1,
+      .vscode-dark hr,
+      .vscode-dark table > tbody > tr + tr > td {
+        border-color: rgba(255, 255, 255, 0.18);
+      }
+    </style>
+
+    <style>
+      /* Tomorrow Theme */
+      /* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+      /* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+      /* Tomorrow Comment */
+      .hljs-comment,
+      .hljs-quote {
+        color: #8e908c;
+      }
+
+      /* Tomorrow Red */
+      .hljs-variable,
+      .hljs-template-variable,
+      .hljs-tag,
+      .hljs-name,
+      .hljs-selector-id,
+      .hljs-selector-class,
+      .hljs-regexp,
+      .hljs-deletion {
+        color: #c82829;
+      }
+
+      /* Tomorrow Orange */
+      .hljs-number,
+      .hljs-built_in,
+      .hljs-builtin-name,
+      .hljs-literal,
+      .hljs-type,
+      .hljs-params,
+      .hljs-meta,
+      .hljs-link {
+        color: #f5871f;
+      }
+
+      /* Tomorrow Yellow */
+      .hljs-attribute {
+        color: #eab700;
+      }
+
+      /* Tomorrow Green */
+      .hljs-string,
+      .hljs-symbol,
+      .hljs-bullet,
+      .hljs-addition {
+        color: #718c00;
+      }
+
+      /* Tomorrow Blue */
+      .hljs-title,
+      .hljs-section {
+        color: #4271ae;
+      }
+
+      /* Tomorrow Purple */
+      .hljs-keyword,
+      .hljs-selector-tag {
+        color: #8959a8;
+      }
+
+      .hljs {
+        display: block;
+        overflow-x: auto;
+        color: #4d4d4c;
+        padding: 0.5em;
+      }
+
+      .hljs-emphasis {
+        font-style: italic;
+      }
+
+      .hljs-strong {
+        font-weight: bold;
+      }
+    </style>
+
+    <style>
+      /*
+ * Markdown PDF CSS
+ */
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI",
+          "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+        padding: 0 12px;
+      }
+
+      pre {
+        background-color: #f8f8f8;
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: break-word;
+      }
+
+      pre:not(.hljs) {
+        padding: 23px;
+        line-height: 19px;
+      }
+
+      blockquote {
+        background: rgba(127, 127, 127, 0.1);
+        border-color: rgba(0, 122, 204, 0.5);
+      }
+
+      .emoji {
+        height: 1.4em;
+      }
+
+      code {
+        font-size: 14px;
+        line-height: 19px;
+      }
+
+      /* for inline code */
+      :not(pre):not(.hljs) > code {
+        color: #c9ae75; /* Change the old color so it seems less like an error */
+        font-size: inherit;
+      }
+
+      /* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+      .page {
+        page-break-after: always;
+      }
+    </style>
+
+    <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    <script>
+      mermaid.initialize({
+        startOnLoad: true,
+        theme:
+          document.body.classList.contains("vscode-dark") ||
+          document.body.classList.contains("vscode-high-contrast")
+            ? "dark"
+            : "default",
+      });
+    </script>
+    <h1
+      id="%E6%97%A5%E6%9C%AC%E8%AA%9E%E3%83%92%E3%83%83%E3%83%88%E6%9B%B2%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E6%AD%8C%E8%A9%9E%E3%81%AE%E6%84%9F%E6%83%85%E3%81%A8%E3%82%B3%E3%83%BC%E3%83%89%E9%80%B2%E8%A1%8C%E3%81%AE%E9%96%A2%E4%BF%82%E3%81%AE%E5%8F%AF%E8%A6%96%E5%8C%96"
+    >
+      日本語ヒット曲における歌詞の感情とコード進行の関係の可視化
+    </h1>
+    <h2 id="%E7%A0%94%E7%A9%B6%E6%A6%82%E8%A6%81">研究概要</h2>
+    <p>
+      ポピュラー音楽の作曲技法には、メロディ・リズム・コード進行などの多様な要素がその印象や感情に関わっている。その中でも特にコード進行は、近年のヒット曲における楽曲の印象を決定づける大きな要因の一つである。しかし、ヒット曲のコード進行と歌詞の関係については研究がまだ少なく、検討の余地が残っていると考えられる。本研究では、ヒット曲における主要なコード進行を対象として、歌詞の感情分析結果を集計した結果を可視化する。本手法により、コード進行と歌詞の感情の関係に関する新たな知見が得られると期待される。
+    </p>
+    <hr />
+    <h2 id="%E8%83%8C%E6%99%AF">背景</h2>
+    <h3
+      id="%E3%82%B3%E3%83%BC%E3%83%89%E9%80%B2%E8%A1%8C%E3%81%A8%E6%84%9F%E6%83%85%E3%81%AE%E9%96%A2%E4%BF%82"
+    >
+      コード進行と感情の関係
+    </h3>
+    <p>
+      J-POP
+      には「王道進行（IV→V→iii→vi）」「小室進行（vi→IV→V→I）」「丸サ進行（IVM7→III7→vi7→I7）」など、頻繁に使用される定番のコード進行パターンが存在する。これらのコード進行は、楽曲に特定の感情的印象（感動的、力強い、おしゃれなど）を与えることが経験的に知られている。
+    </p>
+    <p>
+      一方、歌詞は楽曲の感情表現において重要な役割を果たしており、コード進行と歌詞がどのように組み合わされているかは、楽曲の全体的な印象に大きく影響する。しかし、コード進行パターンと歌詞の感情表現の関係を定量的に分析した研究は少ない。
+    </p>
+    <h3 id="%E7%A0%94%E7%A9%B6%E3%81%AE%E5%8B%95%E6%A9%9F">研究の動機</h3>
+    <p>本研究では、可視化により以下のことを明らかにする：</p>
+    <ol>
+      <li>
+        特定のコード進行パターンには、特定の感情を持つ歌詞が付けられやすいのか
+      </li>
+      <li>
+        王道進行・小室進行・丸サ進行などの定番コード進行は、感情分布にどのような特徴を持つのか
+      </li>
+      <li>
+        類似したコード進行を持つ楽曲群は、歌詞の感情においても類似する傾向があるのか
+      </li>
+    </ol>
+    <hr />
+    <h2 id="%E5%AE%9F%E8%A3%85%E6%96%B9%E6%B3%95">実装方法</h2>
+    <h3 id="1-%E3%83%87%E3%83%BC%E3%82%BF%E5%8F%8E%E9%9B%86">1. データ収集</h3>
+    <p>
+      本システムでは、J-Total Music と U-FRET の 2
+      つのコード譜サイトから楽曲データを収集し、Spotify Web API
+      でメタ情報を付与している。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>ソース</th>
+          <th>取得データ</th>
+          <th>収集方法</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>J-Total Music</td>
+          <td>コード進行（原曲キー付き）</td>
+          <td>Web スクレイピング（静的 HTML）</td>
+        </tr>
+        <tr>
+          <td>U-FRET</td>
+          <td>コード進行 + 歌詞（セクション区切り）</td>
+          <td>Playwright（動的レンダリング）</td>
+        </tr>
+        <tr>
+          <td>Spotify Web API</td>
+          <td>リリース日、人気度、アルバム情報</td>
+          <td>API 検索</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      キー推定およびセクションごとの歌詞との対応関係を考慮、メタ情報によるフィルタリングを実現するため、J-Total
+      Music と U-FRET の両方に存在し、Spotify Web API
+      で取得できる楽曲のみを採用している。
+    </p>
+    <h3
+      id="2-%E3%82%B3%E3%83%BC%E3%83%89%E9%80%B2%E8%A1%8C%E3%81%AE%E6%AD%A3%E8%A6%8F%E5%8C%96"
+    >
+      2. コード進行の正規化
+    </h3>
+    <p>
+      異なるキーの楽曲間でコード進行を比較可能にするため、すべてのコード進行を
+      Cmaj / Amに移調している。
+    </p>
+    <h4>移調の必要性</h4>
+    <p>同じ「王道進行」でも、キーが異なると表記が変わる：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>キー</th>
+          <th>王道進行の実際のコード</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>C</td>
+          <td>F → G → Em → Am</td>
+        </tr>
+        <tr>
+          <td>G</td>
+          <td>C → D → Bm → Em</td>
+        </tr>
+        <tr>
+          <td>D</td>
+          <td>G → A → F#m → Bm</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      すべてのコード進行を Cmaj または Am
+      に移調することで、キーに依存しない比較が可能になる。
+    </p>
+    <h4>転調検出：HMM + Viterbi アルゴリズム</h4>
+    <p>
+      隠れマルコフモデル（HMM）は「<strong>観測できるもの</strong>」から「<strong>隠れた状態</strong>」を推定するモデルである。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>要素</th>
+          <th>本システムでの対応</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>隠れた状態</td>
+          <td>真のキー（C, Cm, D, Dm, ... 24種類）</td>
+        </tr>
+        <tr>
+          <td>観測データ</td>
+          <td>コード進行（Am, F, G, C, ...）</td>
+        </tr>
+        <tr>
+          <td>放出確率</td>
+          <td>あるキーのときに、あるコードが出現する確率</td>
+        </tr>
+        <tr>
+          <td>遷移確率</td>
+          <td>あるキーから別のキーに変化する確率</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>スライディングウィンドウ分析</h4>
+    <p>
+      楽曲全体を一度に分析するのではなく、<strong>ウィンドウ（窓）</strong>を移動させながら分析する。各ウィンドウで機械学習モデルが「このコード列は何のキーか？」を
+      24 クラスの確率として出力する。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>パラメータ</th>
+          <th>値</th>
+          <th>意味</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>W（ウィンドウサイズ）</td>
+          <td>16</td>
+          <td>16 コード ≒ 4〜8 小節分。キー判定に十分な情報量</td>
+        </tr>
+        <tr>
+          <td>H（ステップサイズ）</td>
+          <td>4</td>
+          <td>4 コード ≒ 1〜2 小節。細かすぎず粗すぎない粒度</td>
+        </tr>
+        <tr>
+          <td>switch_penalty</td>
+          <td>4.0</td>
+          <td>log 確率で 4.0 ≒ 確率比で約 55 倍の差が必要</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>Viterbi アルゴリズム</h4>
+    <p>
+      Viterbi アルゴリズムは、HMM
+      において<strong>最も確からしい状態の系列</strong>を求める動的計画法である。キーを変える場合にペナルティを課すことで、確率が少し高いだけでは転調と判定されず、連続して別のキーの確率が高い場合のみ転調と判定される。
+    </p>
+    <h4>キー推定の機械学習モデル</h4>
+    <p>
+      「このコード進行は何のキーか」を判定する分類器として、<strong>ロジスティック回帰</strong>を使用している。
+    </p>
+    <p><strong>特徴量の設計</strong>:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>特徴量</th>
+          <th>長所</th>
+          <th>短所</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bag-of-Words（コードの出現頻度）</td>
+          <td>コードの種類（Am, Dm7 等）を区別できる</td>
+          <td>高次元になりがち</td>
+        </tr>
+        <tr>
+          <td>ルート音の 12 次元ヒストグラム</td>
+          <td>低次元で安定</td>
+          <td>コードの種類（メジャー/マイナー）を無視</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      両方を組み合わせることで、コードの種類とルート音の両方の情報を活用できる。学習データとして
+      J-Total Music の原曲キー情報を使用し、24 クラスの確率分布を出力する。
+    </p>
+    <h3 id="3-%E6%84%9F%E6%83%85%E5%88%86%E6%9E%90">3. 感情分析</h3>
+    <p>
+      歌詞の感情分析には、日本語感情分析用にファインチューニングされた BERT
+      モデル（<code>koshin2001/Japanese-to-emotions</code>）を使用している。プルチック（Plutchik）の
+      8
+      つの基本感情（喜び、悲しみ、期待、驚き、怒り、恐れ、嫌悪、信頼）に分類する。
+    </p>
+    <img
+      src="./plutchiks-model-of-emotions.png"
+      alt="プルチックの感情の輪"
+      width="240px"
+    />
+    <h4>感情と色の対応</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>感情</th>
+          <th>色づけ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>JOY（喜び）</td>
+          <td>
+            <span style="background-color: #ffff73; padding: 2px 8px"
+              >#FFFF73</span
+            >（黄色）
+          </td>
+        </tr>
+        <tr>
+          <td>SADNESS（悲しみ）</td>
+          <td>
+            <span
+              style="background-color: #5150f8; color: white; padding: 2px 8px"
+              >#5150F8</span
+            >（青）
+          </td>
+        </tr>
+        <tr>
+          <td>ANTICIPATION（期待）</td>
+          <td>
+            <span style="background-color: #f3ab63; padding: 2px 8px"
+              >#F3AB63</span
+            >（オレンジ）
+          </td>
+        </tr>
+        <tr>
+          <td>SURPRISE（驚き）</td>
+          <td>
+            <span style="background-color: #74bbf9; padding: 2px 8px"
+              >#74BBF9</span
+            >（水色）
+          </td>
+        </tr>
+        <tr>
+          <td>ANGER（怒り）</td>
+          <td>
+            <span
+              style="background-color: #e93323; color: white; padding: 2px 8px"
+              >#E93323</span
+            >（赤）
+          </td>
+        </tr>
+        <tr>
+          <td>FEAR（恐れ）</td>
+          <td>
+            <span
+              style="background-color: #429429; color: white; padding: 2px 8px"
+              >#429429</span
+            >（緑）
+          </td>
+        </tr>
+        <tr>
+          <td>DISGUST（嫌悪）</td>
+          <td>
+            <span style="background-color: #eb60f8; padding: 2px 8px"
+              >#EB60F8</span
+            >（紫）
+          </td>
+        </tr>
+        <tr>
+          <td>TRUST（信頼）</td>
+          <td>
+            <span style="background-color: #88fc6e; padding: 2px 8px"
+              >#88FC6E</span
+            >（黄緑）
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3
+      id="4-%E3%82%B3%E3%83%BC%E3%83%89%E9%80%B2%E8%A1%8C%E9%96%93%E3%81%AE%E8%B7%9D%E9%9B%A2%E8%A8%88%E7%AE%97"
+    >
+      4. コード進行間の距離計算
+    </h3>
+    <p>
+      コード進行の類似度を測るため、<strong>音楽的レーベンシュタイン距離</strong>を使用している。これは通常の編集距離（レーベンシュタイン距離）を音楽理論に基づいて拡張したものである。
+    </p>
+    <h4>機能的類似性に基づく置換コスト</h4>
+    <p>
+      音楽理論では、コードは<strong>機能（Function）</strong>によって分類される：
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>機能</th>
+          <th>役割</th>
+          <th>該当コード</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>T</strong>（Tonic）</td>
+          <td>安定・解決</td>
+          <td>I, iii, vi</td>
+        </tr>
+        <tr>
+          <td><strong>PD</strong>（Predominant）</td>
+          <td>ドミナントへ導く</td>
+          <td>ii, IV</td>
+        </tr>
+        <tr>
+          <td><strong>D</strong>（Dominant）</td>
+          <td>緊張・解決を促す</td>
+          <td>V, vii°, V7</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>この分類を基に、置換コストを以下のように設計した：</p>
+    <table>
+      <thead>
+        <tr>
+          <th>置換パターン</th>
+          <th>コスト</th>
+          <th>根拠</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>完全一致（I → I）</td>
+          <td>0.0</td>
+          <td>同一コード</td>
+        </tr>
+        <tr>
+          <td>同機能（I → vi）</td>
+          <td>0.2</td>
+          <td>代理コード関係（音楽的に互換性が高い）</td>
+        </tr>
+        <tr>
+          <td>隣接機能（T → PD, PD → D）</td>
+          <td>0.5</td>
+          <td>自然な和声進行の流れ</td>
+        </tr>
+        <tr>
+          <td>遠い機能（T → D）</td>
+          <td>0.8</td>
+          <td>対照的な機能（トニックとドミナントは対極）</td>
+        </tr>
+        <tr>
+          <td>機能不明</td>
+          <td>1.0</td>
+          <td>特殊コード</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>挿入・削除コストの設計</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>パターン</th>
+          <th>コスト</th>
+          <th>根拠</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>繰り返し（前と同じコード）</td>
+          <td>0.5</td>
+          <td>装飾的・強調のための繰り返しは低コスト</td>
+        </tr>
+        <tr>
+          <td>構造的欠落</td>
+          <td>0.7</td>
+          <td>進行の骨格に影響するため中程度のコスト</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>循環性の考慮</h4>
+    <p>
+      コード進行は循環的に演奏されることが多いため、<strong>全回転（ローテーション）を試して最小距離</strong>を採用する。
+    </p>
+    <pre>
+例: 王道進行 IV-V-iii-vi の全回転
+  - IV-V-iii-vi（開始位置0）
+  - V-iii-vi-IV（開始位置1）
+  - iii-vi-IV-V（開始位置2）
+  - vi-IV-V-iii（開始位置3）
+
+比較対象との距離を全パターンで計算し、最小値を採用</pre
+    >
+    <h4>テンションコードの考慮</h4>
+    <p>
+      テンションコード（9th, 11th, 13th, sus, add
+      など）は基本コードに不協和音を追加し、音の複雑性を変化させる。本システムでは、テンションも距離計算に考慮している。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>テンション</th>
+          <th>不協和度</th>
+          <th>例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>なし（トライアド）</td>
+          <td>0</td>
+          <td>IV, V, vi</td>
+        </tr>
+        <tr>
+          <td>7th（M7, m7, 7）</td>
+          <td>1</td>
+          <td>IVM7, V7, vim7</td>
+        </tr>
+        <tr>
+          <td>sus（sus2, sus4）</td>
+          <td>1</td>
+          <td>Vsus4</td>
+        </tr>
+        <tr>
+          <td>add（add9, add11）</td>
+          <td>1.5</td>
+          <td>IVadd9</td>
+        </tr>
+        <tr>
+          <td>aug / dim</td>
+          <td>1.5</td>
+          <td>IVaug, viidim</td>
+        </tr>
+        <tr>
+          <td>9th</td>
+          <td>2</td>
+          <td>V9</td>
+        </tr>
+        <tr>
+          <td>11th</td>
+          <td>2.5</td>
+          <td>IV11</td>
+        </tr>
+        <tr>
+          <td>13th</td>
+          <td>3</td>
+          <td>V13</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>テンションによる追加コスト</strong>:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>パターン</th>
+          <th>追加コスト</th>
+          <th>例</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>同じテンション</td>
+          <td>0.0</td>
+          <td>IVM7 vs IVM7</td>
+        </tr>
+        <tr>
+          <td>テンションあり vs なし</td>
+          <td>0.05〜0.15</td>
+          <td>IV vs IVM7</td>
+        </tr>
+        <tr>
+          <td>異なるテンション</td>
+          <td>0.03〜0.1</td>
+          <td>IVM7 vs IV9</td>
+        </tr>
+      </tbody>
+    </table>
+    <h4>従来のレーベンシュタイン距離との違い（まとめ）</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>通常のレーベンシュタイン距離</th>
+          <th>本研究の音楽的距離</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>置換コスト</td>
+          <td>常に 1.0</td>
+          <td>コードの機能的類似性に基づく（0.0〜1.0）</td>
+        </tr>
+        <tr>
+          <td>挿入コスト</td>
+          <td>常に 1.0</td>
+          <td>繰り返しパターンかどうかで変動（0.5〜0.7）</td>
+        </tr>
+        <tr>
+          <td>削除コスト</td>
+          <td>常に 1.0</td>
+          <td>繰り返しパターンかどうかで変動（0.5〜0.7）</td>
+        </tr>
+        <tr>
+          <td>循環性</td>
+          <td>考慮なし</td>
+          <td>全回転を試して最小距離を採用</td>
+        </tr>
+        <tr>
+          <td>テンションコード</td>
+          <td>考慮なし</td>
+          <td>不協和度に応じた追加コスト（0.0〜0.15）</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>なぜこの手法を採用したか</strong>:</p>
+    <ul>
+      <li>
+        音楽理論における和声機能（トニック、ドミナント、サブドミナント）を反映できる
+      </li>
+      <li>コード進行の循環的な性質を考慮できる</li>
+      <li>テンションの有無による音色の違いを距離に反映できる</li>
+    </ul>
+    <h3
+      id="5-%E6%AC%A1%E5%85%83%E5%89%8A%E6%B8%9B%E3%81%A8%E5%8F%AF%E8%A6%96%E5%8C%96"
+    >
+      5. 次元削減と可視化
+    </h3>
+    <p>
+      高次元の距離データを 2
+      次元平面に射影するため、<strong>MDS</strong>、<strong>UMAP</strong>、<strong
+        >t-SNE</strong
+      >
+      の 3 手法を実装している。
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>手法</th>
+          <th>特徴</th>
+          <th>適した分析目的</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>MDS</td>
+          <td>大域的な距離関係を保持</td>
+          <td>基準進行との距離を正確に把握</td>
+        </tr>
+        <tr>
+          <td>UMAP</td>
+          <td>局所・大域のバランス、高速</td>
+          <td>類似コード進行のグループを発見</td>
+        </tr>
+        <tr>
+          <td>t-SNE</td>
+          <td>局所構造を強調、クラスタが明確分離</td>
+          <td>未知のパターン・外れ値を発見</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3 id="6-%E5%8F%AF%E8%A6%96%E5%8C%96%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0">
+      6. 可視化システム
+    </h3>
+    <p>
+      各コード進行を 2
+      次元平面上の点として配置し、その点に歌詞から抽出した感情分布を円グラフとして表示するインタラクティブな
+      Web アプリケーションを開発している。
+    </p>
+    <p><strong>機能</strong>:</p>
+    <ul>
+      <li>次元削減手法（MDS/UMAP/t-SNE）と基準進行（王道/小室/丸サ）の選択</li>
+      <li>アーティスト、作曲家、作詞家によるフィルタリング</li>
+      <li>リリース年、Spotify 人気度によるフィルタリング</li>
+      <li>ホバーによるコード進行・感情分布の詳細表示</li>
+      <li>クリックによる該当歌詞の一覧表示</li>
+    </ul>
+    <hr />
+    <h2 id="%E6%9C%9F%E5%BE%85%E3%81%95%E3%82%8C%E3%82%8B%E6%88%90%E6%9E%9C">
+      期待される成果
+    </h2>
+    <p>本システムにより、以下の分析が可能となる：</p>
+    <ol>
+      <li>
+        <strong>コード進行と感情の対応関係の発見</strong>:
+        特定のコード進行パターンに付けられやすい感情の傾向を明らかにする
+      </li>
+      <li>
+        <strong>時代ごとのトレンド分析</strong>:
+        リリース年フィルタを用いて、年代によるコード進行の使用傾向の変化を分析する
+      </li>
+      <li>
+        <strong>ヒット曲の特徴分析</strong>: Spotify
+        人気度フィルタを用いて、人気楽曲に共通するコード進行パターンを発見する
+      </li>
+      <li>
+        <strong>作家性の分析</strong>:
+        特定の作曲家・作詞家・アーティストに特徴的なコード進行と感情の組み合わせを分析する
+      </li>
+    </ol>
+  </body>
+</html>
