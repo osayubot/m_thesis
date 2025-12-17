@@ -187,9 +187,37 @@
         <label for="jsonSelector">データセット</label>
         <br />
         <select id="jsonSelector">
-          <option value="mds_odo_pie_data.json">王道進行ベース</option>
-          <option value="mds_komuro_pie_data.json">小室進行ベース</option>
-          <option value="mds_marusa_pie_data.json">丸サ進行ベース</option>
+          <optgroup label="MDS（大域的距離を保持）">
+            <option value="mds_odo_pie_data.json">MDS - 王道進行ベース</option>
+            <option value="mds_komuro_pie_data.json">
+              MDS - 小室進行ベース
+            </option>
+            <option value="mds_marusa_pie_data.json">
+              MDS - 丸サ進行ベース
+            </option>
+          </optgroup>
+          <optgroup label="UMAP（局所・大域のバランス）">
+            <option value="umap_odo_pie_data.json">
+              UMAP - 王道進行ベース
+            </option>
+            <option value="umap_komuro_pie_data.json">
+              UMAP - 小室進行ベース
+            </option>
+            <option value="umap_marusa_pie_data.json">
+              UMAP - 丸サ進行ベース
+            </option>
+          </optgroup>
+          <optgroup label="t-SNE（クラスタ発見に特化）">
+            <option value="tsne_odo_pie_data.json">
+              t-SNE - 王道進行ベース
+            </option>
+            <option value="tsne_komuro_pie_data.json">
+              t-SNE - 小室進行ベース
+            </option>
+            <option value="tsne_marusa_pie_data.json">
+              t-SNE - 丸サ進行ベース
+            </option>
+          </optgroup>
         </select>
       </div>
     </div>
@@ -281,6 +309,7 @@
       let allPoints = []; // 全ポイントデータ（フィルタリング前）
       let releaseDateRange = { min: 1900, max: 2025 }; // release_dateの範囲
       let popularityRange = { min: 0, max: 100 }; // spotify_popularityの範囲
+      let clickHandler = null; // クリックハンドラを保存
 
       /* ====== tooltip要素（1回だけ作る） ====== */
       function ensureTooltipEl() {
@@ -1227,8 +1256,13 @@
             },
           });
 
+          // 古いクリックハンドラを削除
+          if (clickHandler) {
+            canvas.removeEventListener("click", clickHandler);
+          }
+
           // クリック：扇形を判定して歌詞表示
-          canvas.addEventListener("click", (ev) => {
+          clickHandler = (ev) => {
             const pos = Chart.helpers.getRelativePosition(ev, chart);
             const px = pos.x;
             const py = pos.y;
@@ -1276,7 +1310,8 @@
               selected = { datasetIndex, index, emotion };
             }
             chart.update();
-          });
+          };
+          canvas.addEventListener("click", clickHandler);
         } catch (e) {
           throw e;
         }

@@ -1,11 +1,12 @@
 """
 音楽的レーベンシュタイン距離の実装
-機能的な近さ、循環性を考慮
+機能的な近さ、循環性、テンションを考慮
 （文脈調整は無効化: use_context=False）
 """
 from __future__ import annotations
 from typing import List, Optional, Tuple
 import numpy as np
+import re
 
 # 機能分類（Tonic, Predominant, Dominant）
 FUNCTIONAL_GROUPS = {
@@ -14,14 +15,87 @@ FUNCTIONAL_GROUPS = {
     'D': ['v', 'vii', 'V', 'VII', 'V7', 'v7'],  # Dominant
 }
 
-# 機能マッピング（ローマ数字から機能へ）
+# テンションの不協和度レベル（高いほど複雑）
+TENSION_COMPLEXITY = {
+    'none': 0,      # テンションなし（トライアド）
+    '7': 1,         # 7th（M7, m7, 7）
+    'sus': 1,       # sus2, sus4
+    'add': 1.5,     # add9, add11
+    '9': 2,         # 9th
+    '11': 2.5,      # 11th
+    '13': 3,        # 13th
+    'aug': 1.5,     # augmented
+    'dim': 1.5,     # diminished
+}
+
+
+def parse_roman_numeral(roman: str) -> Tuple[str, str, float]:
+    """
+    ローマ数字を解析して、基本部分とテンション情報を抽出
+    
+    Args:
+        roman: ローマ数字文字列（例: "IVM7", "V9", "vim7", "IVadd9"）
+    
+    Returns:
+        (基本ローマ数字, テンションタイプ, 不協和度)
+    """
+    if not roman:
+        return ('', 'none', 0)
+    
+    original = roman
+    
+    # テンションパターンを順番に検出（長いものから）
+    tension_patterns = [
+        (r'(add\d+)', 'add'),      # add9, add11, add13
+        (r'(sus\d*)', 'sus'),      # sus, sus2, sus4
+        (r'(M7|maj7)', '7'),       # Major 7th
+        (r'(m7|min7)', '7'),       # minor 7th
+        (r'13', '13'),             # 13th
+        (r'11', '11'),             # 11th
+        (r'9', '9'),               # 9th
+        (r'7', '7'),               # dominant 7th
+        (r'(aug|\+)', 'aug'),      # augmented
+        (r'(dim|°|o)', 'dim'),     # diminished
+    ]
+    
+    tension_type = 'none'
+    complexity = 0
+    
+    # テンションを検出
+    for pattern, t_type in tension_patterns:
+        if re.search(pattern, roman, re.IGNORECASE):
+            tension_type = t_type
+            complexity = TENSION_COMPLEXITY.get(t_type, 0)
+            break
+    
+    # テンション・品質記号をすべて除去して基本ローマ数字を抽出
+    # 正規表現で除去
+    base = re.sub(
+        r'(M7|m7|maj7|min7|add\d+|sus\d*|aug|dim|°|o|\+|13|11|9|7)+',
+        '',
+        roman,
+        flags=re.IGNORECASE
+    ).strip()
+    
+    # 空になった場合は元の文字列の先頭部分を使用
+    if not base:
+        # ローマ数字部分を抽出（I, II, III, IV, V, VI, VII）
+        match = re.match(r'^(i{1,3}|iv|vi{0,2}|v|vii?|I{1,3}|IV|VI{0,2}|V|VII?)', roman, re.IGNORECASE)
+        if match:
+            base = match.group(1)
+        else:
+            base = roman
+    
+    return (base, tension_type, complexity)
+
+
 def get_function(roman: str) -> Optional[str]:
-    """ローマ数字から機能を取得"""
-    # 品質記号を除去（7, sus, °, oなど）
-    roman_base = roman.rstrip('7sus°o').strip()
+    """ローマ数字から機能を取得（テンション対応版）"""
+    # 基本ローマ数字を抽出
+    base, _, _ = parse_roman_numeral(roman)
     
     # 大文字小文字を統一して比較
-    roman_lower = roman_base.lower()
+    roman_lower = base.lower()
     
     if roman_lower in ['i', 'iii', 'vi']:
         return 'T'
@@ -31,27 +105,87 @@ def get_function(roman: str) -> Optional[str]:
         return 'D'
     return None
 
-def functional_similarity_cost(a: str, b: str) -> float:
-    """機能的な近さに基づく置換コスト"""
+
+def tension_similarity_cost(tension_a: str, complexity_a: float, 
+                           tension_b: str, complexity_b: float) -> float:
+    """
+    テンションの類似性に基づくコスト
+    
+    Returns:
+        0.0〜0.15 のコスト
+    """
+    # 同じテンションタイプ
+    if tension_a == tension_b:
+        return 0.0
+    
+    # 両方テンションなし
+    if tension_a == 'none' and tension_b == 'none':
+        return 0.0
+    
+    # 片方だけテンションあり
+    if tension_a == 'none' or tension_b == 'none':
+        # 不協和度の差に基づくコスト（最大0.15）
+        complexity_diff = abs(complexity_a - complexity_b)
+        return min(0.15, complexity_diff * 0.05)
+    
+    # 両方テンションあり（異なるタイプ）
+    # 不協和度の差に基づくコスト
+    complexity_diff = abs(complexity_a - complexity_b)
+    return min(0.1, complexity_diff * 0.03)
+
+
+def functional_similarity_cost(a: str, b: str, consider_tension: bool = True) -> float:
+    """
+    機能的な近さに基づく置換コスト（テンション考慮版）
+    
+    Args:
+        a: コード1（ローマ数字）
+        b: コード2（ローマ数字）
+        consider_tension: テンションを考慮するか
+    
+    Returns:
+        置換コスト（0.0〜1.0）
+    """
     if a == b:
         return 0.0
     
+    # テンション情報を抽出
+    base_a, tension_a, complexity_a = parse_roman_numeral(a)
+    base_b, tension_b, complexity_b = parse_roman_numeral(b)
+    
+    # 基本ローマ数字が同じ場合（テンションのみ異なる）
+    if base_a.lower() == base_b.lower():
+        if consider_tension:
+            return tension_similarity_cost(tension_a, complexity_a, tension_b, complexity_b)
+        else:
+            return 0.0
+    
+    # 機能を取得
     func_a = get_function(a)
     func_b = get_function(b)
     
+    # 基本コスト（機能に基づく）
     if func_a == func_b and func_a is not None:
-        return 0.2  # 同機能
+        base_cost = 0.2  # 同機能
     elif func_a is None or func_b is None:
-        return 1.0  # 機能不明
+        base_cost = 1.0  # 機能不明
     else:
         # 近傍機能（T-PD, PD-D）は中程度のコスト
         if (func_a == 'T' and func_b == 'PD') or (func_a == 'PD' and func_b == 'T'):
-            return 0.5
+            base_cost = 0.5
         elif (func_a == 'PD' and func_b == 'D') or (func_a == 'D' and func_b == 'PD'):
-            return 0.5
+            base_cost = 0.5
         elif (func_a == 'T' and func_b == 'D') or (func_a == 'D' and func_b == 'T'):
-            return 0.8  # T-Dは遠い
-        return 1.0
+            base_cost = 0.8  # T-Dは遠い
+        else:
+            base_cost = 1.0
+    
+    # テンションコストを追加
+    if consider_tension:
+        tension_cost = tension_similarity_cost(tension_a, complexity_a, tension_b, complexity_b)
+        return base_cost + tension_cost
+    
+    return base_cost
 
 def is_natural_progression(prev: Optional[str], curr: str, next_chord: Optional[str]) -> bool:
     """自然な進行かどうかを判定（T→PD→D→Tなど）"""
@@ -82,10 +216,11 @@ def contextual_substitution_cost(
     prev_a: Optional[str] = None, 
     next_a: Optional[str] = None,
     prev_b: Optional[str] = None,
-    next_b: Optional[str] = None
+    next_b: Optional[str] = None,
+    consider_tension: bool = True
 ) -> float:
     """文脈を考慮した置換コスト"""
-    base_cost = functional_similarity_cost(a, b)
+    base_cost = functional_similarity_cost(a, b, consider_tension=consider_tension)
     
     # 文脈が自然な場合はコストを下げる
     if is_natural_progression(prev_a, a, next_a) and is_natural_progression(prev_b, b, next_b):
@@ -98,15 +233,17 @@ def contextual_substitution_cost(
 def musical_levenshtein_distance(
     seq1: List[str], 
     seq2: List[str],
-    use_context: bool = True
+    use_context: bool = True,
+    consider_tension: bool = True
 ) -> float:
     """
-    音楽的レーベンシュタイン距離を計算
+    音楽的レーベンシュタイン距離を計算（テンション考慮版）
     
     Args:
         seq1: コード進行1（ローマ数字のリスト）
         seq2: コード進行2（ローマ数字のリスト）
         use_context: 文脈を考慮するか
+        consider_tension: テンションを考慮するか（デフォルト: True）
     
     Returns:
         距離（0以上）
@@ -139,10 +276,14 @@ def musical_levenshtein_distance(
                 next_b = seq2[j] if j < n else None
                 sub_cost = contextual_substitution_cost(
                     seq1[i-1], seq2[j-1],
-                    prev_a, next_a, prev_b, next_b
+                    prev_a, next_a, prev_b, next_b,
+                    consider_tension=consider_tension
                 )
             else:
-                sub_cost = functional_similarity_cost(seq1[i-1], seq2[j-1])
+                sub_cost = functional_similarity_cost(
+                    seq1[i-1], seq2[j-1],
+                    consider_tension=consider_tension
+                )
             
             # 削除コスト（構造的欠落は高コスト、繰り返しは低コスト）
             del_cost = 0.5 if i > 1 and seq1[i-1] == seq1[i-2] else 0.7
@@ -158,26 +299,31 @@ def musical_levenshtein_distance(
     
     return dp[m][n]
 
-def circular_distance(seq1: List[str], seq2: List[str]) -> float:
+def circular_distance(seq1: List[str], seq2: List[str], consider_tension: bool = True) -> float:
     """
     循環性を考慮した距離（全回転を試して最小距離を返す）
     文脈調整は無効化（use_context=False）
+    
+    Args:
+        seq1: コード進行1
+        seq2: コード進行2
+        consider_tension: テンションを考慮するか（デフォルト: True）
     """
     if len(seq1) == 0 or len(seq2) == 0:
-        return musical_levenshtein_distance(seq1, seq2, use_context=False)
+        return musical_levenshtein_distance(seq1, seq2, use_context=False, consider_tension=consider_tension)
     
     min_dist = float('inf')
     
     # seq1の全回転を試す
     for i in range(len(seq1)):
         rotated = seq1[i:] + seq1[:i]
-        dist = musical_levenshtein_distance(rotated, seq2, use_context=False)
+        dist = musical_levenshtein_distance(rotated, seq2, use_context=False, consider_tension=consider_tension)
         min_dist = min(min_dist, dist)
     
     # seq2の全回転も試す（必要に応じて）
     for i in range(len(seq2)):
         rotated = seq2[i:] + seq2[:i]
-        dist = musical_levenshtein_distance(seq1, rotated, use_context=False)
+        dist = musical_levenshtein_distance(seq1, rotated, use_context=False, consider_tension=consider_tension)
         min_dist = min(min_dist, dist)
     
     return min_dist

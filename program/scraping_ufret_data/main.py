@@ -17,11 +17,11 @@ def main(max_items=500, start_id=1, end_id=188318):
     Args:
         max_items: 処理する最大件数（デフォルト: 500）
         start_id: 開始ID（デフォルト: 1）
-        end_id: 終了ID（デフォルト: 188318）
+        end_id: 終了ID（デフォルト: 151620）
     """
     # IDの範囲を生成
     # all_chord_ids = list(range(start_id, end_id + 1))  # 全件処理用（コメントアウト）
-    all_chord_ids = list(range(start_id, min(start_id + 50000, end_id + 1)))  # とりあえず50000件までに制限
+    all_chord_ids = list(range(start_id, min(start_id + 151620, end_id + 1)))  # とりあえず50000件までに制限
     
     # 既に処理済みのファイルをスキップ
     processed_ids = set()
