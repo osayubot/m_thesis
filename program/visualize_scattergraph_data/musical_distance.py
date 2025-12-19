@@ -8,6 +8,8 @@ from typing import List, Optional, Tuple
 import numpy as np
 import re
 import time
+from multiprocessing import Pool, cpu_count
+from functools import partial
 
 # 機能分類（Tonic, Predominant, Dominant）
 FUNCTIONAL_GROUPS = {
@@ -329,13 +331,28 @@ def circular_distance(seq1: List[str], seq2: List[str], consider_tension: bool =
     
     return min_dist
 
-def compute_distance_matrix(progressions: List[List[str]], show_progress: bool = True) -> np.ndarray:
+def _compute_pair_distance(args: Tuple[int, int, List[str], List[str]]) -> Tuple[int, int, float]:
     """
-    コード進行のリストから距離行列を計算
+    1ペアの距離を計算（並列化用のヘルパー関数）
+    
+    Args:
+        args: (i, j, prog_i, prog_j) のタプル
+    
+    Returns:
+        (i, j, distance) のタプル
+    """
+    i, j, prog_i, prog_j = args
+    dist = circular_distance(prog_i, prog_j)
+    return (i, j, dist)
+
+def compute_distance_matrix(progressions: List[List[str]], show_progress: bool = True, n_jobs: Optional[int] = None) -> np.ndarray:
+    """
+    コード進行のリストから距離行列を計算（並列化対応）
     
     Args:
         progressions: ローマ数字のコード進行のリスト
         show_progress: 進捗を表示するか
+        n_jobs: 並列化するプロセス数（Noneの場合はCPUコア数を使用）
     
     Returns:
         距離行列（n×n）
@@ -349,32 +366,71 @@ def compute_distance_matrix(progressions: List[List[str]], show_progress: bool =
     if show_progress:
         print(f"Computing distance matrix for {n} progressions...")
         print(f"Total pairs to compute: {total_pairs:,}")
+        if n_jobs is None or n_jobs > 1:
+            num_cores = cpu_count() if n_jobs is None else n_jobs
+            print(f"Using {num_cores} CPU cores for parallel computation...")
         print("This may take a while...")
     
-    computed = 0
-    last_progress = -1
     start_time = time.time()
-    last_time = start_time
     
-    for i in range(n):
-        for j in range(i + 1, n):
-            dist = circular_distance(progressions[i], progressions[j])
-            dist_matrix[i][j] = dist
-            dist_matrix[j][i] = dist
-            
-            computed += 1
-            # 5%ごとに進捗を表示
-            progress = int(100 * computed / total_pairs)
-            if show_progress and progress != last_progress and progress % 5 == 0:
-                current_time = time.time()
-                elapsed = current_time - start_time
-                rate = computed / elapsed if elapsed > 0 else 0
-                remaining = (total_pairs - computed) / rate if rate > 0 else 0
+    # 並列化するかどうかを決定
+    if n_jobs == 1 or (n_jobs is None and total_pairs < 10000):
+        # 小規模データまたは明示的にシリアル実行を指定された場合
+        computed = 0
+        last_progress = -1
+        
+        for i in range(n):
+            for j in range(i + 1, n):
+                dist = circular_distance(progressions[i], progressions[j])
+                dist_matrix[i][j] = dist
+                dist_matrix[j][i] = dist
                 
-                print(f"  Progress: {progress}% ({computed:,}/{total_pairs:,} pairs computed, "
-                      f"elapsed: {elapsed:.1f}s, estimated remaining: {remaining:.1f}s)")
-                last_progress = progress
-                last_time = current_time
+                computed += 1
+                # 5%ごとに進捗を表示
+                progress = int(100 * computed / total_pairs)
+                if show_progress and progress != last_progress and progress % 5 == 0:
+                    current_time = time.time()
+                    elapsed = current_time - start_time
+                    rate = computed / elapsed if elapsed > 0 else 0
+                    remaining = (total_pairs - computed) / rate if rate > 0 else 0
+                    
+                    print(f"  Progress: {progress}% ({computed:,}/{total_pairs:,} pairs computed, "
+                          f"elapsed: {elapsed:.1f}s, estimated remaining: {remaining:.1f}s)")
+                    last_progress = progress
+    else:
+        # 並列化実行
+        num_cores = cpu_count() if n_jobs is None else n_jobs
+        
+        # すべてのペアを準備
+        pairs = [(i, j, progressions[i], progressions[j]) 
+                 for i in range(n) for j in range(i + 1, n)]
+        
+        # 並列計算
+        with Pool(processes=num_cores) as pool:
+            results = []
+            completed = 0
+            last_progress = -1
+            
+            # チャンクサイズを調整（進捗表示のため）
+            chunk_size = max(1, len(pairs) // (num_cores * 10))
+            
+            for result in pool.imap(_compute_pair_distance, pairs, chunksize=chunk_size):
+                i, j, dist = result
+                dist_matrix[i][j] = dist
+                dist_matrix[j][i] = dist
+                
+                completed += 1
+                # 5%ごとに進捗を表示
+                progress = int(100 * completed / total_pairs)
+                if show_progress and progress != last_progress and progress % 5 == 0:
+                    current_time = time.time()
+                    elapsed = current_time - start_time
+                    rate = completed / elapsed if elapsed > 0 else 0
+                    remaining = (total_pairs - completed) / rate if rate > 0 else 0
+                    
+                    print(f"  Progress: {progress}% ({completed:,}/{total_pairs:,} pairs computed, "
+                          f"elapsed: {elapsed:.1f}s, estimated remaining: {remaining:.1f}s)")
+                    last_progress = progress
     
     if show_progress:
         total_time = time.time() - start_time
