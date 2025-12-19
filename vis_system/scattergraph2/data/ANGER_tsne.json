@@ -1,0 +1,7284 @@
+{
+  "emotion": "ANGER",
+  "method": "TSNE",
+  "points": [
+    {
+      "x": 96.96710968017578,
+      "y": 34.1036262512207,
+      "r": 6,
+      "progression": "Am - F - C - G - Am - F - C - G",
+      "chord_progression": [
+        "Am",
+        "F",
+        "C",
+        "G",
+        "Am",
+        "F",
+        "C",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.57,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.48,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.95,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.0,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "戻れない今更イライラしても",
+              "song": {
+                "title": "Rising Star",
+                "artist": "SCANDAL",
+                "lyricist": "HARUNA・Tomohiro Okubo",
+                "composer": "Tomohiro Okubo",
+                "spotify_id": "1QQNiu7yut0v1w95AlDNA5",
+                "jtotal_path": "013su/037_SCANDAL/026",
+                "release_date": "2012-09-26",
+                "spotify_popularity": 18
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 31.48,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.34,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.11,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.006,
+        "SADNESS": 0.104,
+        "ANTICIPATION": 0.014,
+        "SURPRISE": 0.022,
+        "ANGER": 0.533,
+        "FEAR": 0.032,
+        "DISGUST": 0.329,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 2.6,
+        "komuro": 2.4,
+        "marusa": 2.7
+      },
+      "song_info": {
+        "title": "Rising Star",
+        "artist": "SCANDAL",
+        "lyricist": "HARUNA・Tomohiro Okubo",
+        "composer": "Tomohiro Okubo",
+        "spotify_id": "1QQNiu7yut0v1w95AlDNA5",
+        "jtotal_path": "013su/037_SCANDAL/026",
+        "release_date": "2012-09-26",
+        "spotify_popularity": 18
+      },
+      "lyric": "戻れない今更イライラしても"
+    },
+    {
+      "x": 31.201642990112305,
+      "y": 76.20015716552734,
+      "r": 6,
+      "progression": "C - Am",
+      "chord_progression": [
+        "C",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.35,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.9,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.73,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.09,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "怒りをぶつけて叫びをあげて",
+              "song": {
+                "title": "オーボーイ",
+                "artist": "吉田拓郎",
+                "lyricist": "石原信一",
+                "composer": "吉田拓郎",
+                "spotify_id": "1nmSSy5M3hNSJcwvuCHblX",
+                "jtotal_path": "038yo/001_yoshida_takuro/242",
+                "release_date": "1995-06-21",
+                "spotify_popularity": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.93,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 4.77,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.16,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.015,
+        "SADNESS": 0.108,
+        "ANTICIPATION": 0.053,
+        "SURPRISE": 0.024,
+        "ANGER": 0.556,
+        "FEAR": 0.034,
+        "DISGUST": 0.31,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.0,
+        "marusa": 1.05
+      },
+      "song_info": {
+        "title": "オーボーイ",
+        "artist": "吉田拓郎",
+        "lyricist": "石原信一",
+        "composer": "吉田拓郎",
+        "spotify_id": "1nmSSy5M3hNSJcwvuCHblX",
+        "jtotal_path": "038yo/001_yoshida_takuro/242",
+        "release_date": "1995-06-21",
+        "spotify_popularity": 7
+      },
+      "lyric": "怒りをぶつけて叫びをあげて"
+    },
+    {
+      "x": 54.29546356201172,
+      "y": 17.422325134277344,
+      "r": 6,
+      "progression": "C",
+      "chord_progression": [
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.47,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.57,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.81,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.4,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "してるわけじゃないんだぜお前はそれ、わかってんのか",
+              "song": {
+                "title": "借金大王",
+                "artist": "ウルフルズ",
+                "lyricist": "トータス松本",
+                "composer": "トータス松本",
+                "spotify_id": "0qa8a6Sjzod4YoFhMPz8wK",
+                "jtotal_path": "003u/002_ulfuls/011",
+                "release_date": "1994-08-31",
+                "spotify_popularity": 35
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.41,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 34.06,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 0.76,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 6.53,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.005,
+        "SADNESS": 0.072,
+        "ANTICIPATION": 0.008,
+        "SURPRISE": 0.069,
+        "ANGER": 0.501,
+        "FEAR": 0.036,
+        "DISGUST": 0.36,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.7,
+        "komuro": 1.5,
+        "marusa": 1.55
+      },
+      "song_info": {
+        "title": "借金大王",
+        "artist": "ウルフルズ",
+        "lyricist": "トータス松本",
+        "composer": "トータス松本",
+        "spotify_id": "0qa8a6Sjzod4YoFhMPz8wK",
+        "jtotal_path": "003u/002_ulfuls/011",
+        "release_date": "1994-08-31",
+        "spotify_popularity": 35
+      },
+      "lyric": "してるわけじゃないんだぜお前はそれ、わかってんのか"
+    },
+    {
+      "x": 36.696067810058594,
+      "y": 67.68912506103516,
+      "r": 6,
+      "progression": "C - F",
+      "chord_progression": [
+        "C",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.82,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.64,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.81,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.5,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "さっさと返せよ貸した金はした金じゃねえぞ",
+              "song": {
+                "title": "借金大王",
+                "artist": "ウルフルズ",
+                "lyricist": "トータス松本",
+                "composer": "トータス松本",
+                "spotify_id": "0qa8a6Sjzod4YoFhMPz8wK",
+                "jtotal_path": "003u/002_ulfuls/011",
+                "release_date": "1994-08-31",
+                "spotify_popularity": 35
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.54,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 31.52,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.91,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.27,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.097,
+        "ANTICIPATION": 0.043,
+        "SURPRISE": 0.036,
+        "ANGER": 0.523,
+        "FEAR": 0.039,
+        "DISGUST": 0.347,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 1.05
+      },
+      "song_info": {
+        "title": "借金大王",
+        "artist": "ウルフルズ",
+        "lyricist": "トータス松本",
+        "composer": "トータス松本",
+        "spotify_id": "0qa8a6Sjzod4YoFhMPz8wK",
+        "jtotal_path": "003u/002_ulfuls/011",
+        "release_date": "1994-08-31",
+        "spotify_popularity": 35
+      },
+      "lyric": "さっさと返せよ貸した金はした金じゃねえぞ"
+    },
+    {
+      "x": 41.20003890991211,
+      "y": 54.51808166503906,
+      "r": 6,
+      "progression": "F - C - Dm",
+      "chord_progression": [
+        "F",
+        "C",
+        "Dm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.92,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.55,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.25,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.44,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "悲劇で迎える朝などくそっくらえ!!",
+              "song": {
+                "title": "俺の太陽",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+                "release_date": "1991-12-14",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.39,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.33,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.38,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.75,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.101,
+        "ANTICIPATION": 0.026,
+        "SURPRISE": 0.03,
+        "ANGER": 0.529,
+        "FEAR": 0.037,
+        "DISGUST": 0.353,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.2,
+        "marusa": 1.25
+      },
+      "song_info": {
+        "title": "俺の太陽",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+        "release_date": "1991-12-14",
+        "spotify_popularity": 33
+      },
+      "lyric": "悲劇で迎える朝などくそっくらえ!!"
+    },
+    {
+      "x": 41.20003890991211,
+      "y": 54.51808166503906,
+      "r": 6,
+      "progression": "F - C - Dm",
+      "chord_progression": [
+        "F",
+        "C",
+        "Dm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.92,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.55,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.25,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.44,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "悲劇で迎える朝などくそっくらえ!!",
+              "song": {
+                "title": "俺の太陽",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+                "release_date": "1991-12-14",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.39,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.33,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.38,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.75,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.101,
+        "ANTICIPATION": 0.026,
+        "SURPRISE": 0.03,
+        "ANGER": 0.529,
+        "FEAR": 0.037,
+        "DISGUST": 0.353,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.2,
+        "marusa": 1.25
+      },
+      "song_info": {
+        "title": "俺の太陽",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+        "release_date": "1991-12-14",
+        "spotify_popularity": 33
+      },
+      "lyric": "悲劇で迎える朝などくそっくらえ!!"
+    },
+    {
+      "x": 21.415401458740234,
+      "y": 55.77096939086914,
+      "r": 6,
+      "progression": "C - G - Am",
+      "chord_progression": [
+        "C",
+        "G",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.92,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.55,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.25,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.44,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "悲劇で迎える朝などくそっくらえ!!",
+              "song": {
+                "title": "俺の太陽",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+                "release_date": "1991-12-14",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.39,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.33,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.38,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.75,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.101,
+        "ANTICIPATION": 0.026,
+        "SURPRISE": 0.03,
+        "ANGER": 0.529,
+        "FEAR": 0.037,
+        "DISGUST": 0.353,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.9,
+        "komuro": 1.1,
+        "marusa": 1.25
+      },
+      "song_info": {
+        "title": "俺の太陽",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "11BHVqs0FXPo6fN0ttrrBR",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/106",
+        "release_date": "1991-12-14",
+        "spotify_popularity": 33
+      },
+      "lyric": "悲劇で迎える朝などくそっくらえ!!"
+    },
+    {
+      "x": 8.634146690368652,
+      "y": 89.67298126220703,
+      "r": 6,
+      "progression": "Am - C - F7 - G",
+      "chord_progression": [
+        "Am",
+        "C",
+        "F7",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.81,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.0,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.17,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.19,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "真っ赤な海泳ぎ切ったらオマエはオレを許すのか？",
+              "song": {
+                "title": "真っ赤な海",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "4Eo1zJm4OYKTKTjvFwuSBy",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/035",
+                "release_date": "2006-06-21",
+                "spotify_popularity": 5
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.9,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 24.5,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 4.81,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 6.62,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.02,
+        "SADNESS": 0.101,
+        "ANTICIPATION": 0.053,
+        "SURPRISE": 0.073,
+        "ANGER": 0.52,
+        "FEAR": 0.054,
+        "DISGUST": 0.27,
+        "TRUST": 0.011
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.45,
+        "komuro": 0.45,
+        "marusa": 0.95
+      },
+      "song_info": {
+        "title": "真っ赤な海",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "4Eo1zJm4OYKTKTjvFwuSBy",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/035",
+        "release_date": "2006-06-21",
+        "spotify_popularity": 5
+      },
+      "lyric": "真っ赤な海泳ぎ切ったらオマエはオレを許すのか？"
+    },
+    {
+      "x": 36.696067810058594,
+      "y": 67.68912506103516,
+      "r": 6,
+      "progression": "Am - C",
+      "chord_progression": [
+        "Am",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.1,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.73,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.96,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.85,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "力無き正義などくそっくらえ！",
+              "song": {
+                "title": "SAMURAI",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "4GRmpSYWi57pBBInTxCOeE",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/229",
+                "release_date": "2009-01-01",
+                "spotify_popularity": 25
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.38,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 36.02,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.92,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.02,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.012,
+        "SADNESS": 0.065,
+        "ANTICIPATION": 0.021,
+        "SURPRISE": 0.033,
+        "ANGER": 0.533,
+        "FEAR": 0.026,
+        "DISGUST": 0.393,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 1.05
+      },
+      "song_info": {
+        "title": "SAMURAI",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "4GRmpSYWi57pBBInTxCOeE",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/229",
+        "release_date": "2009-01-01",
+        "spotify_popularity": 25
+      },
+      "lyric": "力無き正義などくそっくらえ！"
+    },
+    {
+      "x": 72.63639831542969,
+      "y": 4.178201675415039,
+      "r": 6,
+      "progression": "F - G - F - G - F",
+      "chord_progression": [
+        "F",
+        "G",
+        "F",
+        "G",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.33,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.04,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.67,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.57,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ダイヤルしろよ夜中の街をおまえをむかえに",
+              "song": {
+                "title": "涙のリクエスト",
+                "artist": "チェッカーズ",
+                "lyricist": "売野雅勇",
+                "composer": "芹澤廣明",
+                "spotify_id": "4jyC64fqTgyIXeTW4jnEo7",
+                "jtotal_path": "017ti/003_CHECKERS/003",
+                "release_date": "1984-01-01",
+                "spotify_popularity": 48
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.84,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 26.61,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 5.87,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.07,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.081,
+        "ANTICIPATION": 0.062,
+        "SURPRISE": 0.043,
+        "ANGER": 0.534,
+        "FEAR": 0.03,
+        "DISGUST": 0.281,
+        "TRUST": 0.011
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 2.4
+      },
+      "song_info": {
+        "title": "涙のリクエスト",
+        "artist": "チェッカーズ",
+        "lyricist": "売野雅勇",
+        "composer": "芹澤廣明",
+        "spotify_id": "4jyC64fqTgyIXeTW4jnEo7",
+        "jtotal_path": "017ti/003_CHECKERS/003",
+        "release_date": "1984-01-01",
+        "spotify_popularity": 48
+      },
+      "lyric": "ダイヤルしろよ夜中の街をおまえをむかえに"
+    },
+    {
+      "x": 69.0738525390625,
+      "y": 32.776405334472656,
+      "r": 6,
+      "progression": "Gbm - F - E",
+      "chord_progression": [
+        "Gbm",
+        "F",
+        "E"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.82,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.64,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.19,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 52.28,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ちょっと酔っぱらってんのさ文句くらい言わせろ！",
+              "song": {
+                "title": "さよならキャディラック",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "4jZcpmXTNDUvZeBNof8hg7",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/142",
+                "release_date": "2015-10-28",
+                "spotify_popularity": 10
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.46,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.79,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.73,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.1,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.057,
+        "ANTICIPATION": 0.019,
+        "SURPRISE": 0.045,
+        "ANGER": 0.574,
+        "FEAR": 0.027,
+        "DISGUST": 0.36,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.7,
+        "komuro": 1.9,
+        "marusa": 1.6
+      },
+      "song_info": {
+        "title": "さよならキャディラック",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "4jZcpmXTNDUvZeBNof8hg7",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/142",
+        "release_date": "2015-10-28",
+        "spotify_popularity": 10
+      },
+      "lyric": "ちょっと酔っぱらってんのさ文句くらい言わせろ！"
+    },
+    {
+      "x": 31.846405029296875,
+      "y": 53.887718200683594,
+      "r": 6,
+      "progression": "Em - Dm - Am",
+      "chord_progression": [
+        "Em",
+        "Dm",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 3.12,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.56,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.96,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.88,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "イライラしながら踊るだけ",
+              "song": {
+                "title": "漂泊者(アウトロー)",
+                "artist": "甲斐バンド",
+                "lyricist": "甲斐よしひろ",
+                "composer": "甲斐よしひろ",
+                "spotify_id": "1EnE4UuqxIKDVPotSIVazN",
+                "jtotal_path": "006ka/004_kai_band/007",
+                "release_date": "2000-06-07",
+                "spotify_popularity": 31
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 1.76,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.12,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 5.47,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.12,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.032,
+        "SADNESS": 0.061,
+        "ANTICIPATION": 0.056,
+        "SURPRISE": 0.032,
+        "ANGER": 0.521,
+        "FEAR": 0.018,
+        "DISGUST": 0.288,
+        "TRUST": 0.016
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 1.3
+      },
+      "song_info": {
+        "title": "漂泊者(アウトロー)",
+        "artist": "甲斐バンド",
+        "lyricist": "甲斐よしひろ",
+        "composer": "甲斐よしひろ",
+        "spotify_id": "1EnE4UuqxIKDVPotSIVazN",
+        "jtotal_path": "006ka/004_kai_band/007",
+        "release_date": "2000-06-07",
+        "spotify_popularity": 31
+      },
+      "lyric": "イライラしながら踊るだけ"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "F",
+      "chord_progression": [
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.86,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.86,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.31,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "バカにすんなよ！バカにすんなよ！",
+              "song": {
+                "title": "バカにすんなよ!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 8
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.88,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.63,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.21,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.045,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.044,
+        "ANGER": 0.535,
+        "FEAR": 0.032,
+        "DISGUST": 0.354,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "バカにすんなよ!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 8
+      },
+      "lyric": "バカにすんなよ！バカにすんなよ！"
+    },
+    {
+      "x": 85.59978485107422,
+      "y": 34.48152160644531,
+      "r": 6,
+      "progression": "Gb - F",
+      "chord_progression": [
+        "Gb",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.56,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.07,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.07,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.56,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "給料上げろよケチ社長自分でやりな！",
+              "song": {
+                "title": "バカにすんなよ!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 8
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 1.66,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.07,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 9.17,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.83,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.052,
+        "ANTICIPATION": 0.094,
+        "SURPRISE": 0.029,
+        "ANGER": 0.508,
+        "FEAR": 0.017,
+        "DISGUST": 0.298,
+        "TRUST": 0.011
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 2.0,
+        "komuro": 2.0,
+        "marusa": 2.05
+      },
+      "song_info": {
+        "title": "バカにすんなよ!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 8
+      },
+      "lyric": "給料上げろよケチ社長自分でやりな！"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "F",
+      "chord_progression": [
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.86,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.86,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.31,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "バカにすんなよ！バカにすんなよ！",
+              "song": {
+                "title": "バカにすんなよ!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 8
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.88,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.63,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.21,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.045,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.044,
+        "ANGER": 0.535,
+        "FEAR": 0.032,
+        "DISGUST": 0.354,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "バカにすんなよ!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 8
+      },
+      "lyric": "バカにすんなよ！バカにすんなよ！"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "F",
+      "chord_progression": [
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.86,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.86,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.31,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "バカにすんなよ！バカにすんなよ！",
+              "song": {
+                "title": "バカにすんなよ!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 8
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.88,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.63,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.21,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.045,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.044,
+        "ANGER": 0.535,
+        "FEAR": 0.032,
+        "DISGUST": 0.354,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "バカにすんなよ!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 8
+      },
+      "lyric": "バカにすんなよ！バカにすんなよ！"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "F",
+      "chord_progression": [
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.86,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.86,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.31,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "バカにすんなよ！バカにすんなよ！",
+              "song": {
+                "title": "バカにすんなよ!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 8
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.06,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.88,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.63,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.21,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.045,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.044,
+        "ANGER": 0.535,
+        "FEAR": 0.032,
+        "DISGUST": 0.354,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "バカにすんなよ!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "7K8wvMPMwnzXMOBuCpLSxS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/073",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 8
+      },
+      "lyric": "バカにすんなよ！バカにすんなよ！"
+    },
+    {
+      "x": 13.785507202148438,
+      "y": 58.66900634765625,
+      "r": 6,
+      "progression": "F - Em - Dm - G",
+      "chord_progression": [
+        "F",
+        "Em",
+        "Dm",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.13,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.85,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.38,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.83,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "振られたって構わねえ!",
+              "song": {
+                "title": "バンザイVenus",
+                "artist": "SKE48",
+                "lyricist": "秋元康",
+                "composer": "佐々倉有吾",
+                "spotify_id": "4ApvPEJhCY62qpMuN1RQtT",
+                "jtotal_path": "004e/029_SKE48/001",
+                "release_date": "2011-03-09",
+                "spotify_popularity": 31
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.33,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.57,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.39,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.52,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.012,
+        "SADNESS": 0.089,
+        "ANTICIPATION": 0.036,
+        "SURPRISE": 0.048,
+        "ANGER": 0.508,
+        "FEAR": 0.046,
+        "DISGUST": 0.314,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.9,
+        "komuro": 0.9,
+        "marusa": 1.4
+      },
+      "song_info": {
+        "title": "バンザイVenus",
+        "artist": "SKE48",
+        "lyricist": "秋元康",
+        "composer": "佐々倉有吾",
+        "spotify_id": "4ApvPEJhCY62qpMuN1RQtT",
+        "jtotal_path": "004e/029_SKE48/001",
+        "release_date": "2011-03-09",
+        "spotify_popularity": 31
+      },
+      "lyric": "振られたって構わねえ!"
+    },
+    {
+      "x": 61.040103912353516,
+      "y": 49.97539138793945,
+      "r": 6,
+      "progression": "Gbm - Cm - Bm - Esus - C",
+      "chord_progression": [
+        "Gbm",
+        "Cm",
+        "Bm",
+        "Esus",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.66,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.85,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.64,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.96,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "決まり文句なんだから",
+              "song": {
+                "title": "Style.",
+                "artist": "西野カナ",
+                "lyricist": "Kana Nishino",
+                "composer": "Kazuhiko.M",
+                "spotify_id": "37ZcbJ9hbmybfvG444aVrI",
+                "jtotal_path": "022ni/013_nishino_kana/064",
+                "release_date": "2008-08-13",
+                "spotify_popularity": 40
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.46,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 37.06,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.52,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.84,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.07,
+        "ANTICIPATION": 0.016,
+        "SURPRISE": 0.03,
+        "ANGER": 0.506,
+        "FEAR": 0.026,
+        "DISGUST": 0.391,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.45,
+        "komuro": 1.65,
+        "marusa": 1.25
+      },
+      "song_info": {
+        "title": "Style.",
+        "artist": "西野カナ",
+        "lyricist": "Kana Nishino",
+        "composer": "Kazuhiko.M",
+        "spotify_id": "37ZcbJ9hbmybfvG444aVrI",
+        "jtotal_path": "022ni/013_nishino_kana/064",
+        "release_date": "2008-08-13",
+        "spotify_popularity": 40
+      },
+      "lyric": "決まり文句なんだから"
+    },
+    {
+      "x": 41.81311798095703,
+      "y": 76.149658203125,
+      "r": 6,
+      "progression": "F - E7",
+      "chord_progression": [
+        "F",
+        "E7"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.34,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.98,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.24,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 46.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ホレ！言い訳なんざぁそもそもないよ悪しからず",
+              "song": {
+                "title": "夕暮れの代弁者",
+                "artist": "森山直太朗",
+                "lyricist": "森山直太朗,御徒町凧",
+                "composer": "森山直太朗,御徒町凧",
+                "spotify_id": "4ZKXmLOCYXSoBNZHkL9YLE",
+                "jtotal_path": "035mo/013_moriyama_naotaroh/151",
+                "release_date": "2016-09-21",
+                "spotify_popularity": 5
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.75,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.6,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.79,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 5.09,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.015,
+        "SADNESS": 0.081,
+        "ANTICIPATION": 0.02,
+        "SURPRISE": 0.057,
+        "ANGER": 0.517,
+        "FEAR": 0.042,
+        "DISGUST": 0.376,
+        "TRUST": 0.011
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.25,
+        "komuro": 1.25,
+        "marusa": 1.0
+      },
+      "song_info": {
+        "title": "夕暮れの代弁者",
+        "artist": "森山直太朗",
+        "lyricist": "森山直太朗,御徒町凧",
+        "composer": "森山直太朗,御徒町凧",
+        "spotify_id": "4ZKXmLOCYXSoBNZHkL9YLE",
+        "jtotal_path": "035mo/013_moriyama_naotaroh/151",
+        "release_date": "2016-09-21",
+        "spotify_popularity": 5
+      },
+      "lyric": "ホレ！言い訳なんざぁそもそもないよ悪しからず"
+    },
+    {
+      "x": 54.29546356201172,
+      "y": 17.422325134277344,
+      "r": 6,
+      "progression": "C",
+      "chord_progression": [
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.23,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.76,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.12,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 54.89,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "イライラしているチューズデー",
+              "song": {
+                "title": "にちようび",
+                "artist": "JITTERIN'JINN",
+                "lyricist": "破矢ジンタ",
+                "composer": "破矢ジンタ",
+                "spotify_id": "4uheJXohMGycxDH0qLfKyf",
+                "jtotal_path": "012si/036_JITTERIN_JINN/001",
+                "release_date": "1991-10-01",
+                "spotify_popularity": 34
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.18,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.87,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.71,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.23,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.013,
+        "SADNESS": 0.075,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.034,
+        "ANGER": 0.578,
+        "FEAR": 0.023,
+        "DISGUST": 0.304,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.7,
+        "komuro": 1.5,
+        "marusa": 1.55
+      },
+      "song_info": {
+        "title": "にちようび",
+        "artist": "JITTERIN'JINN",
+        "lyricist": "破矢ジンタ",
+        "composer": "破矢ジンタ",
+        "spotify_id": "4uheJXohMGycxDH0qLfKyf",
+        "jtotal_path": "012si/036_JITTERIN_JINN/001",
+        "release_date": "1991-10-01",
+        "spotify_popularity": 34
+      },
+      "lyric": "イライラしているチューズデー"
+    },
+    {
+      "x": 75.83169555664062,
+      "y": 43.172542572021484,
+      "r": 6,
+      "progression": "F - Em - Am - Dm - F - C - G",
+      "chord_progression": [
+        "F",
+        "Em",
+        "Am",
+        "Dm",
+        "F",
+        "C",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.01,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.92,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.32,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 46.38,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "目移りするなら盗んじゃえ!",
+              "song": {
+                "title": "ナギイチ",
+                "artist": "NMB48",
+                "lyricist": "秋元康",
+                "composer": "すみだしんや",
+                "spotify_id": "4ZponlPKm6hfzFJYh6QnvV",
+                "jtotal_path": "004e/030_NMB48/004",
+                "release_date": "2012-05-09",
+                "spotify_popularity": 43
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.12,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.98,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 8.16,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.12,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.011,
+        "SADNESS": 0.058,
+        "ANTICIPATION": 0.089,
+        "SURPRISE": 0.034,
+        "ANGER": 0.506,
+        "FEAR": 0.045,
+        "DISGUST": 0.338,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.9,
+        "komuro": 2.1,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "ナギイチ",
+        "artist": "NMB48",
+        "lyricist": "秋元康",
+        "composer": "すみだしんや",
+        "spotify_id": "4ZponlPKm6hfzFJYh6QnvV",
+        "jtotal_path": "004e/030_NMB48/004",
+        "release_date": "2012-05-09",
+        "spotify_popularity": 43
+      },
+      "lyric": "目移りするなら盗んじゃえ!"
+    },
+    {
+      "x": 82.92420196533203,
+      "y": 44.28986358642578,
+      "r": 6,
+      "progression": "Dm",
+      "chord_progression": [
+        "Dm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 2.07,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.22,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.26,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.09,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "うしろ向くなよ！",
+              "song": {
+                "title": "雨の西麻布",
+                "artist": "とんねるず",
+                "lyricist": "秋元康",
+                "composer": "見岳章",
+                "spotify_id": "5KP63XDmIpiQognxCXyPen",
+                "jtotal_path": "020to/008_TONNELS/001",
+                "release_date": "1985",
+                "spotify_popularity": 30
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.29,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.63,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 5.36,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 5.08,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.022,
+        "SADNESS": 0.056,
+        "ANTICIPATION": 0.057,
+        "SURPRISE": 0.054,
+        "ANGER": 0.533,
+        "FEAR": 0.035,
+        "DISGUST": 0.294,
+        "TRUST": 0.013
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 2.0,
+        "komuro": 2.0,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "雨の西麻布",
+        "artist": "とんねるず",
+        "lyricist": "秋元康",
+        "composer": "見岳章",
+        "spotify_id": "5KP63XDmIpiQognxCXyPen",
+        "jtotal_path": "020to/008_TONNELS/001",
+        "release_date": "1985",
+        "spotify_popularity": 30
+      },
+      "lyric": "うしろ向くなよ！"
+    },
+    {
+      "x": 46.268226623535156,
+      "y": 66.68871307373047,
+      "r": 6,
+      "progression": "F - Em - Dm - Dm",
+      "chord_progression": [
+        "F",
+        "Em",
+        "Dm",
+        "Dm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.73,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.82,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.98,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.8,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "もう離さん言うてよ",
+              "song": {
+                "title": "やっぱ好きやねん",
+                "artist": "やしきたかじん",
+                "lyricist": "鹿紋太郎",
+                "composer": "鹿紋太郎",
+                "spotify_id": "3GRvds9PnOeWBuzgQAtVzK",
+                "jtotal_path": "036ya/017_yashiki_takajin/002",
+                "release_date": "2007-08-22",
+                "spotify_popularity": 43
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.3,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.05,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.57,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.74,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.109,
+        "ANTICIPATION": 0.039,
+        "SURPRISE": 0.019,
+        "ANGER": 0.522,
+        "FEAR": 0.036,
+        "DISGUST": 0.35,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.4,
+        "marusa": 1.1
+      },
+      "song_info": {
+        "title": "やっぱ好きやねん",
+        "artist": "やしきたかじん",
+        "lyricist": "鹿紋太郎",
+        "composer": "鹿紋太郎",
+        "spotify_id": "3GRvds9PnOeWBuzgQAtVzK",
+        "jtotal_path": "036ya/017_yashiki_takajin/002",
+        "release_date": "2007-08-22",
+        "spotify_popularity": 43
+      },
+      "lyric": "もう離さん言うてよ"
+    },
+    {
+      "x": 20.20793914794922,
+      "y": 37.868675231933594,
+      "r": 6,
+      "progression": "F - G7",
+      "chord_progression": [
+        "F",
+        "G7"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.92,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.55,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.27,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 46.59,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "何だか訳のわかんねぇ言葉でごまかしやがってヨ",
+              "song": {
+                "title": "建具屋カトーの決心 -儂がジジイになった頃-",
+                "artist": "さだまさし",
+                "lyricist": "さだまさし",
+                "composer": "さだまさし",
+                "spotify_id": "7aQJqmCoNtUiavCn86RoGV",
+                "jtotal_path": "011sa/005_sada_masashi/075",
+                "release_date": "2006",
+                "spotify_popularity": 5
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.86,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 37.82,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.11,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.87,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.068,
+        "ANTICIPATION": 0.012,
+        "SURPRISE": 0.042,
+        "ANGER": 0.505,
+        "FEAR": 0.031,
+        "DISGUST": 0.41,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.05,
+        "komuro": 1.05,
+        "marusa": 1.8
+      },
+      "song_info": {
+        "title": "建具屋カトーの決心 -儂がジジイになった頃-",
+        "artist": "さだまさし",
+        "lyricist": "さだまさし",
+        "composer": "さだまさし",
+        "spotify_id": "7aQJqmCoNtUiavCn86RoGV",
+        "jtotal_path": "011sa/005_sada_masashi/075",
+        "release_date": "2006",
+        "spotify_popularity": 5
+      },
+      "lyric": "何だか訳のわかんねぇ言葉でごまかしやがってヨ"
+    },
+    {
+      "x": 16.632837295532227,
+      "y": 68.36597442626953,
+      "r": 6,
+      "progression": "Dm - Am - F",
+      "chord_progression": [
+        "Dm",
+        "Am",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.87,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.68,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.1,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.37,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "文句をもうすぐ言わせるよ",
+              "song": {
+                "title": "大丈夫、僕ら",
+                "artist": "RAM WIRE",
+                "lyricist": "ユーズ",
+                "composer": "ユーズ",
+                "spotify_id": "4XsduBODzAOw6hN2UCRZ9O",
+                "jtotal_path": "039ra/018_RAM_WIRE/005",
+                "release_date": "2013-05-01",
+                "spotify_popularity": 19
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.41,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.08,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.76,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.74,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.084,
+        "ANTICIPATION": 0.039,
+        "SURPRISE": 0.018,
+        "ANGER": 0.512,
+        "FEAR": 0.025,
+        "DISGUST": 0.343,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.0,
+        "marusa": 1.25
+      },
+      "song_info": {
+        "title": "大丈夫、僕ら",
+        "artist": "RAM WIRE",
+        "lyricist": "ユーズ",
+        "composer": "ユーズ",
+        "spotify_id": "4XsduBODzAOw6hN2UCRZ9O",
+        "jtotal_path": "039ra/018_RAM_WIRE/005",
+        "release_date": "2013-05-01",
+        "spotify_popularity": 19
+      },
+      "lyric": "文句をもうすぐ言わせるよ"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "Am",
+      "chord_progression": [
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.74,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.83,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.17,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "プライド捨てちまえよ!",
+              "song": {
+                "title": "UZA",
+                "artist": "AKB48",
+                "lyricist": "秋元康",
+                "composer": "井上ヨシマサ",
+                "spotify_id": "1M6mfqK6StCQ1kZT5N9dyd",
+                "jtotal_path": "004e/024_AKB48/033",
+                "release_date": "2012-10-31",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.33,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.57,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.59,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.58,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.067,
+        "ANTICIPATION": 0.039,
+        "SURPRISE": 0.028,
+        "ANGER": 0.556,
+        "FEAR": 0.047,
+        "DISGUST": 0.332,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "UZA",
+        "artist": "AKB48",
+        "lyricist": "秋元康",
+        "composer": "井上ヨシマサ",
+        "spotify_id": "1M6mfqK6StCQ1kZT5N9dyd",
+        "jtotal_path": "004e/024_AKB48/033",
+        "release_date": "2012-10-31",
+        "spotify_popularity": 33
+      },
+      "lyric": "プライド捨てちまえよ!"
+    },
+    {
+      "x": 60.830020904541016,
+      "y": 27.776674270629883,
+      "r": 6,
+      "progression": "C7",
+      "chord_progression": [
+        "C7"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.57,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.29,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.52,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.03,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "犯してよ禁じ手(タブー)!",
+              "song": {
+                "title": "狂った女",
+                "artist": "桑田佳祐",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "3FGCW9ZaUG7iQi1p7OTDCN",
+                "jtotal_path": "008ku/010_kuwata_keisuke/049",
+                "release_date": "2011-02-23",
+                "spotify_popularity": 13
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.99,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.53,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 6.46,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.6,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.017,
+        "SADNESS": 0.049,
+        "ANTICIPATION": 0.07,
+        "SURPRISE": 0.039,
+        "ANGER": 0.531,
+        "FEAR": 0.054,
+        "DISGUST": 0.309,
+        "TRUST": 0.014
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.75,
+        "komuro": 1.55,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "狂った女",
+        "artist": "桑田佳祐",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "3FGCW9ZaUG7iQi1p7OTDCN",
+        "jtotal_path": "008ku/010_kuwata_keisuke/049",
+        "release_date": "2011-02-23",
+        "spotify_popularity": 13
+      },
+      "lyric": "犯してよ禁じ手(タブー)!"
+    },
+    {
+      "x": 61.514739990234375,
+      "y": 40.073402404785156,
+      "r": 6,
+      "progression": "C - E - Am - Ab",
+      "chord_progression": [
+        "C",
+        "E",
+        "Am",
+        "Ab"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.76,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.48,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.34,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.76,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "変わりに僕が罰してあげましょなんて言うかよバカ",
+              "song": {
+                "title": "五月の蝿",
+                "artist": "RADWIMPS",
+                "lyricist": "野田洋次郎",
+                "composer": "野田洋次郎",
+                "spotify_id": "3cj1GdMsLxHXqOkqpgVjFn",
+                "jtotal_path": "039ra/013_RADWIMPS/008",
+                "release_date": "2013-10-16",
+                "spotify_popularity": 51
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.67,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 36.42,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.62,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.96,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.077,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.031,
+        "ANGER": 0.501,
+        "FEAR": 0.028,
+        "DISGUST": 0.382,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.6,
+        "marusa": 1.3
+      },
+      "song_info": {
+        "title": "五月の蝿",
+        "artist": "RADWIMPS",
+        "lyricist": "野田洋次郎",
+        "composer": "野田洋次郎",
+        "spotify_id": "3cj1GdMsLxHXqOkqpgVjFn",
+        "jtotal_path": "039ra/013_RADWIMPS/008",
+        "release_date": "2013-10-16",
+        "spotify_popularity": 51
+      },
+      "lyric": "変わりに僕が罰してあげましょなんて言うかよバカ"
+    },
+    {
+      "x": 37.80324172973633,
+      "y": 100.0,
+      "r": 6,
+      "progression": "Dm - Em - Am - C",
+      "chord_progression": [
+        "Dm",
+        "Em",
+        "Am",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.56,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.47,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.53,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.41,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "どうかしてると怒鳴り散らしていたんだ",
+              "song": {
+                "title": "サイデンティティ",
+                "artist": "ゲスの極み乙女。",
+                "lyricist": "川谷絵音",
+                "composer": "川谷絵音",
+                "spotify_id": "7tIWcp2kMI9MD0nIgteAdD",
+                "jtotal_path": "009ke/012_gesu_otome/008",
+                "release_date": "2016-01-13",
+                "spotify_popularity": 30
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.21,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.85,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 0.75,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.22,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.006,
+        "SADNESS": 0.102,
+        "ANTICIPATION": 0.008,
+        "SURPRISE": 0.088,
+        "ANGER": 0.518,
+        "FEAR": 0.045,
+        "DISGUST": 0.298,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.2,
+        "marusa": 0.3
+      },
+      "song_info": {
+        "title": "サイデンティティ",
+        "artist": "ゲスの極み乙女。",
+        "lyricist": "川谷絵音",
+        "composer": "川谷絵音",
+        "spotify_id": "7tIWcp2kMI9MD0nIgteAdD",
+        "jtotal_path": "009ke/012_gesu_otome/008",
+        "release_date": "2016-01-13",
+        "spotify_popularity": 30
+      },
+      "lyric": "どうかしてると怒鳴り散らしていたんだ"
+    },
+    {
+      "x": 10.1373929977417,
+      "y": 78.36638641357422,
+      "r": 6,
+      "progression": "Dm - G7 - C - C7",
+      "chord_progression": [
+        "Dm",
+        "G7",
+        "C",
+        "C7"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.67,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.38,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.01,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.2,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "突然キレておさらば",
+              "song": {
+                "title": "本当は怖い愛とロマンス",
+                "artist": "桑田佳祐",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "3EDTJxWgZFF0uQHizHUzj7",
+                "jtotal_path": "008ku/010_kuwata_keisuke/022",
+                "release_date": "2010-08-25",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.45,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.63,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 0.86,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.79,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.094,
+        "ANTICIPATION": 0.009,
+        "SURPRISE": 0.05,
+        "ANGER": 0.534,
+        "FEAR": 0.036,
+        "DISGUST": 0.309,
+        "TRUST": 0.004
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 0.7,
+        "komuro": 0.5,
+        "marusa": 1.2
+      },
+      "song_info": {
+        "title": "本当は怖い愛とロマンス",
+        "artist": "桑田佳祐",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "3EDTJxWgZFF0uQHizHUzj7",
+        "jtotal_path": "008ku/010_kuwata_keisuke/022",
+        "release_date": "2010-08-25",
+        "spotify_popularity": 33
+      },
+      "lyric": "突然キレておさらば"
+    },
+    {
+      "x": 14.328920364379883,
+      "y": 45.15807342529297,
+      "r": 6,
+      "progression": "Gm - F - G - Am",
+      "chord_progression": [
+        "Gm",
+        "F",
+        "G",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.65,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.99,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 52.18,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "早くもう一度ここに来て本気で怒ってよ",
+              "song": {
+                "title": "手紙",
+                "artist": "ナオト・インティライミ",
+                "lyricist": "ナオト・インティライミ",
+                "composer": "ナオト・インティライミ",
+                "spotify_id": "7AVUzvT88BJBQnTrZWBD60",
+                "jtotal_path": "021na/038_NAOTO_INTIRAYMI/021",
+                "release_date": "2014-10-01",
+                "spotify_popularity": 24
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.88,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.06,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.81,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.79,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.086,
+        "ANTICIPATION": 0.041,
+        "SURPRISE": 0.03,
+        "ANGER": 0.562,
+        "FEAR": 0.031,
+        "DISGUST": 0.313,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.0,
+        "marusa": 1.7
+      },
+      "song_info": {
+        "title": "手紙",
+        "artist": "ナオト・インティライミ",
+        "lyricist": "ナオト・インティライミ",
+        "composer": "ナオト・インティライミ",
+        "spotify_id": "7AVUzvT88BJBQnTrZWBD60",
+        "jtotal_path": "021na/038_NAOTO_INTIRAYMI/021",
+        "release_date": "2014-10-01",
+        "spotify_popularity": 24
+      },
+      "lyric": "早くもう一度ここに来て本気で怒ってよ"
+    },
+    {
+      "x": 0.0,
+      "y": 83.39898681640625,
+      "r": 6,
+      "progression": "F - G - Em - Am",
+      "chord_progression": [
+        "F",
+        "G",
+        "Em",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.98,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.15,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.74,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.7,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "踏み鳴らせ！土埃上げて今居る場所が地図の真ん中",
+              "song": {
+                "title": "宝島",
+                "artist": "コブクロ",
+                "lyricist": "小渕健太郎",
+                "composer": "小渕健太郎",
+                "spotify_id": "1xyYAgh086ZiyN0KOUITsw",
+                "jtotal_path": "010ko/014_kobukuro/007",
+                "release_date": "2003-11-06",
+                "spotify_popularity": 32
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.96,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.99,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 6.74,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.75,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.011,
+        "SADNESS": 0.076,
+        "ANTICIPATION": 0.076,
+        "SURPRISE": 0.031,
+        "ANGER": 0.538,
+        "FEAR": 0.056,
+        "DISGUST": 0.327,
+        "TRUST": 0.013
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.0,
+        "komuro": 0.2,
+        "marusa": 1.1
+      },
+      "song_info": {
+        "title": "宝島",
+        "artist": "コブクロ",
+        "lyricist": "小渕健太郎",
+        "composer": "小渕健太郎",
+        "spotify_id": "1xyYAgh086ZiyN0KOUITsw",
+        "jtotal_path": "010ko/014_kobukuro/007",
+        "release_date": "2003-11-06",
+        "spotify_popularity": 32
+      },
+      "lyric": "踏み鳴らせ！土埃上げて今居る場所が地図の真ん中"
+    },
+    {
+      "x": 65.73439025878906,
+      "y": 12.31801700592041,
+      "r": 6,
+      "progression": "G",
+      "chord_progression": [
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.78,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.68,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.58,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.9,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "イライラのしっぱなしさ",
+              "song": {
+                "title": "三つ数えろ",
+                "artist": "甲斐バンド",
+                "lyricist": "甲斐よしひろ",
+                "composer": "甲斐よしひろ",
+                "spotify_id": "3jX4iEg7nija4JXB4wCxFc",
+                "jtotal_path": "006ka/004_kai_band/073",
+                "release_date": "2001-11-28",
+                "spotify_popularity": 15
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.63,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.14,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.07,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.22,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.088,
+        "ANTICIPATION": 0.011,
+        "SURPRISE": 0.033,
+        "ANGER": 0.512,
+        "FEAR": 0.027,
+        "DISGUST": 0.34,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "三つ数えろ",
+        "artist": "甲斐バンド",
+        "lyricist": "甲斐よしひろ",
+        "composer": "甲斐よしひろ",
+        "spotify_id": "3jX4iEg7nija4JXB4wCxFc",
+        "jtotal_path": "006ka/004_kai_band/073",
+        "release_date": "2001-11-28",
+        "spotify_popularity": 15
+      },
+      "lyric": "イライラのしっぱなしさ"
+    },
+    {
+      "x": 100.0,
+      "y": 25.02143669128418,
+      "r": 6,
+      "progression": "C - G - Am - Em - F - C - Dm - G",
+      "chord_progression": [
+        "C",
+        "G",
+        "Am",
+        "Em",
+        "F",
+        "C",
+        "Dm",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.84,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.75,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.04,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.09,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ハミングバードはばたいてくれ狭い鳥籠壊してしまえ！",
+              "song": {
+                "title": "ハミングバード",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "77wjMv3fXqkTAtLIIjWd8Y",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/010",
+                "release_date": "2006-06-21",
+                "spotify_popularity": 24
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.38,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.95,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 7.22,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.72,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.075,
+        "ANTICIPATION": 0.077,
+        "SURPRISE": 0.029,
+        "ANGER": 0.534,
+        "FEAR": 0.036,
+        "DISGUST": 0.298,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 2.6,
+        "komuro": 2.4,
+        "marusa": 2.9
+      },
+      "song_info": {
+        "title": "ハミングバード",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "77wjMv3fXqkTAtLIIjWd8Y",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/010",
+        "release_date": "2006-06-21",
+        "spotify_popularity": 24
+      },
+      "lyric": "ハミングバードはばたいてくれ狭い鳥籠壊してしまえ！"
+    },
+    {
+      "x": 59.434085845947266,
+      "y": 0.0,
+      "r": 6,
+      "progression": "Dm - G",
+      "chord_progression": [
+        "Dm",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.56,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.94,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.1,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.87,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "お前を離したりなんかしないよ",
+              "song": {
+                "title": "レオ",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "3rVqsTluEmBVkcJKuDPnkv",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/243",
+                "release_date": "2007-05-16",
+                "spotify_popularity": 14
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 5.44,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.49,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.25,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.35,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.006,
+        "SADNESS": 0.097,
+        "ANTICIPATION": 0.024,
+        "SURPRISE": 0.025,
+        "ANGER": 0.521,
+        "FEAR": 0.058,
+        "DISGUST": 0.325,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 2.05
+      },
+      "song_info": {
+        "title": "レオ",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "3rVqsTluEmBVkcJKuDPnkv",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/243",
+        "release_date": "2007-05-16",
+        "spotify_popularity": 14
+      },
+      "lyric": "お前を離したりなんかしないよ"
+    },
+    {
+      "x": 30.228954315185547,
+      "y": 88.99768829345703,
+      "r": 6,
+      "progression": "Dm - Em - Am",
+      "chord_progression": [
+        "Dm",
+        "Em",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.12,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.19,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.58,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "座席は僕に譲りなよ!なに座ってんだよ!",
+              "song": {
+                "title": "君にジュースを買ってあげる",
+                "artist": "グループ魂",
+                "lyricist": "宮藤官九郎",
+                "composer": "富澤タク",
+                "spotify_id": "77rFbulzkvjqYJ9aNsVV7x",
+                "jtotal_path": "008ku/033_GROUP_TAMASHII/001",
+                "release_date": "2005",
+                "spotify_popularity": 32
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.38,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 26.63,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.61,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.85,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.012,
+        "SADNESS": 0.088,
+        "ANTICIPATION": 0.028,
+        "SURPRISE": 0.095,
+        "ANGER": 0.511,
+        "FEAR": 0.047,
+        "DISGUST": 0.286,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 0.9,
+        "komuro": 1.1,
+        "marusa": 0.75
+      },
+      "song_info": {
+        "title": "君にジュースを買ってあげる",
+        "artist": "グループ魂",
+        "lyricist": "宮藤官九郎",
+        "composer": "富澤タク",
+        "spotify_id": "77rFbulzkvjqYJ9aNsVV7x",
+        "jtotal_path": "008ku/033_GROUP_TAMASHII/001",
+        "release_date": "2005",
+        "spotify_popularity": 32
+      },
+      "lyric": "座席は僕に譲りなよ!なに座ってんだよ!"
+    },
+    {
+      "x": 40.52832794189453,
+      "y": 89.0385971069336,
+      "r": 6,
+      "progression": "C - E - Am",
+      "chord_progression": [
+        "C",
+        "E",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.99,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.99,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.62,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.89,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "いつかはFにたどり着くイライラする日が続くだけ",
+              "song": {
+                "title": "Fの気持ち",
+                "artist": "吉田拓郎",
+                "lyricist": "吉田拓郎",
+                "composer": "吉田拓郎",
+                "spotify_id": "07GNCwK4iaB8zZwXKNxyD3",
+                "jtotal_path": "038yo/001_yoshida_takuro/148",
+                "release_date": "2009-04-15",
+                "spotify_popularity": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.17,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.7,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.47,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.17,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.067,
+        "ANTICIPATION": 0.025,
+        "SURPRISE": 0.022,
+        "ANGER": 0.515,
+        "FEAR": 0.022,
+        "DISGUST": 0.341,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 0.6
+      },
+      "song_info": {
+        "title": "Fの気持ち",
+        "artist": "吉田拓郎",
+        "lyricist": "吉田拓郎",
+        "composer": "吉田拓郎",
+        "spotify_id": "07GNCwK4iaB8zZwXKNxyD3",
+        "jtotal_path": "038yo/001_yoshida_takuro/148",
+        "release_date": "2009-04-15",
+        "spotify_popularity": 7
+      },
+      "lyric": "いつかはFにたどり着くイライラする日が続くだけ"
+    },
+    {
+      "x": 4.409900665283203,
+      "y": 57.51372146606445,
+      "r": 6,
+      "progression": "E - F - G",
+      "chord_progression": [
+        "E",
+        "F",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.36,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.88,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.75,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.73,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "おまえの髪を濡らすなよ",
+              "song": {
+                "title": "こんな大事な夜に",
+                "artist": "SION",
+                "lyricist": "SION・OKAMOTO",
+                "composer": "SION",
+                "spotify_id": "2Op1Kg6CWLwVFjrIfwK1Du",
+                "jtotal_path": "012si/095_SION/008",
+                "release_date": "2022-10-31",
+                "spotify_popularity": 6
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.83,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.9,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.51,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.05,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.1,
+        "ANTICIPATION": 0.036,
+        "SURPRISE": 0.021,
+        "ANGER": 0.5,
+        "FEAR": 0.029,
+        "DISGUST": 0.317,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.7,
+        "komuro": 0.7,
+        "marusa": 1.6
+      },
+      "song_info": {
+        "title": "こんな大事な夜に",
+        "artist": "SION",
+        "lyricist": "SION・OKAMOTO",
+        "composer": "SION",
+        "spotify_id": "2Op1Kg6CWLwVFjrIfwK1Du",
+        "jtotal_path": "012si/095_SION/008",
+        "release_date": "2022-10-31",
+        "spotify_popularity": 6
+      },
+      "lyric": "おまえの髪を濡らすなよ"
+    },
+    {
+      "x": 4.409900665283203,
+      "y": 57.51372146606445,
+      "r": 6,
+      "progression": "E - F - G",
+      "chord_progression": [
+        "E",
+        "F",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.36,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.88,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 9.75,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.73,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "おまえの髪を濡らすなよ",
+              "song": {
+                "title": "こんな大事な夜に",
+                "artist": "SION",
+                "lyricist": "SION・OKAMOTO",
+                "composer": "SION",
+                "spotify_id": "2Op1Kg6CWLwVFjrIfwK1Du",
+                "jtotal_path": "012si/095_SION/008",
+                "release_date": "2022-10-31",
+                "spotify_popularity": 6
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.83,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.9,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.51,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.05,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.1,
+        "ANTICIPATION": 0.036,
+        "SURPRISE": 0.021,
+        "ANGER": 0.5,
+        "FEAR": 0.029,
+        "DISGUST": 0.317,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.7,
+        "komuro": 0.7,
+        "marusa": 1.6
+      },
+      "song_info": {
+        "title": "こんな大事な夜に",
+        "artist": "SION",
+        "lyricist": "SION・OKAMOTO",
+        "composer": "SION",
+        "spotify_id": "2Op1Kg6CWLwVFjrIfwK1Du",
+        "jtotal_path": "012si/095_SION/008",
+        "release_date": "2022-10-31",
+        "spotify_popularity": 6
+      },
+      "lyric": "おまえの髪を濡らすなよ"
+    },
+    {
+      "x": 90.4934310913086,
+      "y": 43.613006591796875,
+      "r": 6,
+      "progression": "A - Dm - Gbm - F - C - Eb",
+      "chord_progression": [
+        "A",
+        "Dm",
+        "Gbm",
+        "F",
+        "C",
+        "Eb"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.49,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.21,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.58,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.65,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ほんの小さな意地を見せなよ!!",
+              "song": {
+                "title": "傷だらけの天使",
+                "artist": "桑田佳祐",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "2V1f9nKbyW5omC4FPs1Ec1",
+                "jtotal_path": "008ku/010_kuwata_keisuke/047",
+                "release_date": "2011-02-23",
+                "spotify_popularity": 23
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.91,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.58,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 6.79,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.79,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.06,
+        "ANTICIPATION": 0.073,
+        "SURPRISE": 0.03,
+        "ANGER": 0.523,
+        "FEAR": 0.042,
+        "DISGUST": 0.318,
+        "TRUST": 0.013
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 2.3,
+        "komuro": 1.9,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "傷だらけの天使",
+        "artist": "桑田佳祐",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "2V1f9nKbyW5omC4FPs1Ec1",
+        "jtotal_path": "008ku/010_kuwata_keisuke/047",
+        "release_date": "2011-02-23",
+        "spotify_popularity": 23
+      },
+      "lyric": "ほんの小さな意地を見せなよ!!"
+    },
+    {
+      "x": 49.84115219116211,
+      "y": 55.04875946044922,
+      "r": 6,
+      "progression": "F - Am",
+      "chord_progression": [
+        "F",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.64,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.46,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.2,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 45.76,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ヘコたれてんじゃねェ!!",
+              "song": {
+                "title": "傷だらけの天使",
+                "artist": "桑田佳祐",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "2V1f9nKbyW5omC4FPs1Ec1",
+                "jtotal_path": "008ku/010_kuwata_keisuke/047",
+                "release_date": "2011-02-23",
+                "spotify_popularity": 23
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 5.1,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.55,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.09,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.2,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.057,
+        "ANTICIPATION": 0.012,
+        "SURPRISE": 0.09,
+        "ANGER": 0.502,
+        "FEAR": 0.056,
+        "DISGUST": 0.368,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.4,
+        "marusa": 1.2
+      },
+      "song_info": {
+        "title": "傷だらけの天使",
+        "artist": "桑田佳祐",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "2V1f9nKbyW5omC4FPs1Ec1",
+        "jtotal_path": "008ku/010_kuwata_keisuke/047",
+        "release_date": "2011-02-23",
+        "spotify_popularity": 23
+      },
+      "lyric": "ヘコたれてんじゃねェ!!"
+    },
+    {
+      "x": 54.29546356201172,
+      "y": 17.422325134277344,
+      "r": 6,
+      "progression": "Dm - C",
+      "chord_progression": [
+        "Dm",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.69,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.59,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.56,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.15,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "簡単に言うなよどのつら顔さげて!",
+              "song": {
+                "title": "神風特攻隊",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "7mAOPRoryL0zqKnwfyPvWU",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/259",
+                "release_date": "2007-05-16",
+                "spotify_popularity": 21
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.43,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.16,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.06,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 7.36,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.077,
+        "ANTICIPATION": 0.021,
+        "SURPRISE": 0.075,
+        "ANGER": 0.511,
+        "FEAR": 0.035,
+        "DISGUST": 0.287,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.7,
+        "komuro": 1.5,
+        "marusa": 1.55
+      },
+      "song_info": {
+        "title": "神風特攻隊",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "7mAOPRoryL0zqKnwfyPvWU",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/259",
+        "release_date": "2007-05-16",
+        "spotify_popularity": 21
+      },
+      "lyric": "簡単に言うなよどのつら顔さげて!"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "Am",
+      "chord_progression": [
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.83,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.92,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.53,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 46.97,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "ぶち壊せよバリケード",
+              "song": {
+                "title": "ヤング ソウル ダイナマイト",
+                "artist": "ウルフルズ",
+                "lyricist": "トータス松本",
+                "composer": "トータス松本",
+                "spotify_id": "47IcjI7SBx4FIZf7jcoMxr",
+                "jtotal_path": "003u/002_ulfuls/008",
+                "release_date": "2001-04-28",
+                "spotify_popularity": 24
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 5.5,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.98,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 5.96,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.3,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.093,
+        "ANTICIPATION": 0.065,
+        "SURPRISE": 0.036,
+        "ANGER": 0.512,
+        "FEAR": 0.06,
+        "DISGUST": 0.305,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "ヤング ソウル ダイナマイト",
+        "artist": "ウルフルズ",
+        "lyricist": "トータス松本",
+        "composer": "トータス松本",
+        "spotify_id": "47IcjI7SBx4FIZf7jcoMxr",
+        "jtotal_path": "003u/002_ulfuls/008",
+        "release_date": "2001-04-28",
+        "spotify_popularity": 24
+      },
+      "lyric": "ぶち壊せよバリケード"
+    },
+    {
+      "x": 24.83281707763672,
+      "y": 66.24373626708984,
+      "r": 6,
+      "progression": "Am - F",
+      "chord_progression": [
+        "Am",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.78,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.07,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.93,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.54,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "三つ、イライラするアンバランスな日は",
+              "song": {
+                "title": "AIAIAI",
+                "artist": "加藤ミリヤ",
+                "lyricist": "Miliyah",
+                "composer": "Miliyah",
+                "spotify_id": "7fyFXhB6fd2F6vgczxSOEU",
+                "jtotal_path": "006ka/049_katoh_miliyah/030",
+                "release_date": "2012-11-21",
+                "spotify_popularity": 26
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.22,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 31.8,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.85,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.8,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.071,
+        "ANTICIPATION": 0.019,
+        "SURPRISE": 0.039,
+        "ANGER": 0.518,
+        "FEAR": 0.033,
+        "DISGUST": 0.326,
+        "TRUST": 0.011
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.0,
+        "marusa": 1.2
+      },
+      "song_info": {
+        "title": "AIAIAI",
+        "artist": "加藤ミリヤ",
+        "lyricist": "Miliyah",
+        "composer": "Miliyah",
+        "spotify_id": "7fyFXhB6fd2F6vgczxSOEU",
+        "jtotal_path": "006ka/049_katoh_miliyah/030",
+        "release_date": "2012-11-21",
+        "spotify_popularity": 26
+      },
+      "lyric": "三つ、イライラするアンバランスな日は"
+    },
+    {
+      "x": 40.689781188964844,
+      "y": 42.89879608154297,
+      "r": 6,
+      "progression": "F - G - Am - F - G - Am",
+      "chord_progression": [
+        "F",
+        "G",
+        "Am",
+        "F",
+        "G",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.22,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.79,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 17.45,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 44.07,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "「1つ進めたのならよかったじゃないの!」",
+              "song": {
+                "title": "やさしくなりたい",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "4XkqVSWIPb07iLEDvAPq93",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/117",
+                "release_date": "2013-10-23",
+                "spotify_popularity": 59
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.97,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 23.91,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 4.36,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 3.23,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.2,
+        "ANTICIPATION": 0.05,
+        "SURPRISE": 0.037,
+        "ANGER": 0.505,
+        "FEAR": 0.057,
+        "DISGUST": 0.274,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.2,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "やさしくなりたい",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "4XkqVSWIPb07iLEDvAPq93",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/117",
+        "release_date": "2013-10-23",
+        "spotify_popularity": 59
+      },
+      "lyric": "「1つ進めたのならよかったじゃないの!」"
+    },
+    {
+      "x": 6.485474109649658,
+      "y": 68.4444580078125,
+      "r": 6,
+      "progression": "C - Fm - G - Fm",
+      "chord_progression": [
+        "C",
+        "Fm",
+        "G",
+        "Fm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.35,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.17,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.75,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.14,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "自分に弁解をするなよ",
+              "song": {
+                "title": "高嶺の林檎",
+                "artist": "NMB48",
+                "lyricist": "秋元康",
+                "composer": "田中俊亮",
+                "spotify_id": "70pCwwWabWENOnySralC8n",
+                "jtotal_path": "004e/030_NMB48/013",
+                "release_date": "2014-03-19",
+                "spotify_popularity": 25
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.16,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.58,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 6.13,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.71,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.015,
+        "SADNESS": 0.086,
+        "ANTICIPATION": 0.068,
+        "SURPRISE": 0.019,
+        "ANGER": 0.545,
+        "FEAR": 0.035,
+        "DISGUST": 0.328,
+        "TRUST": 0.013
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.7,
+        "komuro": 0.7,
+        "marusa": 1.4
+      },
+      "song_info": {
+        "title": "高嶺の林檎",
+        "artist": "NMB48",
+        "lyricist": "秋元康",
+        "composer": "田中俊亮",
+        "spotify_id": "70pCwwWabWENOnySralC8n",
+        "jtotal_path": "004e/030_NMB48/013",
+        "release_date": "2014-03-19",
+        "spotify_popularity": 25
+      },
+      "lyric": "自分に弁解をするなよ"
+    },
+    {
+      "x": 92.24762725830078,
+      "y": 25.024667739868164,
+      "r": 6,
+      "progression": "Ab7",
+      "chord_progression": [
+        "Ab7"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.74,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.74,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.35,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 54.69,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "イライラして立ち止まって",
+              "song": {
+                "title": "Nobody Knows",
+                "artist": "YUI",
+                "lyricist": "YUI",
+                "composer": "COZZi",
+                "spotify_id": "3sHjm7XuP7ylERQkSp1tzV",
+                "jtotal_path": "037yu/010_YUI/080",
+                "release_date": "2011-11-02",
+                "spotify_popularity": 13
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.67,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.5,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.75,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.57,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.008,
+        "SADNESS": 0.08,
+        "ANTICIPATION": 0.019,
+        "SURPRISE": 0.028,
+        "ANGER": 0.595,
+        "FEAR": 0.029,
+        "DISGUST": 0.321,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 2.55,
+        "komuro": 2.55,
+        "marusa": 2.5
+      },
+      "song_info": {
+        "title": "Nobody Knows",
+        "artist": "YUI",
+        "lyricist": "YUI",
+        "composer": "COZZi",
+        "spotify_id": "3sHjm7XuP7ylERQkSp1tzV",
+        "jtotal_path": "037yu/010_YUI/080",
+        "release_date": "2011-11-02",
+        "spotify_popularity": 13
+      },
+      "lyric": "イライラして立ち止まって"
+    },
+    {
+      "x": 65.73439025878906,
+      "y": 12.31801700592041,
+      "r": 6,
+      "progression": "G",
+      "chord_progression": [
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.32,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.66,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.78,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.78,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "“あなたのものよ”ときやがった",
+              "song": {
+                "title": "フェアリー（完全犯罪）",
+                "artist": "甲斐バンド",
+                "lyricist": "YOSHIHIRO KAI",
+                "composer": "YOSHIHIRO KAI",
+                "spotify_id": "40kZzKBXG3lqlo3foXegPT",
+                "jtotal_path": "006ka/004_kai_band/087",
+                "release_date": "2001-09-27",
+                "spotify_popularity": 20
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.86,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.39,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.69,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.52,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.072,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.048,
+        "ANGER": 0.518,
+        "FEAR": 0.041,
+        "DISGUST": 0.344,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "フェアリー（完全犯罪）",
+        "artist": "甲斐バンド",
+        "lyricist": "YOSHIHIRO KAI",
+        "composer": "YOSHIHIRO KAI",
+        "spotify_id": "40kZzKBXG3lqlo3foXegPT",
+        "jtotal_path": "006ka/004_kai_band/087",
+        "release_date": "2001-09-27",
+        "spotify_popularity": 20
+      },
+      "lyric": "“あなたのものよ”ときやがった"
+    },
+    {
+      "x": 30.228954315185547,
+      "y": 88.99768829345703,
+      "r": 6,
+      "progression": "Dm - E - Am",
+      "chord_progression": [
+        "Dm",
+        "E",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.56,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.85,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 50.0,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "言い訳なんかするなよ",
+              "song": {
+                "title": "情けねえ",
+                "artist": "とんねるず",
+                "lyricist": "秋元康",
+                "composer": "後藤次利",
+                "spotify_id": "6w2AC8VjWkXSMNXGyJPrh9",
+                "jtotal_path": "020to/008_TONNELS/003",
+                "release_date": "1999-03-17",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.89,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 34.17,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.94,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.94,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.006,
+        "SADNESS": 0.074,
+        "ANTICIPATION": 0.021,
+        "SURPRISE": 0.021,
+        "ANGER": 0.54,
+        "FEAR": 0.042,
+        "DISGUST": 0.369,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 0.9,
+        "komuro": 1.1,
+        "marusa": 0.75
+      },
+      "song_info": {
+        "title": "情けねえ",
+        "artist": "とんねるず",
+        "lyricist": "秋元康",
+        "composer": "後藤次利",
+        "spotify_id": "6w2AC8VjWkXSMNXGyJPrh9",
+        "jtotal_path": "020to/008_TONNELS/003",
+        "release_date": "1999-03-17",
+        "spotify_popularity": 33
+      },
+      "lyric": "言い訳なんかするなよ"
+    },
+    {
+      "x": 49.18661880493164,
+      "y": 89.533935546875,
+      "r": 6,
+      "progression": "C - Em - Am - C",
+      "chord_progression": [
+        "C",
+        "Em",
+        "Am",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.63,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.81,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.62,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.65,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "滅ぼすなよ",
+              "song": {
+                "title": "情けねえ",
+                "artist": "とんねるず",
+                "lyricist": "秋元康",
+                "composer": "後藤次利",
+                "spotify_id": "6w2AC8VjWkXSMNXGyJPrh9",
+                "jtotal_path": "020to/008_TONNELS/003",
+                "release_date": "1999-03-17",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.58,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.94,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.24,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.53,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.096,
+        "ANTICIPATION": 0.025,
+        "SURPRISE": 0.017,
+        "ANGER": 0.542,
+        "FEAR": 0.051,
+        "DISGUST": 0.367,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.3,
+        "komuro": 1.5,
+        "marusa": 0.6
+      },
+      "song_info": {
+        "title": "情けねえ",
+        "artist": "とんねるず",
+        "lyricist": "秋元康",
+        "composer": "後藤次利",
+        "spotify_id": "6w2AC8VjWkXSMNXGyJPrh9",
+        "jtotal_path": "020to/008_TONNELS/003",
+        "release_date": "1999-03-17",
+        "spotify_popularity": 33
+      },
+      "lyric": "滅ぼすなよ"
+    },
+    {
+      "x": 34.37958908081055,
+      "y": 38.42919921875,
+      "r": 6,
+      "progression": "G - F",
+      "chord_progression": [
+        "G",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.25,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.77,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 4.99,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 47.94,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "電車がゴーゴーうるせえ!",
+              "song": {
+                "title": "ヤンキーロック",
+                "artist": "AKB48",
+                "lyricist": "秋元康",
+                "composer": "chalaza",
+                "spotify_id": "5YEqO1G8yup7CELQD7urHL",
+                "jtotal_path": "004e/024_AKB48/069",
+                "release_date": "2015-03-04",
+                "spotify_popularity": 12
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.45,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.42,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.34,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 12.85,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.013,
+        "SADNESS": 0.052,
+        "ANTICIPATION": 0.014,
+        "SURPRISE": 0.134,
+        "ANGER": 0.5,
+        "FEAR": 0.036,
+        "DISGUST": 0.286,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.4,
+        "komuro": 1.2,
+        "marusa": 1.45
+      },
+      "song_info": {
+        "title": "ヤンキーロック",
+        "artist": "AKB48",
+        "lyricist": "秋元康",
+        "composer": "chalaza",
+        "spotify_id": "5YEqO1G8yup7CELQD7urHL",
+        "jtotal_path": "004e/024_AKB48/069",
+        "release_date": "2015-03-04",
+        "spotify_popularity": 12
+      },
+      "lyric": "電車がゴーゴーうるせえ!"
+    },
+    {
+      "x": 53.3404655456543,
+      "y": 41.96158981323242,
+      "r": 6,
+      "progression": "Am - D",
+      "chord_progression": [
+        "Am",
+        "D"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.29,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.92,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.83,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 53.69,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "その怒りぶつけろよ!",
+              "song": {
+                "title": "ヤンキーロック",
+                "artist": "AKB48",
+                "lyricist": "秋元康",
+                "composer": "chalaza",
+                "spotify_id": "5YEqO1G8yup7CELQD7urHL",
+                "jtotal_path": "004e/024_AKB48/069",
+                "release_date": "2015-03-04",
+                "spotify_popularity": 12
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.03,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.6,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.87,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.77,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.074,
+        "ANTICIPATION": 0.042,
+        "SURPRISE": 0.03,
+        "ANGER": 0.582,
+        "FEAR": 0.022,
+        "DISGUST": 0.31,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.55
+      },
+      "song_info": {
+        "title": "ヤンキーロック",
+        "artist": "AKB48",
+        "lyricist": "秋元康",
+        "composer": "chalaza",
+        "spotify_id": "5YEqO1G8yup7CELQD7urHL",
+        "jtotal_path": "004e/024_AKB48/069",
+        "release_date": "2015-03-04",
+        "spotify_popularity": 12
+      },
+      "lyric": "その怒りぶつけろよ!"
+    },
+    {
+      "x": 0.0,
+      "y": 83.39898681640625,
+      "r": 6,
+      "progression": "E - Am - F - G",
+      "chord_progression": [
+        "E",
+        "Am",
+        "F",
+        "G"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.91,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.91,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.02,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 51.92,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "お前らがそこでゴチャゴチャ言うから急いで",
+              "song": {
+                "title": "例えば犬の気持ちで",
+                "artist": "吉田拓郎",
+                "lyricist": "鈴木慶一",
+                "composer": "鈴木慶一",
+                "spotify_id": "4eKg1S30Jo9TQkJDHdeptG",
+                "jtotal_path": "038yo/001_yoshida_takuro/320",
+                "release_date": "1998-10-31",
+                "spotify_popularity": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.92,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 30.38,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 2.65,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.29,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.055,
+        "ANTICIPATION": 0.029,
+        "SURPRISE": 0.047,
+        "ANGER": 0.569,
+        "FEAR": 0.043,
+        "DISGUST": 0.333,
+        "TRUST": 0.01
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.0,
+        "komuro": 0.2,
+        "marusa": 1.1
+      },
+      "song_info": {
+        "title": "例えば犬の気持ちで",
+        "artist": "吉田拓郎",
+        "lyricist": "鈴木慶一",
+        "composer": "鈴木慶一",
+        "spotify_id": "4eKg1S30Jo9TQkJDHdeptG",
+        "jtotal_path": "038yo/001_yoshida_takuro/320",
+        "release_date": "1998-10-31",
+        "spotify_popularity": 7
+      },
+      "lyric": "お前らがそこでゴチャゴチャ言うから急いで"
+    },
+    {
+      "x": 16.79441261291504,
+      "y": 97.4891586303711,
+      "r": 6,
+      "progression": "F - G - Am",
+      "chord_progression": [
+        "F",
+        "G",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.29,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 1.38,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.58,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.34,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "「悲鳴」と「情け」を捨てろ!!と罵声を突き刺す",
+              "song": {
+                "title": "絆-KIZUNA-",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "00ECwiY5Z3jN8bINHfRU6f",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/248",
+                "release_date": "2010-01-01",
+                "spotify_popularity": 33
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.04,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 27.49,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 7.29,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.58,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.014,
+        "SADNESS": 0.093,
+        "ANTICIPATION": 0.079,
+        "SURPRISE": 0.028,
+        "ANGER": 0.524,
+        "FEAR": 0.033,
+        "DISGUST": 0.298,
+        "TRUST": 0.015
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.7,
+        "komuro": 0.7,
+        "marusa": 0.75
+      },
+      "song_info": {
+        "title": "絆-KIZUNA-",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "00ECwiY5Z3jN8bINHfRU6f",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/248",
+        "release_date": "2010-01-01",
+        "spotify_popularity": 33
+      },
+      "lyric": "「悲鳴」と「情け」を捨てろ!!と罵声を突き刺す"
+    },
+    {
+      "x": 31.846405029296875,
+      "y": 53.887718200683594,
+      "r": 6,
+      "progression": "C - G - F - C",
+      "chord_progression": [
+        "C",
+        "G",
+        "F",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.06,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.67,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 11.26,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.51,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "「男なら髪の毛ぐらい短く切れよ」ってまた怒鳴った",
+              "song": {
+                "title": "西新宿の親父の唄",
+                "artist": "長渕剛",
+                "lyricist": "長渕剛",
+                "composer": "長渕剛",
+                "spotify_id": "1zci5VHRO71EVi7ja9F7pw",
+                "jtotal_path": "021na/001_nagabuchi_tsuyoshi/063",
+                "release_date": "1990-08-25",
+                "spotify_popularity": 37
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.27,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.93,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.06,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 4.23,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.011,
+        "SADNESS": 0.117,
+        "ANTICIPATION": 0.011,
+        "SURPRISE": 0.044,
+        "ANGER": 0.504,
+        "FEAR": 0.034,
+        "DISGUST": 0.311,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 1.3
+      },
+      "song_info": {
+        "title": "西新宿の親父の唄",
+        "artist": "長渕剛",
+        "lyricist": "長渕剛",
+        "composer": "長渕剛",
+        "spotify_id": "1zci5VHRO71EVi7ja9F7pw",
+        "jtotal_path": "021na/001_nagabuchi_tsuyoshi/063",
+        "release_date": "1990-08-25",
+        "spotify_popularity": 37
+      },
+      "lyric": "「男なら髪の毛ぐらい短く切れよ」ってまた怒鳴った"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "F",
+      "chord_progression": [
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.93,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.74,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.96,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 53.85,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "イライラして来て",
+              "song": {
+                "title": "未来へのスパイラル",
+                "artist": "グッドモーニングアメリカ",
+                "lyricist": "金廣真悟",
+                "composer": "金廣真悟",
+                "spotify_id": "4dKRC5OOcSnEa6G7utAzqd",
+                "jtotal_path": "008ku/044_good_morning_america/004",
+                "release_date": "2013-05-08",
+                "spotify_popularity": 27
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.32,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 31.2,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.58,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.41,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.075,
+        "ANTICIPATION": 0.017,
+        "SURPRISE": 0.026,
+        "ANGER": 0.58,
+        "FEAR": 0.025,
+        "DISGUST": 0.336,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "未来へのスパイラル",
+        "artist": "グッドモーニングアメリカ",
+        "lyricist": "金廣真悟",
+        "composer": "金廣真悟",
+        "spotify_id": "4dKRC5OOcSnEa6G7utAzqd",
+        "jtotal_path": "008ku/044_good_morning_america/004",
+        "release_date": "2013-05-08",
+        "spotify_popularity": 27
+      },
+      "lyric": "イライラして来て"
+    },
+    {
+      "x": 58.17137908935547,
+      "y": 61.72730255126953,
+      "r": 6,
+      "progression": "G - Am",
+      "chord_progression": [
+        "G",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.97,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.88,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.47,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.78,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "勝手ばかり言ってやる",
+              "song": {
+                "title": "男節",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "1jDcGvBFdqiwtyYps8NNBS",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/043",
+                "release_date": "2007-10-17",
+                "spotify_popularity": 7
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.24,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.5,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 4.09,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.07,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.01,
+        "SADNESS": 0.087,
+        "ANTICIPATION": 0.042,
+        "SURPRISE": 0.011,
+        "ANGER": 0.501,
+        "FEAR": 0.023,
+        "DISGUST": 0.344,
+        "TRUST": 0.009
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.2,
+        "komuro": 1.2,
+        "marusa": 1.7
+      },
+      "song_info": {
+        "title": "男節",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "1jDcGvBFdqiwtyYps8NNBS",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/043",
+        "release_date": "2007-10-17",
+        "spotify_popularity": 7
+      },
+      "lyric": "勝手ばかり言ってやる"
+    },
+    {
+      "x": 53.3404655456543,
+      "y": 41.96158981323242,
+      "r": 6,
+      "progression": "Dm - F",
+      "chord_progression": [
+        "Dm",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.48,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.48,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.57,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.66,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "一日中何してたんだっけイライラしたのは何故だっけ",
+              "song": {
+                "title": "ラストワン",
+                "artist": "BUMP OF CHICKEN",
+                "lyricist": "Motoo Fujiwara",
+                "composer": "Motoo Fujiwara",
+                "spotify_id": "5OLc9iI0R2sJQIe7kFB5r7",
+                "jtotal_path": "026ha/012_BUMP_OF_CHICKEN/055",
+                "release_date": "2014-03-12",
+                "spotify_popularity": 32
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.2,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 32.4,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 0.97,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 5.24,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.005,
+        "SADNESS": 0.078,
+        "ANTICIPATION": 0.01,
+        "SURPRISE": 0.054,
+        "ANGER": 0.512,
+        "FEAR": 0.033,
+        "DISGUST": 0.334,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.55
+      },
+      "song_info": {
+        "title": "ラストワン",
+        "artist": "BUMP OF CHICKEN",
+        "lyricist": "Motoo Fujiwara",
+        "composer": "Motoo Fujiwara",
+        "spotify_id": "5OLc9iI0R2sJQIe7kFB5r7",
+        "jtotal_path": "026ha/012_BUMP_OF_CHICKEN/055",
+        "release_date": "2014-03-12",
+        "spotify_popularity": 32
+      },
+      "lyric": "一日中何してたんだっけイライラしたのは何故だっけ"
+    },
+    {
+      "x": 51.712249755859375,
+      "y": 78.82532501220703,
+      "r": 6,
+      "progression": "F - C - F - C",
+      "chord_progression": [
+        "F",
+        "C",
+        "F",
+        "C"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.39,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.49,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.9,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.12,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "いい加減にしろようぬぼれるのは",
+              "song": {
+                "title": "おまえもひとり",
+                "artist": "オフコース",
+                "lyricist": "鈴木康博・清水仁",
+                "composer": "鈴木康博",
+                "spotify_id": "49QftL9WHeKfUBP3Hg77Xk",
+                "jtotal_path": "005o/004_off_course/082",
+                "release_date": "1980-11-21",
+                "spotify_popularity": 17
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.91,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.66,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.08,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.45,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.004,
+        "SADNESS": 0.091,
+        "ANTICIPATION": 0.011,
+        "SURPRISE": 0.025,
+        "ANGER": 0.502,
+        "FEAR": 0.04,
+        "DISGUST": 0.344,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.4,
+        "marusa": 0.8
+      },
+      "song_info": {
+        "title": "おまえもひとり",
+        "artist": "オフコース",
+        "lyricist": "鈴木康博・清水仁",
+        "composer": "鈴木康博",
+        "spotify_id": "49QftL9WHeKfUBP3Hg77Xk",
+        "jtotal_path": "005o/004_off_course/082",
+        "release_date": "1980-11-21",
+        "spotify_popularity": 17
+      },
+      "lyric": "いい加減にしろようぬぼれるのは"
+    },
+    {
+      "x": 48.41203308105469,
+      "y": 30.240995407104492,
+      "r": 6,
+      "progression": "Am",
+      "chord_progression": [
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.58,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.48,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.6,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.71,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "黙ってうるさいよもうほっといてよって",
+              "song": {
+                "title": "かける",
+                "artist": "ゆず",
+                "lyricist": "北川悠仁",
+                "composer": "北川悠仁",
+                "spotify_id": "6dsZq6tiFz7W8iTJuBuJMp",
+                "jtotal_path": "037yu/002_yuzu/230",
+                "release_date": "2016-01-13",
+                "spotify_popularity": 23
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.4,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 35.58,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.15,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.5,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.006,
+        "SADNESS": 0.079,
+        "ANTICIPATION": 0.012,
+        "SURPRISE": 0.026,
+        "ANGER": 0.517,
+        "FEAR": 0.025,
+        "DISGUST": 0.37,
+        "TRUST": 0.005
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.5,
+        "komuro": 1.5,
+        "marusa": 1.5
+      },
+      "song_info": {
+        "title": "かける",
+        "artist": "ゆず",
+        "lyricist": "北川悠仁",
+        "composer": "北川悠仁",
+        "spotify_id": "6dsZq6tiFz7W8iTJuBuJMp",
+        "jtotal_path": "037yu/002_yuzu/230",
+        "release_date": "2016-01-13",
+        "spotify_popularity": 23
+      },
+      "lyric": "黙ってうるさいよもうほっといてよって"
+    },
+    {
+      "x": 78.09176635742188,
+      "y": 20.66201400756836,
+      "r": 6,
+      "progression": "F7 - E7 - E7 - Abm",
+      "chord_progression": [
+        "F7",
+        "E7",
+        "E7",
+        "Abm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.5,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.83,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.77,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "うるせー！うるせーんだ!!Bitch！",
+              "song": {
+                "title": "Bitch!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+                "release_date": "2009-09-16",
+                "spotify_popularity": 3
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.81,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.44,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.68,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.33,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.073,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.089,
+        "ANGER": 0.532,
+        "FEAR": 0.03,
+        "DISGUST": 0.304,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.35,
+        "komuro": 2.15,
+        "marusa": 1.95
+      },
+      "song_info": {
+        "title": "Bitch!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+        "release_date": "2009-09-16",
+        "spotify_popularity": 3
+      },
+      "lyric": "うるせー！うるせーんだ!!Bitch！"
+    },
+    {
+      "x": 78.09176635742188,
+      "y": 20.66201400756836,
+      "r": 6,
+      "progression": "F7 - E7 - E7 - Abm",
+      "chord_progression": [
+        "F7",
+        "E7",
+        "E7",
+        "Abm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.5,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.83,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.77,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "うるせー！うるせーんだ!!Bitch！",
+              "song": {
+                "title": "Bitch!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+                "release_date": "2009-09-16",
+                "spotify_popularity": 3
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.81,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.44,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.68,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.33,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.073,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.089,
+        "ANGER": 0.532,
+        "FEAR": 0.03,
+        "DISGUST": 0.304,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.35,
+        "komuro": 2.15,
+        "marusa": 1.95
+      },
+      "song_info": {
+        "title": "Bitch!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+        "release_date": "2009-09-16",
+        "spotify_popularity": 3
+      },
+      "lyric": "うるせー！うるせーんだ!!Bitch！"
+    },
+    {
+      "x": 78.09176635742188,
+      "y": 20.66201400756836,
+      "r": 6,
+      "progression": "F7 - E7 - E7 - Abm",
+      "chord_progression": [
+        "F7",
+        "E7",
+        "E7",
+        "Abm"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.5,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.83,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.77,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "うるせー！うるせーんだ!!Bitch！",
+              "song": {
+                "title": "Bitch!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+                "release_date": "2009-09-16",
+                "spotify_popularity": 3
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.81,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.44,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.68,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.33,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.073,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.089,
+        "ANGER": 0.532,
+        "FEAR": 0.03,
+        "DISGUST": 0.304,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.35,
+        "komuro": 2.15,
+        "marusa": 1.95
+      },
+      "song_info": {
+        "title": "Bitch!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+        "release_date": "2009-09-16",
+        "spotify_popularity": 3
+      },
+      "lyric": "うるせー！うるせーんだ!!Bitch！"
+    },
+    {
+      "x": 27.20458221435547,
+      "y": 99.89584350585938,
+      "r": 6,
+      "progression": "F7 - E7 - Am",
+      "chord_progression": [
+        "F7",
+        "E7",
+        "Am"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 1.5,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.65,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 6.83,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.77,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "うるせー！うるせーんだ!!Bitch！",
+              "song": {
+                "title": "Bitch!",
+                "artist": "斉藤和義",
+                "lyricist": "斉藤和義",
+                "composer": "斉藤和義",
+                "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+                "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+                "release_date": "2009-09-16",
+                "spotify_popularity": 3
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.81,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 28.44,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.68,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 8.33,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.016,
+        "SADNESS": 0.073,
+        "ANTICIPATION": 0.018,
+        "SURPRISE": 0.089,
+        "ANGER": 0.532,
+        "FEAR": 0.03,
+        "DISGUST": 0.304,
+        "TRUST": 0.007
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#00FF00",
+      "reference_name": "marusa",
+      "typical_chord_distance": {
+        "odo": 0.8,
+        "komuro": 1.0,
+        "marusa": 0.55
+      },
+      "song_info": {
+        "title": "Bitch!",
+        "artist": "斉藤和義",
+        "lyricist": "斉藤和義",
+        "composer": "斉藤和義",
+        "spotify_id": "3qM1BR0USHUZwImM13rOHY",
+        "jtotal_path": "011sa/003_saitoh_kazuyoshi/134",
+        "release_date": "2009-09-16",
+        "spotify_popularity": 3
+      },
+      "lyric": "うるせー！うるせーんだ!!Bitch！"
+    },
+    {
+      "x": 22.225963592529297,
+      "y": 76.93800354003906,
+      "r": 6,
+      "progression": "Am - G - F",
+      "chord_progression": [
+        "Am",
+        "G",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.65,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.56,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 8.14,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.86,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "お前なァ、やめて!!無礼は",
+              "song": {
+                "title": "夢と魔法の国",
+                "artist": "サザンオールスターズ",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+                "jtotal_path": "011sa/004_Southern_All_Stars/055",
+                "release_date": "2005-10-05",
+                "spotify_popularity": 20
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 4.77,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 29.28,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.4,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 5.33,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.087,
+        "ANTICIPATION": 0.015,
+        "SURPRISE": 0.057,
+        "ANGER": 0.533,
+        "FEAR": 0.051,
+        "DISGUST": 0.313,
+        "TRUST": 0.006
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#FF0000",
+      "reference_name": "komuro",
+      "typical_chord_distance": {
+        "odo": 1.1,
+        "komuro": 0.9,
+        "marusa": 1.15
+      },
+      "song_info": {
+        "title": "夢と魔法の国",
+        "artist": "サザンオールスターズ",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+        "jtotal_path": "011sa/004_Southern_All_Stars/055",
+        "release_date": "2005-10-05",
+        "spotify_popularity": 20
+      },
+      "lyric": "お前なァ、やめて!!無礼は"
+    },
+    {
+      "x": 78.1896743774414,
+      "y": 33.8243408203125,
+      "r": 6,
+      "progression": "Am - G - F - C - Bb - F",
+      "chord_progression": [
+        "Am",
+        "G",
+        "F",
+        "C",
+        "Bb",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.47,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.75,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 7.84,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 48.27,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "たったひとりのせいでブチ壊すなよ",
+              "song": {
+                "title": "夢と魔法の国",
+                "artist": "サザンオールスターズ",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+                "jtotal_path": "011sa/004_Southern_All_Stars/055",
+                "release_date": "2005-10-05",
+                "spotify_popularity": 20
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.73,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 35.48,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.96,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 1.49,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.005,
+        "SADNESS": 0.084,
+        "ANTICIPATION": 0.021,
+        "SURPRISE": 0.016,
+        "ANGER": 0.517,
+        "FEAR": 0.04,
+        "DISGUST": 0.38,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.9,
+        "komuro": 1.9,
+        "marusa": 2.0
+      },
+      "song_info": {
+        "title": "夢と魔法の国",
+        "artist": "サザンオールスターズ",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+        "jtotal_path": "011sa/004_Southern_All_Stars/055",
+        "release_date": "2005-10-05",
+        "spotify_popularity": 20
+      },
+      "lyric": "たったひとりのせいでブチ壊すなよ"
+    },
+    {
+      "x": 24.83281707763672,
+      "y": 66.24373626708984,
+      "r": 6,
+      "progression": "Am - F",
+      "chord_progression": [
+        "Am",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.64,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.73,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.49,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.68,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "迷惑なのは連れ出せ!",
+              "song": {
+                "title": "夢と魔法の国",
+                "artist": "サザンオールスターズ",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+                "jtotal_path": "011sa/004_Southern_All_Stars/055",
+                "release_date": "2005-10-05",
+                "spotify_popularity": 20
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.84,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.58,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.75,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.29,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.06,
+        "ANTICIPATION": 0.041,
+        "SURPRISE": 0.025,
+        "ANGER": 0.543,
+        "FEAR": 0.042,
+        "DISGUST": 0.367,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.0,
+        "marusa": 1.2
+      },
+      "song_info": {
+        "title": "夢と魔法の国",
+        "artist": "サザンオールスターズ",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+        "jtotal_path": "011sa/004_Southern_All_Stars/055",
+        "release_date": "2005-10-05",
+        "spotify_popularity": 20
+      },
+      "lyric": "迷惑なのは連れ出せ!"
+    },
+    {
+      "x": 24.83281707763672,
+      "y": 66.24373626708984,
+      "r": 6,
+      "progression": "Am - F",
+      "chord_progression": [
+        "Am",
+        "F"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.64,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.73,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.49,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 49.68,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "迷惑なのは連れ出せ!",
+              "song": {
+                "title": "夢と魔法の国",
+                "artist": "サザンオールスターズ",
+                "lyricist": "桑田佳祐",
+                "composer": "桑田佳祐",
+                "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+                "jtotal_path": "011sa/004_Southern_All_Stars/055",
+                "release_date": "2005-10-05",
+                "spotify_popularity": 20
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 3.84,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 33.58,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 3.75,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 2.29,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.007,
+        "SADNESS": 0.06,
+        "ANTICIPATION": 0.041,
+        "SURPRISE": 0.025,
+        "ANGER": 0.543,
+        "FEAR": 0.042,
+        "DISGUST": 0.367,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 1.0,
+        "komuro": 1.0,
+        "marusa": 1.2
+      },
+      "song_info": {
+        "title": "夢と魔法の国",
+        "artist": "サザンオールスターズ",
+        "lyricist": "桑田佳祐",
+        "composer": "桑田佳祐",
+        "spotify_id": "1RjkopfI9T7DU2tozoUCWM",
+        "jtotal_path": "011sa/004_Southern_All_Stars/055",
+        "release_date": "2005-10-05",
+        "spotify_popularity": 20
+      },
+      "lyric": "迷惑なのは連れ出せ!"
+    },
+    {
+      "x": 19.45883560180664,
+      "y": 88.57696533203125,
+      "r": 6,
+      "progression": "Am - F7 - E",
+      "chord_progression": [
+        "Am",
+        "F7",
+        "E"
+      ],
+      "pie": [
+        {
+          "label": "JOY",
+          "v": 0.83,
+          "c": "#FFFF73",
+          "lyrics": []
+        },
+        {
+          "label": "TRUST",
+          "v": 0.74,
+          "c": "#88FC6E",
+          "lyrics": []
+        },
+        {
+          "label": "SADNESS",
+          "v": 5.09,
+          "c": "#5150F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANGER",
+          "v": 52.27,
+          "c": "#E93323",
+          "lyrics": [
+            {
+              "lyric": "黙れ!うるさいぞお前ら",
+              "song": {
+                "title": "ブルドッグ",
+                "artist": "フォーリーブス",
+                "lyricist": "伊藤アキラ",
+                "composer": "都倉俊一",
+                "spotify_id": "1qv00WCItYMZxMFBXBapPy",
+                "jtotal_path": "028fu/024_Four_Leaves/001",
+                "release_date": "2004-07-21",
+                "spotify_popularity": 18
+              }
+            }
+          ]
+        },
+        {
+          "label": "FEAR",
+          "v": 2.78,
+          "c": "#429429",
+          "lyrics": []
+        },
+        {
+          "label": "DISGUST",
+          "v": 31.82,
+          "c": "#EB60F8",
+          "lyrics": []
+        },
+        {
+          "label": "ANTICIPATION",
+          "v": 1.2,
+          "c": "#F3AB63",
+          "lyrics": []
+        },
+        {
+          "label": "SURPRISE",
+          "v": 5.27,
+          "c": "#74BBF9",
+          "lyrics": []
+        }
+      ],
+      "emotion": {
+        "JOY": 0.009,
+        "SADNESS": 0.055,
+        "ANTICIPATION": 0.013,
+        "SURPRISE": 0.057,
+        "ANGER": 0.565,
+        "FEAR": 0.03,
+        "DISGUST": 0.344,
+        "TRUST": 0.008
+      },
+      "dominant_emotion": "ANGER",
+      "reference_color": "#0000FF",
+      "reference_name": "odo",
+      "typical_chord_distance": {
+        "odo": 0.75,
+        "komuro": 0.75,
+        "marusa": 0.75
+      },
+      "song_info": {
+        "title": "ブルドッグ",
+        "artist": "フォーリーブス",
+        "lyricist": "伊藤アキラ",
+        "composer": "都倉俊一",
+        "spotify_id": "1qv00WCItYMZxMFBXBapPy",
+        "jtotal_path": "028fu/024_Four_Leaves/001",
+        "release_date": "2004-07-21",
+        "spotify_popularity": 18
+      },
+      "lyric": "黙れ!うるさいぞお前ら"
+    }
+  ],
+  "total_points": 70
+}

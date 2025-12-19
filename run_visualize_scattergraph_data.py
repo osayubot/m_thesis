@@ -8,7 +8,7 @@ MDS/UMAP/t-SNEによるコード進行の可視化データ生成（エントリ
 使用方法:
     python run_visualize_scattergraph_data.py [data_dir] [max_files] [method]
 
-    method: 'mds', 'umap', 'tsne', 'all' (デフォルト: 'all')
+    method: 'umap', 'tsne', 'all' (デフォルト: 'all')
     
     直接距離行列ベースで、すべてのコード進行間の距離を使って1つのJSONファイルを生成します。
     基準進行（王道・小室・丸サ）は色付きの枠線で特別表示されます。
@@ -16,8 +16,6 @@ MDS/UMAP/t-SNEによるコード進行の可視化データ生成（エントリ
 
 import sys
 from pathlib import Path
-
-from program.visualize_scattergraph_data.mds_visualization import main as mds_main
 
 try:
     from program.visualize_scattergraph_data.umap_visualization import main as umap_main
@@ -48,17 +46,6 @@ def main(argv: list[str] | None = None) -> None:
     print(f"手法: {method}")
     print(f"モード: 直接距離行列ベース（1つのJSONファイルにまとめる）")
     print("=" * 60)
-
-    if method in ["mds", "all"]:
-        print("\n" + "=" * 60)
-        print("MDS可視化を実行中...")
-        print("=" * 60)
-        mds_main(
-            data_dir=data_dir,
-            max_files=max_files,
-            show_lyrics=True,
-            export_json=True,
-        )
 
     if method in ["umap", "all"]:
         if UMAP_AVAILABLE and umap_main is not None:

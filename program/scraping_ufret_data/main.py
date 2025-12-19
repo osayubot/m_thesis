@@ -10,6 +10,10 @@ import sys
 from .scraper import MusicScraper
 from .file_utils import save_to_json, is_file_exists
 
+# 設定定数
+START_ID = 59712  # 開始ID
+END_ID = 188318   # 終了ID
+
 def main(max_items=500, start_id=1, end_id=188318):
     """
     メイン処理
@@ -111,28 +115,12 @@ def main(max_items=500, start_id=1, end_id=188318):
 if __name__ == "__main__":
     # コマンドライン引数から処理件数を取得
     max_items = 1000  # デフォルト1000曲
-    start_id = 1
-    end_id = 188318
     
     if len(sys.argv) > 1:
         try:
             max_items = int(sys.argv[1])
         except ValueError:
-            print(f"警告: 無効な引数 '{sys.argv[1]}'。デフォルトの500件で実行します。")
-            max_items = 500
+            print(f"警告: 無効な引数 '{sys.argv[1]}'。デフォルトの1000件で実行します。")
+            max_items = 1000
     
-    # if len(sys.argv) > 2:  # 全件処理用（コメントアウト）
-    #     try:
-    #         start_id = int(sys.argv[2])
-    #     except ValueError:
-    #         print(f"警告: 無効な開始ID '{sys.argv[2]}'。デフォルトの1から開始します。")
-    #         start_id = 1
-    
-    # if len(sys.argv) > 3:  # 全件処理用（コメントアウト）
-    #     try:
-    #         end_id = int(sys.argv[3])
-    #     except ValueError:
-    #         print(f"警告: 無効な終了ID '{sys.argv[3]}'。デフォルトの188318まで処理します。")
-    #         end_id = 188318
-    
-    main(max_items=max_items, start_id=start_id, end_id=end_id)
+    main(max_items=max_items, start_id=START_ID, end_id=END_ID)

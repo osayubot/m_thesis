@@ -181,15 +181,6 @@
         <label for="jsonSelector">データセット</label>
         <br />
         <select id="jsonSelector">
-          <optgroup label="MDS">
-            <option value="mds_odo_pie_data.json">MDS - 王道進行ベース</option>
-            <option value="mds_komuro_pie_data.json">
-              MDS - 小室進行ベース
-            </option>
-            <option value="mds_marusa_pie_data.json">
-              MDS - 丸サ進行ベース
-            </option>
-          </optgroup>
           <optgroup label="UMAP">
             <option value="umap_odo_pie_data.json">
               UMAP - 王道進行ベース
@@ -296,6 +287,31 @@
         TRUST: "#88FC6E",
       };
 
+      /* ====== 感情の順序定義（ポジティブ → ネガティブ → 中立） ====== */
+      const EMOTION_ORDER = [
+        "JOY", // ポジティブ
+        "TRUST", // ポジティブ
+        "SADNESS", // ネガティブ
+        "ANGER", // ネガティブ
+        "FEAR", // ネガティブ
+        "DISGUST", // ネガティブ
+        "ANTICIPATION", // 中立
+        "SURPRISE", // 中立
+      ];
+
+      /* ====== 感情の順序に基づいてpieデータをソート ====== */
+      function sortPieByEmotionOrder(pie) {
+        if (!pie || !Array.isArray(pie)) return pie;
+        const orderMap = new Map(
+          EMOTION_ORDER.map((emotion, index) => [emotion, index])
+        );
+        return [...pie].sort((a, b) => {
+          const orderA = orderMap.get(a.label) ?? 999;
+          const orderB = orderMap.get(b.label) ?? 999;
+          return orderA - orderB;
+        });
+      }
+
       /* ====== 状態 ====== */
       let chart = null;
       let selected = null; // { datasetIndex, index, emotion }
@@ -323,10 +339,15 @@
         _cache: new Map(),
 
         _makeKey(pie, r, strokeStyle, lineWidth) {
-          return JSON.stringify({ pie, r, strokeStyle, lineWidth });
+          // 感情の順序に基づいてソートしてからキーを生成（一貫性のため）
+          const sortedPie = sortPieByEmotionOrder(pie);
+          return JSON.stringify({ pie: sortedPie, r, strokeStyle, lineWidth });
         },
 
         _renderPieToCanvas(pie, r, strokeStyle, lineWidth, dpr) {
+          // 感情の順序に基づいてソート
+          const sortedPie = sortPieByEmotionOrder(pie);
+
           // 半径が0以下の場合は最小サイズのcanvasを返す
           const minR = 1;
           const safeR = Math.max(minR, r);
@@ -342,14 +363,14 @@
           const cy = size / 2;
           const rr = safeR * dpr;
 
-          const total = pie.reduce((a, s) => a + s.v, 0);
+          const total = sortedPie.reduce((a, s) => a + s.v, 0);
           if (total <= 0 || size <= 0) {
             // 空のcanvasを返す（最小サイズを保証）
             return { canvas: c, w: Math.max(1, size), h: Math.max(1, size) };
           }
 
           let start = -Math.PI / 2;
-          for (const s of pie) {
+          for (const s of sortedPie) {
             const ang = (s.v / total) * Math.PI * 2;
             ctx.beginPath();
             ctx.moveTo(cx, cy);
@@ -402,11 +423,14 @@
               // 各点のstrokeColorがあればそれを使う、なければデフォルト
               const strokeStyle = d.strokeColor ?? defaultStrokeStyle;
 
-              const key = this._makeKey(pie, r, strokeStyle, lineWidth);
+              // 感情の順序に基づいてソート
+              const sortedPie = sortPieByEmotionOrder(pie);
+
+              const key = this._makeKey(sortedPie, r, strokeStyle, lineWidth);
               let img = this._cache.get(key);
               if (!img) {
                 img = this._renderPieToCanvas(
-                  pie,
+                  sortedPie,
                   r,
                   strokeStyle,
                   lineWidth,
@@ -472,19 +496,22 @@
 
         if (Math.hypot(dx, dy) > r) return null;
 
+        // 感情の順序に基づいてソート
+        const sortedPie = sortPieByEmotionOrder(rawPoint.pie);
+
         // start = -PI/2 を基準に 0..2PI
         let ang = Math.atan2(dy, dx) - -Math.PI / 2;
         while (ang < 0) ang += Math.PI * 2;
         while (ang >= Math.PI * 2) ang -= Math.PI * 2;
 
-        const total = rawPoint.pie.reduce((a, s) => a + s.v, 0) || 1;
+        const total = sortedPie.reduce((a, s) => a + s.v, 0) || 1;
         let acc = 0;
-        for (const s of rawPoint.pie) {
+        for (const s of sortedPie) {
           const span = (s.v / total) * Math.PI * 2;
           if (ang >= acc && ang < acc + span) return s.label;
           acc += span;
         }
-        return rawPoint.pie[rawPoint.pie.length - 1]?.label ?? null;
+        return sortedPie[sortedPie.length - 1]?.label ?? null;
       }
 
       /* ========= external tooltip（hover + クリック選択で歌詞表示） ========= */
@@ -544,7 +571,9 @@
             ? selected.emotion
             : null;
 
-        const rows = raw.pie
+        // 感情の順序に基づいてソート
+        const sortedPie = sortPieByEmotionOrder(raw.pie);
+        const rows = sortedPie
           .map((s) => {
             const isSelected = selectedEmotion && s.label === selectedEmotion;
             const isHover =
@@ -603,9 +632,32 @@
                     parts.push(`作曲: ${songInfo.composer}`);
 
                   const songInfoStr = parts.length > 0 ? parts.join(", ") : "";
+
+                  // リリース年と人気度を追加
+                  const additionalInfo = [];
+                  if (songInfo.release_date) {
+                    const year = extractYear(songInfo.release_date);
+                    if (year) {
+                      additionalInfo.push(`(${year})`);
+                    }
+                  }
+                  if (
+                    songInfo.spotify_popularity !== null &&
+                    songInfo.spotify_popularity !== undefined
+                  ) {
+                    additionalInfo.push(
+                      `人気度: ${songInfo.spotify_popularity}`
+                    );
+                  }
+
+                  const additionalInfoStr =
+                    additionalInfo.length > 0
+                      ? " " + additionalInfo.join(" ")
+                      : "";
+
                   return `<li>${escapeHtml(lyricText)}<br />${escapeHtml(
                     songInfoStr
-                  )}</li>`;
+                  )}${escapeHtml(additionalInfoStr)}</li>`;
                 } else {
                   return `<li>${escapeHtml(lyricText)}</li>`;
                 }
@@ -927,6 +979,9 @@
         console.log("Filtering with conditions:", {
           releaseDateFilter: isReleaseDateFilterActive,
           popularityFilter: isPopularityFilterActive,
+          selectedArtists: selectedArtists,
+          selectedComposers: selectedComposers,
+          selectedLyricists: selectedLyricists,
           totalPoints: points.length,
         });
 
@@ -981,15 +1036,10 @@
               return true;
             });
 
-            // デバッグ用（必要に応じてコメントアウト）
-            // if (!hasYearInRange) {
-            //   console.log("Point excluded: year out of range", {
-            //     years: pointReleaseYears,
-            //     filter: { min: minReleaseYear, max: maxReleaseYear },
-            //   });
-            // }
-
-            return hasYearInRange;
+            // リリース年フィルタに一致しない場合は除外
+            if (!hasYearInRange) {
+              return false;
+            }
           }
 
           // spotify_popularityフィルタが有効な場合
@@ -1026,7 +1076,10 @@
               }
             );
 
-            return hasPopularityInRange;
+            // 人気度フィルタに一致しない場合は除外
+            if (!hasPopularityInRange) {
+              return false;
+            }
           }
 
           // artist/composer/lyricistフィルタが有効な場合

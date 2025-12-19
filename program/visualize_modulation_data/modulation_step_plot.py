@@ -29,13 +29,13 @@ from program.analyze_data.chord_normalization import normalize_key_label
 
 EMOTION_COLORS = {
     "JOY": "#FFFF73",
-    "SADNESS": "#5150F8",
     "ANTICIPATION": "#F3AB63",
+    "TRUST": "#88FC6E",
+    "SADNESS": "#5150F8",
     "SURPRISE": "#74BBF9",
     "ANGER": "#E93323",
     "FEAR": "#429429",
     "DISGUST": "#EB60F8",
-    "TRUST": "#88FC6E",
 }
 
 
