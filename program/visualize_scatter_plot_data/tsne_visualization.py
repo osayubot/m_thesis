@@ -15,6 +15,7 @@ from ..analyze_data.roman_numeral import section_to_roman_progression
 # mds_visualization.pyから共通の関数・定数をインポート
 from .mds_visualization import (
     REFERENCE_PROGRESSIONS,
+    REFERENCE_COLORS,
     EMOTION_COLORS,
     emotion_to_color,
     load_analyzed_data,
@@ -147,7 +148,6 @@ def main(
     max_files: Optional[int] = None,
     show_lyrics: bool = True,
     export_json: bool = True,
-    use_reference_based: bool = True,
     reference_progressions: Optional[Dict[str, List[str]]] = None,
     perplexity: float = 30.0,
     learning_rate: float = 200.0,
@@ -163,7 +163,6 @@ def main(
         max_files: 最大ファイル数
         show_lyrics: 歌詞を表示するか（画像出力時）
         export_json: JSONを出力するか
-        use_reference_based: 基準進行ベースのt-SNEを使用するか
         reference_progressions: 基準進行の辞書（Noneの場合はデフォルトを使用）
         perplexity: t-SNEの困惑度
         learning_rate: 学習率
@@ -204,100 +203,38 @@ def main(
     # JSON出力
     if export_json:
         script_dir = Path(__file__).parent.parent.parent
-        output_dir = script_dir / "vis_system" / "data"
+        output_dir = script_dir / "vis_system" / "scatter_plot" / "data"
         output_dir.mkdir(exist_ok=True, parents=True)
         
-        if use_reference_based:
-            if reference_progressions is None:
-                reference_progressions = REFERENCE_PROGRESSIONS
-            
-            filename_map = FILE_NAME_MAP
-            
-            for ref_name, ref_prog in reference_progressions.items():
-                print(f"\n{'='*60}")
-                print(f"Processing reference progression (t-SNE): {ref_name}")
-                print(f"Progression: {' - '.join(ref_prog)}")
-                print(f"{'='*60}")
-                
-                # 基準進行がデータに含まれているかチェック
-                ref_exists = False
-                for prog_data in progressions_data:
-                    if is_same_progression(prog_data.get('roman_progression', []), ref_prog):
-                        ref_exists = True
-                        print(f"  Found reference progression {ref_name} in data")
-                        break
-                
-                # 基準進行がデータに含まれていない場合、ダミーデータを追加
-                current_progressions_data = progressions_data.copy()
-                if not ref_exists:
-                    print(f"  Warning: Reference progression {ref_name} not found in data. Adding dummy entry...")
-                    dummy_prog_data = {
-                        'chord_progression': [],
-                        'normalized_chord_progression': [],
-                        'roman_progression': ref_prog.copy(),
-                        'lyrics': [{
-                            'lyric': f'[{ref_name}]',
-                            'emotion': {'JOY': 0.5},
-                            'color': '#808080',
-                            'song_index': 0
-                        }],
-                        'key': 'C'
-                    }
-                    current_progressions_data.append(dummy_prog_data)
-                    print(f"  Added dummy entry for {ref_name}")
-                
-                # 距離ベクトルを計算（3つの基準進行すべてを使用）
-                distance_vectors, ref_names = compute_distance_vectors(
-                    current_progressions_data,
-                    reference_progressions=reference_progressions
-                )
-                
-                # 主基準進行への距離を強調
-                main_ref_index = ref_names.index(ref_name)
-                weighted_vectors = distance_vectors.copy()
-                weighted_vectors[:, main_ref_index] = weighted_vectors[:, main_ref_index] * 3.0
-                
-                # 重み付けされた距離ベクトル間のユークリッド距離で距離行列を作成
-                print("Computing distance matrix from weighted distance vectors...")
-                n = len(weighted_vectors)
-                dist_matrix = np.zeros((n, n))
-                
-                for i in range(n):
-                    for j in range(i + 1, n):
-                        dist = np.linalg.norm(weighted_vectors[i] - weighted_vectors[j])
-                        dist_matrix[i][j] = dist
-                        dist_matrix[j][i] = dist
-                
-                # t-SNEで座標を計算
-                print("Computing t-SNE coordinates...")
-                actual_perplexity = min(perplexity, n - 1)
-                if actual_perplexity < 5:
-                    actual_perplexity = max(2, n - 1)
-                
-                tsne = TSNE(
-                    n_components=2,
-                    metric='precomputed',
-                    perplexity=actual_perplexity,
-                    learning_rate=learning_rate,
-                    n_iter=n_iter,
-                    random_state=42,
-                    init='random'
-                )
-                coordinates = tsne.fit_transform(dist_matrix)
-                
-                # JSONファイル名を決定
-                filename = filename_map.get(ref_name, f"tsne_{ref_name}_pie_data.json")
-                json_output_path = str(output_dir / filename)
-                
-                print(f"Exporting JSON to {json_output_path}...")
-                export_to_json_format(
-                    current_progressions_data,
-                    coordinates,
-                    songs_list,
-                    json_output_path,
-                    reference_progression=ref_prog,
-                    reference_name=ref_name
-                )
+        # 直接距離行列ベースのt-SNE（すべてのコード進行間の距離を使用）
+        print(f"\n{'='*60}")
+        print("Computing t-SNE coordinates from direct distance matrix...")
+        print(f"{'='*60}")
+        
+        # 直接距離行列を使ってt-SNE座標を計算
+        coordinates = compute_tsne_coordinates(
+            progressions_data,
+            n_components=2,
+            perplexity=perplexity,
+            learning_rate=learning_rate,
+            n_iter=n_iter
+        )
+        
+        # JSONファイル名を決定（1つのファイルにまとめる）
+        json_output_path = str(output_dir / "tsne_all.json")
+        
+        # 基準進行を特別表示するため、すべての基準進行を渡す
+        if reference_progressions is None:
+            reference_progressions = REFERENCE_PROGRESSIONS
+        
+        print(f"Exporting JSON to {json_output_path}...")
+        export_to_json_format(
+            progressions_data,
+            coordinates,
+            songs_list,
+            json_output_path,
+            reference_progressions=reference_progressions
+        )
     
     print("Done!")
 
@@ -306,6 +243,5 @@ if __name__ == "__main__":
     import sys
     data_dir = sys.argv[1] if len(sys.argv) > 1 else "data/analyzed"
     output_path = sys.argv[2] if len(sys.argv) > 2 else None
-    use_reference = len(sys.argv) > 3 and sys.argv[3].lower() == 'true'
-    main(data_dir=data_dir, output_path=output_path, use_reference_based=use_reference)
+    main(data_dir=data_dir, output_path=output_path)
 

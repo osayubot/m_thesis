@@ -1,0 +1,690 @@
+{
+  "points": [
+    {
+      "x": 75.87,
+      "y": 27.04,
+      "r": 4,
+      "pie": [
+        {
+          "label": "SADNESS",
+          "c": "#5150F8",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "逝ったあなたを恨みます",
+              "song_index": 0,
+              "song": {
+                "title": "くちなし情話",
+                "artist": "金田たつえ",
+                "composer": "鈴木淳",
+                "lyricist": "吉田旺",
+                "release_date": "2000-05-20",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "vii - I - iv - I",
+      "roman_progression": [
+        "vii",
+        "I",
+        "iv",
+        "I"
+      ],
+      "chord_progression": [
+        "Am",
+        "B",
+        "Em",
+        "B"
+      ]
+    },
+    {
+      "x": 100.0,
+      "y": 100.0,
+      "r": 9.59,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 20.0,
+          "lyrics": [
+            {
+              "lyric": "笑っているんだよ",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        },
+        {
+          "label": "SADNESS",
+          "c": "#5150F8",
+          "v": 60.0,
+          "lyrics": [
+            {
+              "lyric": "痛かったんだよ",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "泣いたっていいでしょう",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "悲しみは誰も",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        },
+        {
+          "label": "SURPRISE",
+          "c": "#74BBF9",
+          "v": 20.0,
+          "lyrics": [
+            {
+              "lyric": "派手に転んだの",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 5,
+      "progression": "bIIIsus - bIII - bIIIsus - bIII",
+      "roman_progression": [
+        "bIIIsus",
+        "bIII",
+        "bIIIsus",
+        "bIII"
+      ],
+      "chord_progression": [
+        "Asus4",
+        "A",
+        "Asus4",
+        "A"
+      ]
+    },
+    {
+      "x": 66.04,
+      "y": 73.25,
+      "r": 4,
+      "pie": [
+        {
+          "label": "ANTICIPATION",
+          "c": "#F3AB63",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "髪をきつく結い直して",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "i - bVII - bIII - bVI",
+      "roman_progression": [
+        "i",
+        "bVII",
+        "bIII",
+        "bVI"
+      ],
+      "chord_progression": [
+        "F#m7",
+        "E6",
+        "A",
+        "Dmaj7"
+      ]
+    },
+    {
+      "x": 90.77,
+      "y": 97.94,
+      "r": 9.59,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 20.0,
+          "lyrics": [
+            {
+              "lyric": "I'mjustlookingforAhAhAh",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        },
+        {
+          "label": "SADNESS",
+          "c": "#5150F8",
+          "v": 20.0,
+          "lyrics": [
+            {
+              "lyric": "Ijustcannotstop進むしかなくて",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        },
+        {
+          "label": "ANTICIPATION",
+          "c": "#F3AB63",
+          "v": 60.0,
+          "lyrics": [
+            {
+              "lyric": "裸足で走り出すって決めた",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "Ijustcannotstop自分を破って",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "Ijustcannotstop闇を見続けて",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 5,
+      "progression": "bVI - bIII - bVI - bIII",
+      "roman_progression": [
+        "bVI",
+        "bIII",
+        "bVI",
+        "bIII"
+      ],
+      "chord_progression": [
+        "D",
+        "A",
+        "D",
+        "A"
+      ]
+    },
+    {
+      "x": 88.39,
+      "y": 97.89,
+      "r": 8.82,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 25.0,
+          "lyrics": [
+            {
+              "lyric": "Ijustcannotstay涙ながしたまま",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        },
+        {
+          "label": "ANTICIPATION",
+          "c": "#F3AB63",
+          "v": 75.0,
+          "lyrics": [
+            {
+              "lyric": "Ijustcannotstay克服のため",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "Ijustcannotstay光掴んで",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            },
+            {
+              "lyric": "自分にしかないもの探していた",
+              "song_index": 3,
+              "song": {
+                "title": "I'm Scarlet",
+                "artist": "moumoon",
+                "composer": "K.MASAKI",
+                "lyricist": "YUKA",
+                "release_date": "2017-03-22",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 4,
+      "progression": "bVI - bIII - bVII - bVI",
+      "roman_progression": [
+        "bVI",
+        "bIII",
+        "bVII",
+        "bVI"
+      ],
+      "chord_progression": [
+        "D",
+        "A",
+        "E",
+        "D"
+      ]
+    },
+    {
+      "x": 45.44,
+      "y": 16.1,
+      "r": 6.41,
+      "pie": [
+        {
+          "label": "SADNESS",
+          "c": "#5150F8",
+          "v": 50.0,
+          "lyrics": [
+            {
+              "lyric": "何もかも思い出を失くしたせいさ",
+              "song_index": 4,
+              "song": {
+                "title": "君がいない夏",
+                "artist": "DEEN",
+                "composer": "小松未歩",
+                "lyricist": "小松未歩",
+                "release_date": "1998-03-18",
+                "spotify_popularity": 38
+              }
+            }
+          ]
+        },
+        {
+          "label": "ANTICIPATION",
+          "c": "#F3AB63",
+          "v": 50.0,
+          "lyrics": [
+            {
+              "lyric": "繰り出そう追いかけてはるかな夢を",
+              "song_index": 4,
+              "song": {
+                "title": "君がいない夏",
+                "artist": "DEEN",
+                "composer": "小松未歩",
+                "lyricist": "小松未歩",
+                "release_date": "1998-03-18",
+                "spotify_popularity": 38
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 2,
+      "progression": "I - IV - ii - v",
+      "roman_progression": [
+        "I",
+        "IV",
+        "ii",
+        "v"
+      ],
+      "chord_progression": [
+        "D",
+        "G",
+        "Em",
+        "Am7"
+      ]
+    },
+    {
+      "x": 21.3,
+      "y": 36.72,
+      "r": 4,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "打ち寄せてる穏やかな波がさらう",
+              "song_index": 4,
+              "song": {
+                "title": "君がいない夏",
+                "artist": "DEEN",
+                "composer": "小松未歩",
+                "lyricist": "小松未歩",
+                "release_date": "1998-03-18",
+                "spotify_popularity": 38
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "IV - bVII - IV - v",
+      "roman_progression": [
+        "IV",
+        "bVII",
+        "IV",
+        "v"
+      ],
+      "chord_progression": [
+        "G",
+        "C",
+        "G",
+        "Am7"
+      ]
+    },
+    {
+      "x": 44.76,
+      "y": 49.39,
+      "r": 4,
+      "pie": [
+        {
+          "label": "ANTICIPATION",
+          "c": "#F3AB63",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "それぞれ違う人生(みち)を選ぶことで",
+              "song_index": 4,
+              "song": {
+                "title": "君がいない夏",
+                "artist": "DEEN",
+                "composer": "小松未歩",
+                "lyricist": "小松未歩",
+                "release_date": "1998-03-18",
+                "spotify_popularity": 38
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "bVII - bvii - v - I",
+      "roman_progression": [
+        "bVII",
+        "bvii",
+        "v",
+        "I"
+      ],
+      "chord_progression": [
+        "C",
+        "Cm",
+        "Am7",
+        "D"
+      ]
+    },
+    {
+      "x": 89.22,
+      "y": 53.78,
+      "r": 4,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "あの声あの仕草が広がってく",
+              "song_index": 4,
+              "song": {
+                "title": "君がいない夏",
+                "artist": "DEEN",
+                "composer": "小松未歩",
+                "lyricist": "小松未歩",
+                "release_date": "1998-03-18",
+                "spotify_popularity": 38
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "bVII - bvii - Isus - I",
+      "roman_progression": [
+        "bVII",
+        "bvii",
+        "Isus",
+        "I"
+      ],
+      "chord_progression": [
+        "C",
+        "Cm",
+        "Dsus4",
+        "D"
+      ]
+    },
+    {
+      "x": 0.0,
+      "y": 0.0,
+      "r": 4,
+      "pie": [
+        {
+          "label": "JOY",
+          "c": "#FFFF73",
+          "v": 100.0,
+          "lyrics": [
+            {
+              "lyric": "[komuro]",
+              "song_index": 0,
+              "song": {
+                "title": "くちなし情話",
+                "artist": "金田たつえ",
+                "composer": "鈴木淳",
+                "lyricist": "吉田旺",
+                "release_date": "2000-05-20",
+                "spotify_popularity": 11
+              }
+            }
+          ]
+        }
+      ],
+      "lyricCount": 1,
+      "progression": "vi - IV - V - I",
+      "roman_progression": [
+        "vi",
+        "IV",
+        "V",
+        "I"
+      ],
+      "chord_progression": [],
+      "strokeColor": "#000000"
+    }
+  ],
+  "emotionSongs": {
+    "JOY": [
+      {
+        "title": "I'm Scarlet",
+        "artist": "moumoon",
+        "lyricist": "YUKA",
+        "composer": "K.MASAKI",
+        "spotify_id": "5U6ZNQptfzsFEqfBLWzQwI",
+        "jtotal_path": "033mu/006_moumoon/019",
+        "release_date": "2017-03-22",
+        "spotify_popularity": 11
+      },
+      {
+        "title": "君がいない夏",
+        "artist": "DEEN",
+        "lyricist": "小松未歩",
+        "composer": "小松未歩",
+        "spotify_id": "1bVERqPT0cqxYiNiJwaiin",
+        "jtotal_path": "019te/003_DEEN/004",
+        "release_date": "1998-03-18",
+        "spotify_popularity": 38
+      },
+      {
+        "title": "くちなし情話",
+        "artist": "金田たつえ",
+        "lyricist": "吉田旺",
+        "composer": "鈴木淳",
+        "spotify_id": "1rSO7PWJAE6Vre7CEuMKKd",
+        "jtotal_path": "006ka/104_kaneda_tatsue/003",
+        "release_date": "2000-05-20",
+        "spotify_popularity": 11
+      }
+    ],
+    "SADNESS": [
+      {
+        "title": "くちなし情話",
+        "artist": "金田たつえ",
+        "lyricist": "吉田旺",
+        "composer": "鈴木淳",
+        "spotify_id": "1rSO7PWJAE6Vre7CEuMKKd",
+        "jtotal_path": "006ka/104_kaneda_tatsue/003",
+        "release_date": "2000-05-20",
+        "spotify_popularity": 11
+      },
+      {
+        "title": "I'm Scarlet",
+        "artist": "moumoon",
+        "lyricist": "YUKA",
+        "composer": "K.MASAKI",
+        "spotify_id": "5U6ZNQptfzsFEqfBLWzQwI",
+        "jtotal_path": "033mu/006_moumoon/019",
+        "release_date": "2017-03-22",
+        "spotify_popularity": 11
+      },
+      {
+        "title": "君がいない夏",
+        "artist": "DEEN",
+        "lyricist": "小松未歩",
+        "composer": "小松未歩",
+        "spotify_id": "1bVERqPT0cqxYiNiJwaiin",
+        "jtotal_path": "019te/003_DEEN/004",
+        "release_date": "1998-03-18",
+        "spotify_popularity": 38
+      }
+    ],
+    "ANTICIPATION": [
+      {
+        "title": "I'm Scarlet",
+        "artist": "moumoon",
+        "lyricist": "YUKA",
+        "composer": "K.MASAKI",
+        "spotify_id": "5U6ZNQptfzsFEqfBLWzQwI",
+        "jtotal_path": "033mu/006_moumoon/019",
+        "release_date": "2017-03-22",
+        "spotify_popularity": 11
+      },
+      {
+        "title": "君がいない夏",
+        "artist": "DEEN",
+        "lyricist": "小松未歩",
+        "composer": "小松未歩",
+        "spotify_id": "1bVERqPT0cqxYiNiJwaiin",
+        "jtotal_path": "019te/003_DEEN/004",
+        "release_date": "1998-03-18",
+        "spotify_popularity": 38
+      }
+    ],
+    "SURPRISE": [
+      {
+        "title": "I'm Scarlet",
+        "artist": "moumoon",
+        "lyricist": "YUKA",
+        "composer": "K.MASAKI",
+        "spotify_id": "5U6ZNQptfzsFEqfBLWzQwI",
+        "jtotal_path": "033mu/006_moumoon/019",
+        "release_date": "2017-03-22",
+        "spotify_popularity": 11
+      }
+    ],
+    "ANGER": [],
+    "FEAR": [],
+    "DISGUST": [],
+    "TRUST": []
+  }
+}

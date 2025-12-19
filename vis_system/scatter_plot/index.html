@@ -1427,7 +1427,7 @@
           await loadAndRender(defaultFile);
         } catch (e) {
           console.error("Error loading data:", e);
-          const errorMsg = `読み込みに失敗しました。\n\nエラー: ${e.message}\n\n確認事項:\n1. ローカルサーバーを起動しているか\n2. vis_system/ ディレクトリからサーバーを起動しているか\n   (例: cd vis_system && python3 -m http.server 8000)\n3. data/${defaultFile} が存在するか\n\nブラウザのコンソール（F12）で詳細を確認してください。`;
+          const errorMsg = `読み込みに失敗しました。\n\nエラー: ${e.message}\n\n確認事項:\n1. ローカルサーバーを起動しているか\n2. vis_system_scatter_plot/ ディレクトリからサーバーを起動しているか\n   (例: cd vis_system_scatter_plot && python3 -m http.server 8000)\n3. data/${defaultFile} が存在するか\n\nブラウザのコンソール（F12）で詳細を確認してください。`;
           alert(errorMsg);
         }
       }

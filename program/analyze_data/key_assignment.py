@@ -264,68 +264,23 @@ def assign_keys_to_jtotal_sections(song_json, vec_all, clf, W=16, H=4, switch_pe
 
 def assign_keys_to_ufret_sections(song_json, vec_all, clf, W=16, H=4, switch_penalty=4.0):
     """
-    Assign keys to ufret sections using normalized chord indices.
+    Assign keys to ufret sections.
+
+    Note:
+    - The original implementation used Viterbi-smoothed hard labels per window and
+      section-level majority vote. With a high `switch_penalty`, that tends to
+      "stick" to a single key for long stretches and can overstate confidence.
+    - We now default to probability-averaging (same as `assign_keys_with_probabilities`)
+      which better reflects ambiguity (e.g., relative major/minor like G vs Em).
     """
-    chords_norm, section_spans, _ = extract_ufret_chords_with_section_spans(song_json)
-    if len(chords_norm) < 12:
-        return []
-    
-    probs, spans = sliding_window_probs(chords_norm, vec_all, clf, W=W, H=H)
-    classes = clf.classes_
-    
-    eps = 1e-12
-    log_em = np.log(np.clip(probs, eps, 1.0))
-    path = viterbi_hmm(log_em, switch_penalty=switch_penalty)
-    
-    n = len(chords_norm)
-    chord_key_votes = [[] for _ in range(n)]
-    
-    for widx, (s, e) in enumerate(spans):
-        k = classes[path[widx]]
-        for i in range(s, min(e, n)):
-            chord_key_votes[i].append(k)
-    
-    analyzed_sections = []
-    secs = song_json.get("ufret_chord_progressions_and_lyrics", [])
-    
-    for sec_idx, sec in enumerate(secs):
-        start, end = section_spans[sec_idx]
-        
-        if end <= start:
-            section_key = None
-            conf = 0.0
-        else:
-            sec_votes = []
-            for i in range(start, end):
-                if chord_key_votes[i]:
-                    sec_votes.append(Counter(chord_key_votes[i]).most_common(1)[0][0])
-            
-            if sec_votes:
-                c = Counter(sec_votes)
-                section_key, count = c.most_common(1)[0]
-                conf = count / len(sec_votes)
-            else:
-                section_key = None
-                conf = 0.0
-        
-        analyzed_sec = {
-            "chord_progression": sec.get("chord_progression", []).copy(),
-            "lyric": sec.get("lyric", "")
-        }
-        
-        if "chord_word_pair" in sec:
-            analyzed_sec["chord_word_pair"] = sec["chord_word_pair"].copy()
-        
-        analyzed_sec["key"] = section_key
-        analyzed_sec["key_confidence"] = round(float(conf), 3)
-        
-        # Add emotion analysis
-        lyric = sec.get("lyric", "")
-        emotion_scores = analyze_emotion(lyric)
-        if emotion_scores:
-            analyzed_sec["emotion"] = emotion_scores
-        
-        analyzed_sections.append(analyzed_sec)
-    
+    analyzed_sections = assign_keys_with_probabilities(
+        song_json, vec_all, clf,
+        W=W, H=H, switch_penalty=switch_penalty,
+        use_ufret=True
+    )
+    # Keep explicit method label for downstream/debugging
+    for sec in analyzed_sections:
+        if isinstance(sec, dict):
+            sec.setdefault("key_method", "window_probavg_v1")
     return analyzed_sections
 

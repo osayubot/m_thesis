@@ -7,6 +7,7 @@ from __future__ import annotations
 from typing import List, Optional, Tuple
 import numpy as np
 import re
+import time
 
 # 機能分類（Tonic, Predominant, Dominant）
 FUNCTIONAL_GROUPS = {
@@ -328,12 +329,13 @@ def circular_distance(seq1: List[str], seq2: List[str], consider_tension: bool =
     
     return min_dist
 
-def compute_distance_matrix(progressions: List[List[str]]) -> np.ndarray:
+def compute_distance_matrix(progressions: List[List[str]], show_progress: bool = True) -> np.ndarray:
     """
     コード進行のリストから距離行列を計算
     
     Args:
         progressions: ローマ数字のコード進行のリスト
+        show_progress: 進捗を表示するか
     
     Returns:
         距離行列（n×n）
@@ -341,11 +343,42 @@ def compute_distance_matrix(progressions: List[List[str]]) -> np.ndarray:
     n = len(progressions)
     dist_matrix = np.zeros((n, n))
     
+    # 総計算回数（対称行列なので半分）
+    total_pairs = n * (n - 1) // 2
+    
+    if show_progress:
+        print(f"Computing distance matrix for {n} progressions...")
+        print(f"Total pairs to compute: {total_pairs:,}")
+        print("This may take a while...")
+    
+    computed = 0
+    last_progress = -1
+    start_time = time.time()
+    last_time = start_time
+    
     for i in range(n):
         for j in range(i + 1, n):
             dist = circular_distance(progressions[i], progressions[j])
             dist_matrix[i][j] = dist
             dist_matrix[j][i] = dist
+            
+            computed += 1
+            # 5%ごとに進捗を表示
+            progress = int(100 * computed / total_pairs)
+            if show_progress and progress != last_progress and progress % 5 == 0:
+                current_time = time.time()
+                elapsed = current_time - start_time
+                rate = computed / elapsed if elapsed > 0 else 0
+                remaining = (total_pairs - computed) / rate if rate > 0 else 0
+                
+                print(f"  Progress: {progress}% ({computed:,}/{total_pairs:,} pairs computed, "
+                      f"elapsed: {elapsed:.1f}s, estimated remaining: {remaining:.1f}s)")
+                last_progress = progress
+                last_time = current_time
+    
+    if show_progress:
+        total_time = time.time() - start_time
+        print(f"  Completed: 100% ({total_pairs:,} pairs computed in {total_time:.1f}s)")
     
     return dist_matrix
 

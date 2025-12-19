@@ -16,11 +16,29 @@ import matplotlib.patches as mpatches
 from .musical_distance import compute_distance_matrix, circular_distance
 from ..analyze_data.roman_numeral import section_to_roman_progression
 
-# 基準進行の定義
+# ============================================================================
+# 基準進行（典型コード進行）の定義
+# ============================================================================
+# 新しい典型コード進行を追加する場合は、以下の辞書に追加してください。
+# 進行はローマ数字で表記します（例: ['IV', 'V', 'I']）
+# 
+# 追加方法:
+#   1. REFERENCE_PROGRESSIONS に新しいエントリを追加
+#   2. REFERENCE_COLORS に対応する色を追加（16進数カラーコード）
+#   3. FILE_NAME_MAP に対応するファイル名を追加（基準進行ベースモード用）
+# ============================================================================
+
 REFERENCE_PROGRESSIONS = {
-    'odo': ['IV', 'V', 'iii', 'vi'],  # Ⅳ→Ⅴ→Ⅲm→Ⅵm
-    'komuro': ['vi', 'IV', 'V', 'I'],   # VIm → IV → V → I
-    'marusa': ['IVM7', 'III7', 'vi7', 'I7'],  # ⅣM7 - Ⅲ7 - Ⅵm7 - Ⅰ7
+    'odo': ['IV', 'V', 'iii', 'vi'],      # 王道進行: Ⅳ→Ⅴ→Ⅲm→Ⅵm
+    'komuro': ['vi', 'IV', 'V', 'I'],     # 小室進行: VIm → IV → V → I
+    'marusa': ['IVM7', 'III7', 'vi7', 'I7'],  # マルサ進行: ⅣM7 - Ⅲ7 - Ⅵm7 - Ⅰ7
+}
+
+# 基準進行の表示色（散布図での枠線の色）
+REFERENCE_COLORS = {
+    'odo': '#FF0000',      # 赤（王道進行）
+    'komuro': '#0000FF',   # 青（小室進行）
+    'marusa': '#00FF00',   # 緑（マルサ進行）
 }
 
 FILE_NAME_MAP = {
@@ -293,6 +311,9 @@ def compute_mds_coordinates(progressions_data: List[Dict], n_components: int = 2
     
     # MDSで座標を計算
     print("Computing MDS coordinates...")
+    print("  This may take several minutes depending on the data size...")
+    import time
+    mds_start = time.time()
     mds = MDS(
         n_components=n_components,
         dissimilarity='precomputed',
@@ -301,6 +322,8 @@ def compute_mds_coordinates(progressions_data: List[Dict], n_components: int = 2
         max_iter=1000
     )
     coordinates = mds.fit_transform(dist_matrix)
+    mds_time = time.time() - mds_start
+    print(f"  MDS computation completed in {mds_time:.1f}s")
     
     return coordinates
 
@@ -423,7 +446,8 @@ def export_to_json_format(
     songs_list: List[Dict],
     output_path: str,
     reference_progression: Optional[List[str]] = None,
-    reference_name: Optional[str] = None
+    reference_name: Optional[str] = None,
+    reference_progressions: Optional[Dict[str, List[str]]] = None
 ) -> Dict:
     """
     all.htmlが期待するJSON形式でデータを出力
@@ -588,7 +612,7 @@ def export_to_json_format(
                 pie_data.append({
                     'label': emotion_name,
                     'c': EMOTION_COLORS[emotion_name],
-                    'v': round(percentage, 2),
+                    'v': float(round(percentage, 2)),
                     'lyrics': lyrics_list
                 })
                 
@@ -611,7 +635,7 @@ def export_to_json_format(
             if abs(total_pie - 100) > 0.01:  # 0.01%以上の誤差がある場合
                 diff = 100 - total_pie
                 if pie_data:
-                    pie_data[-1]['v'] = round(pie_data[-1]['v'] + diff, 2)
+                    pie_data[-1]['v'] = float(round(pie_data[-1]['v'] + diff, 2))
         
         # 半径を計算（ユニークな歌詞数に基づく）- より明確なサイズ差を出す（小さめに調整）
         lyric_count = total_unique_lyrics
@@ -642,17 +666,30 @@ def export_to_json_format(
         
         # 基準進行と一致するかチェック
         stroke_color = None
-        if reference_progression and roman_progression:
+        matched_reference_name = None
+        
+        # 複数の基準進行をチェック（reference_progressionsが提供された場合）
+        if reference_progressions and roman_progression:
+            for ref_name, ref_prog in reference_progressions.items():
+                if is_same_progression(roman_progression, ref_prog):
+                    # 基準進行の色を取得（デフォルトは黒）
+                    stroke_color = REFERENCE_COLORS.get(ref_name, "#000000")
+                    matched_reference_name = ref_name
+                    print(f"  Found matching progression for {ref_name}: {progression_str}")
+                    break
+        # 単一の基準進行をチェック（後方互換性のため）
+        elif reference_progression and roman_progression:
             if is_same_progression(roman_progression, reference_progression):
-                stroke_color = "#000000"  # 黒
-                # デバッグ用：一致した点を出力
+                # 基準進行の色を取得（デフォルトは黒）
+                stroke_color = REFERENCE_COLORS.get(reference_name, "#000000") if reference_name else "#000000"
+                matched_reference_name = reference_name
                 if reference_name:
                     print(f"  Found matching progression for {reference_name}: {progression_str}")
         
         point_data = {
-            'x': round(x_norm, 2),
-            'y': round(y_norm, 2),
-            'r': round(r, 2),
+            'x': float(round(x_norm, 2)),
+            'y': float(round(y_norm, 2)),
+            'r': float(round(r, 2)),
             'pie': pie_data,
             'lyricCount': lyric_count,
             'progression': progression_str,
@@ -663,6 +700,8 @@ def export_to_json_format(
         # 基準進行と一致する場合はstrokeColorを追加
         if stroke_color:
             point_data['strokeColor'] = stroke_color
+            if matched_reference_name:
+                point_data['referenceName'] = matched_reference_name
         
         points.append(point_data)
     
@@ -790,7 +829,6 @@ def main(
     max_files: Optional[int] = 100,
     show_lyrics: bool = True,
     export_json: bool = True,
-    use_reference_based: bool = True,
     reference_progressions: Optional[Dict[str, List[str]]] = None
 ):
     """
@@ -803,7 +841,6 @@ def main(
         max_files: 最大ファイル数
         show_lyrics: 歌詞を表示するか（画像出力時）
         export_json: JSONを出力するか
-        use_reference_based: 基準進行ベースのMDSを使用するか（True: 基準進行ベース、False: 従来の方法）
         reference_progressions: 基準進行の辞書（Noneの場合はデフォルトを使用）
     """
     # データディレクトリのパスを解決
@@ -842,108 +879,32 @@ def main(
     # JSON出力
     if export_json:
         script_dir = Path(__file__).parent.parent.parent
-        output_dir = script_dir / "vis_system" / "data"
+        output_dir = script_dir / "vis_system" / "scatter_plot" / "data"
         output_dir.mkdir(exist_ok=True, parents=True)
         
-        if use_reference_based:
-            # 各基準進行ごとに個別のJSONファイルを生成
-            # 各基準進行を個別に基準として使って、それぞれ異なるMDS座標を計算
-            if reference_progressions is None:
-                reference_progressions = REFERENCE_PROGRESSIONS
-            
-            # ファイル名のマッピング
-            filename_map = FILE_NAME_MAP
-            
-            # 各基準進行ごとに個別のMDS座標を計算してJSONファイルを生成
-            for ref_name, ref_prog in reference_progressions.items():
-                print(f"\n{'='*60}")
-                print(f"Processing reference progression: {ref_name}")
-                print(f"Progression: {' - '.join(ref_prog)}")
-                print(f"{'='*60}")
-                
-                # 基準進行そのものがデータに含まれているかチェック
-                ref_exists = False
-                for prog_data in progressions_data:
-                    if is_same_progression(prog_data.get('roman_progression', []), ref_prog):
-                        ref_exists = True
-                        print(f"  Found reference progression {ref_name} in data")
-                        break
-                
-                # 基準進行そのものがデータに含まれていない場合、ダミーデータを追加
-                current_progressions_data = progressions_data.copy()
-                if not ref_exists:
-                    print(f"  Warning: Reference progression {ref_name} not found in data. Adding dummy entry...")
-                    # ダミーのコード進行データを追加
-                    dummy_prog_data = {
-                        'chord_progression': [],
-                        'normalized_chord_progression': [],
-                        'roman_progression': ref_prog.copy(),
-                        'lyrics': [{
-                            'lyric': f'[{ref_name}]',
-                            'emotion': {'JOY': 0.5},  # ダミーの感情データ
-                            'color': '#808080',
-                            'song_index': 0
-                        }],
-                        'key': 'C'
-                    }
-                    current_progressions_data.append(dummy_prog_data)
-                    print(f"  Added dummy entry for {ref_name}")
-                
-                # この基準進行を主基準として、3つの基準進行すべてを使って距離ベクトルを作成
-                # ただし、この基準進行への距離を強調するため、重み付けを行う
-                single_ref = {ref_name: ref_prog}
-                # 3つの基準進行すべてを使って距離ベクトルを計算
-                distance_vectors, ref_names = compute_distance_vectors(
-                    current_progressions_data,
-                    reference_progressions=reference_progressions
-                )
-                
-                # この基準進行への距離を強調するため、距離ベクトルに重み付け
-                # 主基準進行のインデックスを取得
-                main_ref_index = ref_names.index(ref_name)
-                
-                # 主基準進行への距離を強調（重みを大きくする）
-                weighted_vectors = distance_vectors.copy()
-                # 主基準進行への距離の重みを3倍にする
-                weighted_vectors[:, main_ref_index] = weighted_vectors[:, main_ref_index] * 3.0
-                
-                # 重み付けされた距離ベクトル間のユークリッド距離で距離行列を作成
-                print("Computing distance matrix from weighted distance vectors...")
-                n = len(weighted_vectors)
-                dist_matrix = np.zeros((n, n))
-                
-                for i in range(n):
-                    for j in range(i + 1, n):
-                        dist = np.linalg.norm(weighted_vectors[i] - weighted_vectors[j])
-                        dist_matrix[i][j] = dist
-                        dist_matrix[j][i] = dist
-                
-                # MDSで座標を計算
-                print("Computing MDS coordinates...")
-                mds = MDS(
-                    n_components=2,
-                    dissimilarity='precomputed',
-                    random_state=42,
-                    n_init=10,
-                    max_iter=1000
-                )
-                coordinates = mds.fit_transform(dist_matrix)
-                
-                # JSONファイル名を決定
-                filename = filename_map.get(ref_name, f"mds_{ref_name}_pie_data.json")
-                json_output_path = str(output_dir / filename)
-                
-                print(f"Exporting JSON to {json_output_path}...")
-                export_to_json_format(
-                    current_progressions_data,
-                    coordinates,
-                    songs_list,
-                    json_output_path,
-                    reference_progression=ref_prog,
-                    reference_name=ref_name
-                )
-        # elseブロックを削除：mds_pie_data.jsonは生成しない
-        # 基準進行ごとのファイル（mds_odo_pie_data.json, mds_komuro_pie_data.json, mds_marusa_pie_data.json）のみ生成
+        # 直接距離行列ベースのMDS（すべてのコード進行間の距離を使用）
+        print(f"\n{'='*60}")
+        print("Computing MDS coordinates from direct distance matrix...")
+        print(f"{'='*60}")
+        
+        # 直接距離行列を使ってMDS座標を計算
+        coordinates = compute_mds_coordinates(progressions_data, n_components=2)
+        
+        # JSONファイル名を決定（1つのファイルにまとめる）
+        json_output_path = str(output_dir / "mds_all.json")
+        
+        # 基準進行を特別表示するため、すべての基準進行を渡す
+        if reference_progressions is None:
+            reference_progressions = REFERENCE_PROGRESSIONS
+        
+        print(f"Exporting JSON to {json_output_path}...")
+        export_to_json_format(
+            progressions_data,
+            coordinates,
+            songs_list,
+            json_output_path,
+            reference_progressions=reference_progressions
+        )
     
     # 画像可視化（オプション）
     if output_path:
@@ -961,6 +922,5 @@ if __name__ == "__main__":
     import sys
     data_dir = sys.argv[1] if len(sys.argv) > 1 else "data/analyzed"
     output_path = sys.argv[2] if len(sys.argv) > 2 else None
-    use_reference = len(sys.argv) > 3 and sys.argv[3].lower() == 'true'
-    main(data_dir=data_dir, output_path=output_path, use_reference_based=use_reference)
+    main(data_dir=data_dir, output_path=output_path)
 

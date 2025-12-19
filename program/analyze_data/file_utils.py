@@ -15,6 +15,7 @@ from .data_extraction import (
     extract_jtotal_chords, extract_jtotal_chords_with_section_spans,
     extract_ufret_chords, extract_ufret_chords_with_section_spans
 )
+from .typical_chord_distance import compute_typical_chord_distance
 
 def remove_key_info_from_sections(secs):
     """Remove key-related fields from sections."""
@@ -112,6 +113,10 @@ def save_song_with_keys(song_json, output_dir: str, create_subdirs: bool = True)
                             
                             if normalized_chords:
                                 sec["normalized_chord_progression"] = normalized_chords
+                                # Distance to typical progressions (王道/小室/丸サ)
+                                tcd = compute_typical_chord_distance(normalized_chords, target_root)
+                                if tcd:
+                                    sec["typical_chord_distance"] = tcd
                             else:
                                 # Fallback: just normalize without transposition
                                 normalized_chords = []
@@ -119,6 +124,9 @@ def save_song_with_keys(song_json, output_dir: str, create_subdirs: bool = True)
                                     normalized = normalize_chord(chord)
                                     normalized_chords.append(normalized if normalized else chord)
                                 sec["normalized_chord_progression"] = normalized_chords
+                                tcd = compute_typical_chord_distance(normalized_chords, target_root)
+                                if tcd:
+                                    sec["typical_chord_distance"] = tcd
                         else:
                             # Fallback: just normalize without transposition
                             normalized_chords = []
@@ -126,6 +134,9 @@ def save_song_with_keys(song_json, output_dir: str, create_subdirs: bool = True)
                                 normalized = normalize_chord(chord)
                                 normalized_chords.append(normalized if normalized else chord)
                             sec["normalized_chord_progression"] = normalized_chords
+                            tcd = compute_typical_chord_distance(normalized_chords, target_root)
+                            if tcd:
+                                sec["typical_chord_distance"] = tcd
                     else:
                         # Fallback: just normalize without transposition
                         normalized_chords = []
@@ -133,6 +144,9 @@ def save_song_with_keys(song_json, output_dir: str, create_subdirs: bool = True)
                             normalized = normalize_chord(chord)
                             normalized_chords.append(normalized if normalized else chord)
                         sec["normalized_chord_progression"] = normalized_chords
+                        tcd = compute_typical_chord_distance(normalized_chords, target_root)
+                        if tcd:
+                            sec["typical_chord_distance"] = tcd
                 else:
                     # No valid key, just normalize
                     normalized_chords = []
@@ -210,6 +224,7 @@ def process_and_save_songs_with_keys(input_dir: str, output_dir: str, vec_all, c
                     if len(chords_norm) < min_chords:
                         stats["skipped"] += 1
                         continue
+                    # Use probability-averaging key assignment (less "sticky" than Viterbi majority vote)
                     analyzed_sections = assign_keys_to_ufret_sections(
                         song.copy(), vec_all, clf,
                         W=W, H=H, switch_penalty=switch_penalty

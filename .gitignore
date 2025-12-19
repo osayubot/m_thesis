@@ -3,6 +3,7 @@ data/analyzed/*
 data/combined/*
 data/jtotal/*
 data/ufret/*
+thesis/*
 __pycache__/*
 
 # 環境変数ファイル（機密情報）
