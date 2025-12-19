@@ -6,7 +6,7 @@ MDS/UMAP/t-SNEによるコード進行の可視化データ生成（エントリ
 円グラフで歌詞の感情を表示
 
 使用方法:
-    python run_visualize_scatter_plot_data.py [data_dir] [max_files] [method]
+    python run_visualize_scattergraph_data.py [data_dir] [max_files] [method]
 
     method: 'mds', 'umap', 'tsne', 'all' (デフォルト: 'all')
     
@@ -17,17 +17,17 @@ MDS/UMAP/t-SNEによるコード進行の可視化データ生成（エントリ
 import sys
 from pathlib import Path
 
-from program.visualize_scatter_plot_data.mds_visualization import main as mds_main
+from program.visualize_scattergraph_data.mds_visualization import main as mds_main
 
 try:
-    from program.visualize_scatter_plot_data.umap_visualization import main as umap_main
+    from program.visualize_scattergraph_data.umap_visualization import main as umap_main
     UMAP_AVAILABLE = True
 except Exception:
     UMAP_AVAILABLE = False
     umap_main = None
     print("Warning: UMAP is not available in this environment.")
 
-from program.visualize_scatter_plot_data.tsne_visualization import main as tsne_main
+from program.visualize_scattergraph_data.tsne_visualization import main as tsne_main
 
 
 def main(argv: list[str] | None = None) -> None:

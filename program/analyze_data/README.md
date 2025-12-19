@@ -458,5 +458,5 @@ print(emotions)  # {'JOY': 0.8, 'SADNESS': 0.1, ...}
 - `scraping_jtotal_data`: J-Total データ取得
 - `scraping_ufret_data`: U-FRET データ取得
 - `combine_data`: データ結合
-- `visualize_scatter_plot_data`: 散布図（MDS/t-SNE/UMAP）データ生成
-- `visualize_modulation_plot_data`: 転調（modulation_index）可視化データ生成
+- `visualize_scattergraph_data`: 散布図（MDS/t-SNE/UMAP）データ生成
+- `visualize_modulation_data`: 転調（modulation_index）可視化データ生成

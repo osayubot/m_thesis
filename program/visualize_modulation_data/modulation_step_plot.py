@@ -6,7 +6,7 @@ Generate an interactive HTML (Plotly.js) step graph for `modulation_index`.
 - Renders a step graph (stairs) of modulation_index over section order
 
 Usage:
-  python -m program.visualize_modulation_plot_data.modulation_step_plot \
+  python -m program.visualize_modulation_data.modulation_step_plot \
     --data_dir data/analyzed \
     --out_html vis_system_modulation/modulation_index.html
 

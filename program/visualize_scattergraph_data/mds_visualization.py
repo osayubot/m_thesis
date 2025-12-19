@@ -879,7 +879,7 @@ def main(
     # JSON出力
     if export_json:
         script_dir = Path(__file__).parent.parent.parent
-        output_dir = script_dir / "vis_system" / "scatter_plot" / "data"
+        output_dir = script_dir / "vis_system" / "scattergraph" / "data"
         output_dir.mkdir(exist_ok=True, parents=True)
         
         # 直接距離行列ベースのMDS（すべてのコード進行間の距離を使用）

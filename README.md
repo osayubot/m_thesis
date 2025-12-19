@@ -291,7 +291,7 @@ for spotify_id in jtotal_data.keys():
         DISGUST（嫌悪）
 ```
 
-![プルチックの感情の輪](vis_system_scatter_plot/plutchiks-model-of-emotions.png)
+![プルチックの感情の輪](vis_system/scattergraph/plutchiks-model-of-emotions.png)
 
 _図: プルチックの感情の輪 - 8 つの基本感情とその強度・対極関係を示すモデル_
 
@@ -819,10 +819,10 @@ TF-IDF ベクトル化:
 │   │   ├── roman_numeral.py    # ローマ数字変換
 │   │   ├── key_assignment.py   # キー推定
 │   │   └── transposition.py    # 移調処理
-│   ├── visualize_scatter_plot_data/  # 散布図データ生成（MDS/t-SNE/UMAP）
-│   ├── visualize_modulation_plot_data/ # 転調（modulation_index）可視化データ生成
-│   ├── visualize_scatter_plot_data/  # 散布図（MDS/t-SNE/UMAP）データ生成
-│   └── visualize_modulation_plot_data/ # 転調（modulation_index）可視化データ生成
+│   ├── visualize_scattergraph_data/  # 散布図データ生成（MDS/t-SNE/UMAP）
+│   ├── visualize_modulation_data/ # 転調（modulation_index）可視化データ生成
+│   ├── visualize_scattergraph_data/  # 散布図（MDS/t-SNE/UMAP）データ生成
+│   └── visualize_modulation_data/ # 転調（modulation_index）可視化データ生成
 │       ├── mds_visualization.py  # MDS可視化
 │       ├── umap_visualization.py # UMAP可視化
 │       ├── tsne_visualization.py # t-SNE可視化
@@ -832,7 +832,7 @@ TF-IDF ベクトル化:
 │   ├── ufret/                  # U-FRETのデータ
 │   ├── combined/               # 結合データ
 │   └── analyzed/               # 分析済みデータ
-├── vis_system_scatter_plot/    # 散布図 可視化Webアプリケーション
+├── vis_system/scattergraph/    # 散布図 可視化Webアプリケーション
 ├── vis_system_modulation/      # 転調（modulation_index）可視化HTML
 │   ├── index.html              # メインページ
 │   └── data/                   # 可視化用JSONデータ
@@ -901,33 +901,33 @@ python run_combine_data.py
 python run_analyze_data.py
 
 # 6. 可視化データ生成（MDS + UMAP + t-SNE）
-python run_visualize_scatter_plot_data.py
+python run_visualize_scattergraph_data.py
 ```
 
 ### 可視化データ生成の詳細オプション
 
 ```bash
 # 使用方法
-python run_visualize_scatter_plot_data.py [data_dir] [max_files] [method]
+python run_visualize_scattergraph_data.py [data_dir] [max_files] [method]
 
 # MDS、UMAP、t-SNE の全てを生成（デフォルト）
-python run_visualize_scatter_plot_data.py
+python run_visualize_scattergraph_data.py
 
 # 特定のディレクトリとファイル数を指定
-python run_visualize_scatter_plot_data.py data/analyzed 100
+python run_visualize_scattergraph_data.py data/analyzed 100
 
 # MDS のみ生成
-python run_visualize_scatter_plot_data.py data/analyzed 100 mds
+python run_visualize_scattergraph_data.py data/analyzed 100 mds
 
 # UMAP のみ生成
-python run_visualize_scatter_plot_data.py data/analyzed 100 umap
+python run_visualize_scattergraph_data.py data/analyzed 100 umap
 
 # t-SNE のみ生成
-python run_visualize_scatter_plot_data.py data/analyzed 100 tsne
+python run_visualize_scattergraph_data.py data/analyzed 100 tsne
 
 転調（`modulation_index`）の階段グラフHTML生成:
 
-python run_visualize_modulation_plot_data.py data/analyzed vis_system_modulation/modulation_index.html
+python run_visualize_modulation_data.py data/analyzed vis_system/modulation/modulation_index.html
 ```
 
 | 引数        | 説明                                 | デフォルト      |
@@ -939,7 +939,7 @@ python run_visualize_modulation_plot_data.py data/analyzed vis_system_modulation
 ### 可視化システムの起動
 
 ```bash
-cd vis_system/scatter_plot
+cd vis_system/scattergraph
 python3 -m http.server 8000
 ```
 
@@ -1042,7 +1042,7 @@ Spotify 人気度フィルタを活用することで、ヒット曲に共通す
 }
 ```
 
-### 可視化データ（`vis_system_scatter_plot/data/*.json`）
+### 可視化データ（`vis_system/scattergraph/data/*.json`）
 
 ```json
 {
@@ -1189,8 +1189,9 @@ Spotify 人気度フィルタを活用することで、ヒット曲に共通す
 - 収集したデータは研究目的でのみ使用すること
 - Spotify API 認証情報は`.env`ファイルで管理し、公開リポジトリにコミットしないこと
 
-# latex作成
-cd thesis/output のディレクトリで
-uplatex MSthesis.tex 
+# latex 作成
+
+cd thesis/output
+uplatex MSthesis.tex
 uplatex MSthesis.tex
 dvipdfmx MSthesis.dvi

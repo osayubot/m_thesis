@@ -5,16 +5,16 @@
 modulation_index 可視化（Plotly HTML生成）エントリーポイント
 
 使用方法:
-  python run_visualize_modulation_plot_data.py [data_dir] [out_html]
+  python run_visualize_modulation_data.py [data_dir] [out_html]
 
 例:
-  python run_visualize_modulation_plot_data.py data/analyzed vis_system/modulation/modulation_index.html
+  python run_visualize_modulation_data.py data/analyzed vis_system/modulation/modulation_index.html
 """
 
 import sys
 from pathlib import Path
 
-from program.visualize_modulation_plot_data.modulation_step_plot import main as modulation_main
+from program.visualize_modulation_data.modulation_step_plot import main as modulation_main
 
 
 if __name__ == "__main__":
