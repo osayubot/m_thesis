@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>modulation_index step graph</title>
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans JP", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif; margin: 16px; }
+    .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    select { font-size: 14px; padding: 6px 8px; min-width: 420px; }
+    input[type="text"] { font-size: 14px; padding: 6px 8px; min-width: 320px; }
+    #chart { width: 100%; height: 78vh; }
+    .note { color: #555; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="row">
+    <div><b>曲を選択:</b></div>
+    <input id="filterInput" type="text" placeholder="フィルタ（例: アーティスト名 / 曲名）" />
+    <select id="songSelect"></select>
+    <div class="note">x: セクションindex / y: key（キー推定）</div>
+  </div>
+  <div id="chart"></div>
+
+  <script>
+    const DATA_URL = "modulation_index_data.json";
+    let SONGS = [];
+
+    const select = document.getElementById("songSelect");
+    const filterInput = document.getElementById("filterInput");
+
+    function _labelForSong(s) {
+      return (s.has_modulation ? "★" : "") + s.label;
+    }
+
+    function populate(filterText = "") {
+      select.innerHTML = "";
+      // placeholder (no selection)
+      const ph = document.createElement("option");
+      ph.value = "";
+      ph.textContent = "-- 選択 --";
+      select.appendChild(ph);
+
+      const ft = (filterText || "").toLowerCase().trim();
+      for (const s of SONGS) {
+        const display = _labelForSong(s);
+        if (ft && !display.toLowerCase().includes(ft)) {
+          continue;
+        }
+        const opt = document.createElement("option");
+        opt.value = s.id;
+        opt.textContent = display;
+        select.appendChild(opt);
+      }
+    }
+
+    function renderSong(songId) {
+      if (!songId) {
+        Plotly.purge("chart");
+        document.getElementById("chart").textContent = "";
+        return;
+      }
+      const s = SONGS.find(x => x.id === songId) || SONGS[0];
+
+      // Build step trace arrays with key changes only when confidence >= 0.5
+      // Keep the same key (height) until confidence >= 0.5, then change to the new key
+      const xStep = [];
+      const yStep = [];
+
+      // Determine effective key for each point based on confidence
+      // For drawing the line: keep previous key height until confidence >= 0.5
+      // For markers: use detected key at each point (shown at detected key position for low confidence)
+      const effectiveKeysForLine = []; // For drawing the step line (transitions only when confidence >= 0.5)
+      const markerKeys = []; // For marker positions (use detected key at each point)
+      let currentKey = s.key_y[0] || "N/A"; // Start with first key
+
+      for (let i = 0; i < s.x.length; i++) {
+        const conf = s.conf && s.conf[i] != null ? s.conf[i] : 1.0;
+        const detectedKey = s.key_y[i] || currentKey;
+        
+        // Check if there's a next key (potential modulation)
+        const nextKey = s.next_key && s.next_key[i] != null ? s.next_key[i] : null;
+        const nextConf = s.next_key_conf && s.next_key_conf[i] != null ? s.next_key_conf[i] : null;
+
+        // For line: only change key when current confidence >= 0.5
+        // If next_key exists and its confidence >= 0.5, we can consider modulation at next point
+        if (conf >= 0.5) {
+          currentKey = detectedKey;
+        }
+        effectiveKeysForLine.push(currentKey);
+
+        // For markers: always use detected key
+        markerKeys.push(detectedKey);
+      }
+
+      // Build step graph with effective keys for line
+      // The line follows effectiveKeysForLine (only changes when confidence >= 0.5)
+      for (let i = 0; i < s.x.length; i++) {
+        xStep.push(s.x[i]);
+        yStep.push(effectiveKeysForLine[i]);
+      }
+
+      // Create separate traces for high and low confidence markers
+      const highConfX = [];
+      const highConfY = [];
+      const highConfHover = [];
+      const lowConfX = [];
+      const lowConfY = [];
+      const lowConfHover = [];
+
+      for (let i = 0; i < s.x.length; i++) {
+        const conf = s.conf && s.conf[i] != null ? s.conf[i] : 1.0;
+        if (conf <= 0.5) {
+          // Low confidence: marker at detected key position
+          lowConfX.push(s.x[i]);
+          lowConfY.push(markerKeys[i]);
+          lowConfHover.push(s.hover[i]);
+        } else {
+          // High confidence: marker at effective key position (same as line)
+          highConfX.push(s.x[i]);
+          highConfY.push(effectiveKeysForLine[i]);
+          highConfHover.push(s.hover[i]);
+        }
+      }
+
+      const traceStep = {
+        x: xStep,
+        y: yStep,
+        text: s.hover,
+        hoverinfo: "text",
+        mode: "lines",
+        line: {
+          shape: "hv",
+          width: 2,
+          color: "rgba(31,119,180,0.95)", // Blue line for all segments
+        },
+        name: "key (estimated)",
+      };
+
+      const traceHighConfMarkers = {
+        x: highConfX,
+        y: highConfY,
+        text: highConfHover,
+        hoverinfo: "text",
+        mode: "markers",
+        marker: {
+          size: 7,
+          color: "rgba(31,119,180,0.95)", // Blue markers
+          line: { width: 0 },
+        },
+        name: "key (high confidence)",
+        showlegend: false,
+      };
+
+      const traceLowConfMarkers = {
+        x: lowConfX,
+        y: lowConfY,
+        text: lowConfHover,
+        hoverinfo: "text",
+        mode: "markers",
+        marker: {
+          size: 7,
+          color: "rgba(255,255,0,0.95)", // Yellow markers
+          line: { width: 0 },
+        },
+        name: "key (low confidence)",
+        showlegend: false,
+      };
+
+      // Draw lyrics as annotations with emotion-colored background.
+      const ann = [];
+      const vals = s.x_label_vals || [];
+      const texts = s.x_label_text || [];
+      const bgs = s.x_label_bg || [];
+      for (let i = 0; i < vals.length; i++) {
+        ann.push({
+          x: vals[i],
+          y: -0.25,
+          xref: "x",
+          yref: "paper",
+          text: texts[i] || "",
+          textangle: 90,
+          showarrow: false,
+          // Center-align labels to the same x as markers to avoid visual "shift".
+          xanchor: "center",
+          yanchor: "top",
+          align: "center",
+          bgcolor: bgs[i] || "rgba(255,255,255,0.9)",
+          opacity: 0.85,
+          bordercolor: "rgba(0,0,0,0.08)",
+          borderwidth: 1,
+          font: { size: 10, color: "#111" }
+        });
+      }
+
+      const layout = {
+        title: { text: (s.has_modulation ? "★" : "") + s.label, x: 0.02, xanchor: "left" },
+        xaxis: {
+          title: "section index",
+          zeroline: false,
+          showticklabels: false
+        },
+        yaxis: { title: "key (estimated)" },
+        margin: { l: 60, r: 20, t: 60, b: 320 },
+        annotations: ann,
+        hovermode: "closest"
+      };
+
+      Plotly.react("chart", [traceStep, traceHighConfMarkers, traceLowConfMarkers], layout, {displayModeBar: true});
+    }
+
+    select.addEventListener("change", (e) => {
+      const id = e.target.value;
+      // Update URL so it can be shared/bookmarked.
+      const params = new URLSearchParams(window.location.search);
+      if (id) {
+        params.set("spotify_id", id);
+      } else {
+        params.delete("spotify_id");
+      }
+      const newUrl = window.location.pathname + (params.toString() ? ("?" + params.toString()) : "");
+      window.history.replaceState(null, "", newUrl);
+      renderSong(id);
+    });
+    filterInput.addEventListener("input", (e) => {
+      const prev = select.value;
+      populate(e.target.value);
+      // keep selection if still present; otherwise render first option
+      if (prev && Array.from(select.options).some(o => o.value === prev)) {
+        select.value = prev;
+        renderSong(prev);
+      } else {
+        select.value = "";
+        renderSong("");
+      }
+    });
+
+    async function boot() {
+      try {
+        const res = await fetch(DATA_URL, {cache: "no-store"});
+        SONGS = await res.json();
+        if (!Array.isArray(SONGS) || SONGS.length === 0) {
+          throw new Error("No songs in data");
+        }
+        populate("");
+        // If URL has ?spotify_id=..., auto-select and render.
+        const params = new URLSearchParams(window.location.search);
+        const initialId = params.get("spotify_id") || "";
+        if (initialId && Array.from(select.options).some(o => o.value === initialId)) {
+          select.value = initialId;
+          renderSong(initialId);
+        } else {
+          // Do not render until user selects a song
+          select.value = "";
+        }
+      } catch (e) {
+        document.getElementById("chart").textContent =
+          "Failed to load data (" + String(e) + ").\n" +
+          "If you opened this HTML as file://, use a local server instead.\n" +
+          "Example: cd vis_system_modulation && python -m http.server 8000";
+      }
+    }
+    boot();
+  </script>
+</body>
+</html>

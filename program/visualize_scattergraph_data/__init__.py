@@ -1,8 +1,7 @@
 """
-Scatter-plot data generators (MDS / t-SNE / UMAP) for the visualization system.
+Scatter-plot data generators (t-SNE / UMAP) for the visualization system.
 """
 
-from .mds_visualization import main as visualize_mds  # noqa: F401
 from .tsne_visualization import main as visualize_tsne  # noqa: F401
 
 try:
@@ -13,7 +12,6 @@ except Exception:
     UMAP_AVAILABLE = False
 
 __all__ = [
-    "visualize_mds",
     "visualize_tsne",
     "visualize_umap",
     "UMAP_AVAILABLE",

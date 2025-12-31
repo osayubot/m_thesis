@@ -98,6 +98,8 @@ def _build_series(song: Dict[str, Any]) -> Optional[Dict[str, Any]]:
     key_y: List[str] = []
     hover: List[str] = []
     confs: List[float] = []
+    next_keys: List[Optional[str]] = []
+    next_key_confs: List[Optional[float]] = []
     lyrics_short: List[str] = []
     lyric_bg: List[str] = []
     has_modulation = False
@@ -136,6 +138,46 @@ def _build_series(song: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         except Exception:
             conf_f = None
 
+        # Check for modulation to next section
+        # Set next_key and next_key_conf if next section exists and key is different (potential modulation)
+        next_key_norm = None
+        next_conf_f = None
+        if i + 1 < len(secs):
+            next_sec = secs[i + 1]
+            if isinstance(next_sec, dict):
+                # First, try to use the next section's key field
+                next_key = next_sec.get("key", "")
+                next_key_normalized = normalize_key_label(next_key) if next_key else None
+                
+                # If next section's key is different from current key, use it
+                if next_key_normalized and key_norm and next_key_normalized != key_norm:
+                    next_key_norm = next_key_normalized
+                    next_conf = next_sec.get("key_confidence", None)
+                    try:
+                        next_conf_f = float(next_conf) if next_conf is not None else None
+                    except Exception:
+                        next_conf_f = None
+                # If keys are the same but we want to detect potential modulation from chord progression,
+                # check if normalized_chord_progression suggests a different key
+                elif next_key_normalized == key_norm:
+                    # Check normalized_chord_progression for potential key hint
+                    normalized_prog = next_sec.get("normalized_chord_progression", [])
+                    if normalized_prog and isinstance(normalized_prog, list) and len(normalized_prog) > 0:
+                        # Take the last chord from normalized progression as potential next key
+                        last_chord = normalized_prog[-1]
+                        if last_chord and last_chord not in ["N.C.", ""]:
+                            # Try to normalize the chord (remove extensions like m7, maj7, etc.)
+                            last_chord_base = last_chord.replace("m7", "").replace("7", "").replace("maj7", "").replace("M7", "").replace("dim", "").replace("aug", "").strip()
+                            if last_chord_base and last_chord_base != key_norm:
+                                # Check if it's a valid key (simple check: length 1-2 chars, starts with A-G)
+                                if len(last_chord_base) <= 2 and last_chord_base[0] in "ABCDEFG":
+                                    next_key_norm = last_chord_base
+                                    next_conf = next_sec.get("key_confidence", None)
+                                    try:
+                                        next_conf_f = float(next_conf) if next_conf is not None else None
+                                    except Exception:
+                                        next_conf_f = None
+
         lyric = (sec.get("lyric") or "").replace("\n", " ").strip()
         if len(lyric) > 60:
             lyric = lyric[:60] + "…"
@@ -143,6 +185,8 @@ def _build_series(song: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         # x-axis uses section index (uniform spacing)
         x.append(int(i))
         key_y.append(key_norm or key or "N/A")
+        next_keys.append(next_key_norm)
+        next_key_confs.append(next_conf_f)
         lyrics_short.append(lyric)
         lyric_bg.append(_emotion_to_color(sec.get("emotion")))
         # track if this song ever modulates (index >= 1)
@@ -180,6 +224,8 @@ def _build_series(song: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "x_label_bg": lyric_bg,
         "hover": hover,
         "conf": confs,
+        "next_key": next_keys,  # Next key if different (potential modulation)
+        "next_key_conf": next_key_confs,  # Confidence of next key
     }
 
 
@@ -248,20 +294,64 @@ HTML_TEMPLATE = """<!doctype html>
       }}
       const s = SONGS.find(x => x.id === songId) || SONGS[0];
 
-      // Build step trace arrays, but BREAK the blue line where we draw transition overlay.
-      // This hides the blue segment on intervals that are flagged as transition.
+      // Build step trace arrays with key changes only when confidence >= 0.5
+      // Keep the same key (height) until confidence >= 0.5, then change to the new key
       const xStep = [];
       const yStep = [];
+
+      // Determine effective key for each point based on confidence
+      // For drawing the line: keep previous key height until confidence >= 0.5
+      // For markers: use detected key at each point (shown at detected key position for low confidence)
+      const effectiveKeysForLine = []; // For drawing the step line (transitions only when confidence >= 0.5)
+      const markerKeys = []; // For marker positions (use detected key at each point)
+      let currentKey = s.key_y[0] || "N/A"; // Start with first key
+
+      for (let i = 0; i < s.x.length; i++) {{
+        const conf = s.conf && s.conf[i] != null ? s.conf[i] : 1.0;
+        const detectedKey = s.key_y[i] || currentKey;
+        
+        // Check if there's a next key (potential modulation)
+        const nextKey = s.next_key && s.next_key[i] != null ? s.next_key[i] : null;
+        const nextConf = s.next_key_conf && s.next_key_conf[i] != null ? s.next_key_conf[i] : null;
+
+        // For line: only change key when current confidence >= 0.5
+        // If next_key exists and its confidence >= 0.5, we can consider modulation at next point
+        if (conf >= 0.5) {{
+          currentKey = detectedKey;
+        }}
+        effectiveKeysForLine.push(currentKey);
+
+        // For markers: always use detected key
+        markerKeys.push(detectedKey);
+      }}
+
+      // Build step graph with effective keys for line
+      // The line follows effectiveKeysForLine (only changes when confidence >= 0.5)
       for (let i = 0; i < s.x.length; i++) {{
         xStep.push(s.x[i]);
-        yStep.push(s.key_y[i]);
-        if (i < s.x.length - 1) {{
-          const c0 = (s.conf && s.conf[i] != null) ? s.conf[i] : 1.0;
-          const c1 = (s.conf && s.conf[i+1] != null) ? s.conf[i+1] : 1.0;
-          if (c0 < 0.999 || c1 < 0.999) {{
-            xStep.push(null);
-            yStep.push(null);
-          }}
+        yStep.push(effectiveKeysForLine[i]);
+      }}
+
+      // Create separate traces for high and low confidence markers
+      const highConfX = [];
+      const highConfY = [];
+      const highConfHover = [];
+      const lowConfX = [];
+      const lowConfY = [];
+      const lowConfHover = [];
+
+      for (let i = 0; i < s.x.length; i++) {{
+        const conf = s.conf && s.conf[i] != null ? s.conf[i] : 1.0;
+        if (conf <= 0.5) {{
+          // Low confidence: marker at detected key position
+          lowConfX.push(s.x[i]);
+          lowConfY.push(markerKeys[i]);
+          lowConfHover.push(s.hover[i]);
+        }} else {{
+          // High confidence: marker at effective key position (same as line)
+          highConfX.push(s.x[i]);
+          highConfY.push(effectiveKeysForLine[i]);
+          highConfHover.push(s.hover[i]);
         }}
       }}
 
@@ -270,34 +360,43 @@ HTML_TEMPLATE = """<!doctype html>
         y: yStep,
         text: s.hover,
         hoverinfo: "text",
-        mode: "lines+markers",
-        line: {{ shape: "hv", width: 2 }},
-        marker: {{
-          size: 7,
-          color: (s.conf || []).map(c => (c < 0.999 ? "rgba(255,140,0,0.95)" : "rgba(31,119,180,0.95)")),
-          line: {{ width: 0 }}
+        mode: "lines",
+        line: {{
+          shape: "hv",
+          width: 2,
+          color: "rgba(31,119,180,0.95)", // Blue line for all segments
         }},
-        name: "key (estimated)"
+        name: "key (estimated)",
       }};
 
-      // Overlay: draw diagonal/dotted segments where confidence is not 1.0
-      const xLin = [];
-      const yLin = [];
-      for (let i = 0; i < s.x.length - 1; i++) {{
-        const c0 = (s.conf && s.conf[i] != null) ? s.conf[i] : 1.0;
-        const c1 = (s.conf && s.conf[i+1] != null) ? s.conf[i+1] : 1.0;
-        if (c0 < 0.999 || c1 < 0.999) {{
-          xLin.push(s.x[i], s.x[i+1], null);
-          yLin.push(s.key_y[i], s.key_y[i+1], null);
-        }}
-      }}
-      const traceTransition = {{
-        x: xLin,
-        y: yLin,
-        mode: "lines",
-        hoverinfo: "skip",
-        line: {{ shape: "linear", width: 3, color: "rgba(255,140,0,0.9)" }},
-        name: "transition (confidence<1)"
+      const traceHighConfMarkers = {{
+        x: highConfX,
+        y: highConfY,
+        text: highConfHover,
+        hoverinfo: "text",
+        mode: "markers",
+        marker: {{
+          size: 7,
+          color: "rgba(31,119,180,0.95)", // Blue markers
+          line: {{ width: 0 }},
+        }},
+        name: "key (high confidence)",
+        showlegend: false,
+      }};
+
+      const traceLowConfMarkers = {{
+        x: lowConfX,
+        y: lowConfY,
+        text: lowConfHover,
+        hoverinfo: "text",
+        mode: "markers",
+        marker: {{
+          size: 7,
+          color: "rgba(255,255,0,0.95)", // Yellow markers
+          line: {{ width: 0 }},
+        }},
+        name: "key (low confidence)",
+        showlegend: false,
       }};
 
       // Draw lyrics as annotations with emotion-colored background.
@@ -339,7 +438,7 @@ HTML_TEMPLATE = """<!doctype html>
         hovermode: "closest"
       }};
 
-      Plotly.react("chart", [traceStep, traceTransition], layout, {{displayModeBar: true}});
+      Plotly.react("chart", [traceStep, traceHighConfMarkers, traceLowConfMarkers], layout, {{displayModeBar: true}});
     }}
 
     select.addEventListener("change", (e) => {{

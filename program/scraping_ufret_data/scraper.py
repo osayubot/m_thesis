@@ -60,15 +60,20 @@ class MusicScraper:
             # ページを読み込む（DOMContentLoadedまで待つ）
             self.page.goto(url, wait_until="domcontentloaded", timeout=20000)
             
-            # コード譜要素が表示されるまで待つ（最大10秒）
+            # コード譜要素が表示されるまで待つ（最大3秒に短縮）
             try:
-                self.page.wait_for_selector('#my-chord-data', timeout=10000, state='attached')
+                self.page.wait_for_selector('#my-chord-data', timeout=3000, state='attached')
             except Exception:
-                # 要素が見つからない場合でも続行（後でチェック）
-                pass
+                # 要素が見つからない場合は早期チェックして終了
+                html_content = self.page.content()
+                soup = BeautifulSoup(html_content, 'html.parser')
+                chord_element = soup.find(id='my-chord-data')
+                if not chord_element:
+                    print("コード譜要素が見つかりませんでした。")
+                    return None
             
             # 少し待機してJavaScriptの実行を待つ（必要に応じて）
-            self.page.wait_for_timeout(1000)
+            self.page.wait_for_timeout(500)  # 1秒から0.5秒に短縮
             
             # HTMLを取得
             html_content = self.page.content()

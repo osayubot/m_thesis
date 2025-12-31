@@ -4,6 +4,7 @@
 from __future__ import annotations
 import json
 import re
+import time
 from pathlib import Path
 from .chord_normalization import normalize_key_label, normalize_chord, normalize_root, split_key_label, ROOT_TO_IDX, ROOTS_12
 from .transposition import transpose_key, semitone_diff
@@ -184,6 +185,20 @@ def save_song_with_keys(song_json, output_dir: str, create_subdirs: bool = True)
     
     return output_file
 
+def format_time(seconds: float) -> str:
+    """秒数を読みやすい形式に変換"""
+    if seconds < 60:
+        return f"{seconds:.1f}秒"
+    elif seconds < 3600:
+        minutes = int(seconds // 60)
+        secs = seconds % 60
+        return f"{minutes}分{secs:.1f}秒"
+    else:
+        hours = int(seconds // 3600)
+        minutes = int((seconds % 3600) // 60)
+        secs = seconds % 60
+        return f"{hours}時間{minutes}分{secs:.1f}秒"
+
 def process_and_save_songs_with_keys(input_dir: str, output_dir: str, vec_all, clf, 
                                      W=16, H=4, switch_penalty=4.0, 
                                      min_chords=12, max_songs=None, use_jtotal_new=False, use_ufret_transposed=False, use_ufret=True):
@@ -200,7 +215,16 @@ def process_and_save_songs_with_keys(input_dir: str, output_dir: str, vec_all, c
     if max_songs:
         paths = paths[:max_songs]
     
-    for p in paths:
+    total_songs = len(paths)
+    start_time = time.time()
+    processing_times = []  # 各曲の処理時間を記録
+    
+    print(f"\n{'='*60}")
+    print(f"処理開始: {total_songs}曲を処理します")
+    print(f"{'='*60}\n")
+    
+    for idx, p in enumerate(paths, 1):
+        song_start_time = time.time()
         try:
             data = json.loads(p.read_text(encoding="utf-8"))
             songs = data if isinstance(data, list) else [data]
@@ -259,9 +283,43 @@ def process_and_save_songs_with_keys(input_dir: str, output_dir: str, vec_all, c
                 save_song_with_keys(song_copy, output_dir)
                 stats["processed"] += 1
                 
+                # 処理時間を記録
+                song_time = time.time() - song_start_time
+                processing_times.append(song_time)
+                
+                # 進捗と推定時間を表示
+                elapsed_time = time.time() - start_time
+                avg_time = sum(processing_times) / len(processing_times) if processing_times else 0
+                remaining_songs = total_songs - idx
+                estimated_remaining = avg_time * remaining_songs if avg_time > 0 else 0
+                estimated_total = elapsed_time + estimated_remaining
+                
+                print(f"[{idx}/{total_songs}] 処理完了: {song.get('title', 'Unknown')} / {song.get('artist', 'Unknown')}")
+                print(f"  この曲の処理時間: {format_time(song_time)}")
+                print(f"  経過時間: {format_time(elapsed_time)}")
+                if remaining_songs > 0 and avg_time > 0:
+                    print(f"  推定残り時間: {format_time(estimated_remaining)}")
+                    print(f"  推定合計時間: {format_time(estimated_total)}")
+                print()
+                
         except Exception as e:
             print(f"Error processing {p}: {e}")
             stats["errors"] += 1
+            # エラーでも時間を記録（処理時間として）
+            song_time = time.time() - song_start_time
+            processing_times.append(song_time)
+    
+    total_time = time.time() - start_time
+    print(f"\n{'='*60}")
+    print(f"処理完了!")
+    print(f"  処理済み: {stats['processed']}曲")
+    print(f"  スキップ: {stats['skipped']}曲")
+    print(f"  エラー: {stats['errors']}曲")
+    print(f"  合計処理時間: {format_time(total_time)}")
+    if processing_times:
+        avg_time = sum(processing_times) / len(processing_times)
+        print(f"  平均処理時間/曲: {format_time(avg_time)}")
+    print(f"{'='*60}\n")
     
     return stats
 

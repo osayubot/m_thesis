@@ -35,7 +35,14 @@ def main(argv: list[str] | None = None) -> None:
     default_data_dir = str(script_dir / "data" / "analyzed")
 
     data_dir = argv[1] if len(argv) > 1 else default_data_dir
-    max_files = int(argv[2]) if len(argv) > 2 else None
+    if len(argv) > 2:
+        max_files_str = argv[2].lower()
+        if max_files_str in ['none', 'null']:
+            max_files = None
+        else:
+            max_files = int(max_files_str)
+    else:
+        max_files = None
     method = argv[3].lower() if len(argv) > 3 else "all"
 
     print("=" * 60)

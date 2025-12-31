@@ -19,8 +19,8 @@ except ImportError:
 from .musical_distance import compute_distance_matrix, circular_distance
 from ..analyze_data.roman_numeral import section_to_roman_progression
 
-# mds_visualization.pyから共通の関数・定数をインポート
-from .mds_visualization import (
+# common.pyから共通の関数・定数をインポート
+from .common import (
     REFERENCE_PROGRESSIONS,
     REFERENCE_COLORS,
     EMOTION_COLORS,
@@ -29,7 +29,8 @@ from .mds_visualization import (
     extract_chord_progressions_with_lyrics,
     compute_distance_vectors,
     is_same_progression,
-    export_to_json_format
+    export_to_json_format,
+    add_reference_progressions
 )
 
 # UMAP用のファイル名マッピング
@@ -192,11 +193,35 @@ def main(
         print("No chord progressions found!")
         return
     
-    # 歌詞が少ないコード進行を除外
-    progressions_data = [p for p in progressions_data if len(p['lyrics']) > 0]
-    print(f"After filtering (with lyrics): {len(progressions_data)} progressions")
+    # 基準進行を空のデータとして追加（UMAP計算に含めるため）
+    # データに存在しない基準進行も、空のデータポイントとして追加され、
+    # UMAPの座標計算に含まれます。散布図上では星（⭐）として表示されます。
+    print("\nAdding reference progressions as empty data points...")
+    if reference_progressions is None:
+        reference_progressions = REFERENCE_PROGRESSIONS
+    progressions_data = add_reference_progressions(progressions_data, reference_progressions)
+    print(f"Total progressions (including references): {len(progressions_data)}")
     
-    if len(progressions_data) < 2:
+    # 歌詞が少ないコード進行を除外
+    # ただし、基準進行（isReferenceProgression=True）は必ず含める
+    progressions_data_with_lyrics = [p for p in progressions_data if len(p.get('lyrics', [])) > 0 or p.get('isReferenceProgression', False)]
+    print(f"After filtering (with lyrics or reference): {len(progressions_data_with_lyrics)} progressions")
+    
+    # 基準進行は必ず含める（制限は削除）
+    # 注意: 以前はテスト用に100個に制限していましたが、全データを使用するように変更しました
+    reference_progs = [p for p in progressions_data_with_lyrics if p.get('isReferenceProgression', False)]
+    non_reference_progs = [p for p in progressions_data_with_lyrics if not p.get('isReferenceProgression', False)]
+    
+    # 制限を削除: 全データを使用
+    # if len(non_reference_progs) > 100:
+    #     print(f"Limiting to 100 progressions (from {len(non_reference_progs)})")
+    #     import random
+    #     random.seed(42)  # 再現性のためシードを固定
+    #     sampled_progs = random.sample(non_reference_progs, 100)
+    #     progressions_data_with_lyrics = reference_progs + sampled_progs
+    #     print(f"Limited to {len(progressions_data_with_lyrics)} progressions (including {len(reference_progs)} references)")
+    
+    if len(progressions_data_with_lyrics) < 2:
         print("Not enough progressions for UMAP!")
         return
     
@@ -211,9 +236,9 @@ def main(
         print("Computing UMAP coordinates from direct distance matrix...")
         print(f"{'='*60}")
         
-        # 直接距離行列を使ってUMAP座標を計算
+        # 直接距離行列を使ってUMAP座標を計算（基準進行も含む）
         coordinates = compute_umap_coordinates(
-            progressions_data,
+            progressions_data_with_lyrics,
             n_components=2,
             n_neighbors=n_neighbors,
             min_dist=min_dist
@@ -228,7 +253,7 @@ def main(
         
         print(f"Exporting JSON to {json_output_path}...")
         export_to_json_format(
-            progressions_data,
+            progressions_data_with_lyrics,
             coordinates,
             songs_list,
             json_output_path,

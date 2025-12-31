@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>感情値の分布</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 40px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .stats {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .stats table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .stats td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .stats td:first-child {
+            font-weight: bold;
+            width: 200px;
+        }
+        .histogram {
+            margin: 30px 0;
+        }
+        .bar-container {
+            display: flex;
+            align-items: flex-end;
+            height: 400px;
+            margin: 20px 0;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            padding: 10px;
+        }
+        .bar {
+            flex: 1;
+            margin: 0 2px;
+            background: linear-gradient(to top, #4a90e2, #5ba3f5);
+            position: relative;
+            border-radius: 4px 4px 0 0;
+            min-width: 60px;
+        }
+        .bar-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: #333;
+            white-space: nowrap;
+        }
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+        .threshold-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: red;
+            opacity: 0.7;
+        }
+        .legend {
+            margin-top: 40px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        .legend-item {
+            margin: 10px 0;
+            padding: 5px;
+        }
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>歌詞の感情値の分布 (0.1刻み)</h1>
+        
+        <div class="stats">
+            <h2>統計情報</h2>
+            <table>
+                <tr><td>総データ数</td><td>292,904</td></tr>
+                <tr><td>平均値</td><td>0.405</td></tr>
+                <tr><td>中央値</td><td>0.428</td></tr>
+                <tr><td>標準偏差</td><td>0.229</td></tr>
+                <tr><td>最小値</td><td>0.000</td></tr>
+                <tr><td>最大値</td><td>0.911</td></tr>
+            </table>
+        </div>
+        
+        <div class="histogram">
+            <h2>ヒストグラム</h2>
+            <div class="bar-container">
+
+                <div class="bar" style="height: 86.06393962049201%;">
+                    <div class="bar-value">48,349</div>
+                    <div class="bar-label">0.0-0.1</div>
+                </div>
+    
+                <div class="bar" style="height: 2.62736302467158%;">
+                    <div class="bar-value">1,476</div>
+                    <div class="bar-label">0.1-0.2</div>
+                </div>
+    
+                <div class="bar" style="height: 49.636868525045394%;">
+                    <div class="bar-value">27,885</div>
+                    <div class="bar-label">0.2-0.3</div>
+                </div>
+    
+                <div class="bar" style="height: 93.056000569618%;">
+                    <div class="bar-value">52,277</div>
+                    <div class="bar-label">0.3-0.4</div>
+                </div>
+    
+                <div class="bar" style="height: 100.0%;">
+                    <div class="bar-value">56,178</div>
+                    <div class="bar-label">0.4-0.5</div>
+                </div>
+    
+                <div class="bar" style="height: 82.21367795222328%;">
+                    <div class="bar-value">46,186</div>
+                    <div class="bar-label">0.5-0.6</div>
+                </div>
+    
+                <div class="bar" style="height: 61.15205240485599%;">
+                    <div class="bar-value">34,354</div>
+                    <div class="bar-label">0.6-0.7</div>
+                </div>
+    
+                <div class="bar" style="height: 38.009541101498804%;">
+                    <div class="bar-value">21,353</div>
+                    <div class="bar-label">0.7-0.8</div>
+                </div>
+    
+                <div class="bar" style="height: 8.610132080173734%;">
+                    <div class="bar-value">4,837</div>
+                    <div class="bar-label">0.8-0.9</div>
+                </div>
+    
+                <div class="bar" style="height: 0.016020506247997435%;">
+                    <div class="bar-value">9</div>
+                    <div class="bar-label">0.9-1.0</div>
+                </div>
+    
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h2>閾値別の通過率</h2>
+
+            <div class="legend-item">
+                <span class="legend-color" style="background: #4CAF50;"></span>
+                >= 0.3: 215,666 (73.6%)
+            </div>
+    
+            <div class="legend-item">
+                <span class="legend-color" style="background: #FF9800;"></span>
+                >= 0.4: 162,917 (55.6%)
+            </div>
+    
+            <div class="legend-item">
+                <span class="legend-color" style="background: #F44336;"></span>
+                >= 0.5: 106,739 (36.4%)
+            </div>
+    
+            <div class="legend-item">
+                <span class="legend-color" style="background: #9C27B0;"></span>
+                >= 0.6: 60,942 (20.8%)
+            </div>
+    
+            <div class="legend-item">
+                <span class="legend-color" style="background: #795548;"></span>
+                >= 0.7: 26,508 (9.1%)
+            </div>
+    
+        </div>
+    </div>
+</body>
+</html>

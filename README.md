@@ -88,11 +88,11 @@ for spotify_id in jtotal_data.keys():
 
 可視化の品質を確保するため、以下の条件でデータをフィルタリングしている：
 
-| 条件             | 値           | 根拠                                       |
-| ---------------- | ------------ | ------------------------------------------ |
-| **コード進行長** | 4 コード     | 最も一般的な小節構造（4/4 拍子 × 4 小節）  |
-| **最小コード数** | 12 以上      | 楽曲全体で 12 コード以上（キー推定に必要） |
-| **感情閾値**     | 最大値 ≥ 0.5 | BERT の出力が低すぎる場合はノイズとみなす  |
+| 条件             | 値            | 根拠                                                                |
+| ---------------- | ------------- | ------------------------------------------------------------------- |
+| **コード進行長** | 4 コード      | 最も一般的な小節構造（4/4 拍子 × 4 小節）                           |
+| **最小コード数** | 12 以上       | 楽曲全体で 12 コード以上（キー推定に必要）                          |
+| **感情閾値**     | 最大値 ≥ 0.55 | BERT の出力が低すぎる場合はノイズとみなす（高品質なデータのみ抽出） |
 
 #### 1.5 なぜ 4 コード進行なのか
 
@@ -820,31 +820,26 @@ TF-IDF ベクトル化:
 │   │   ├── key_assignment.py   # キー推定
 │   │   └── transposition.py    # 移調処理
 │   ├── visualize_scattergraph_data/  # 散布図データ生成（MDS/t-SNE/UMAP）
-│   ├── visualize_modulation_data/ # 転調（modulation_index）可視化データ生成
-│   ├── visualize_scattergraph_data/  # 散布図（MDS/t-SNE/UMAP）データ生成
+│   │   ├── mds_visualization.py  # MDS可視化
+│   │   ├── umap_visualization.py # UMAP可視化
+│   │   ├── tsne_visualization.py # t-SNE可視化
+│   │   └── musical_distance.py   # 音楽的距離計算
+│   ├── visualize_scattergraph2_data/ # 感情別散布図データ生成（MDS/t-SNE/UMAP）
 │   └── visualize_modulation_data/ # 転調（modulation_index）可視化データ生成
-│       ├── mds_visualization.py  # MDS可視化
-│       ├── umap_visualization.py # UMAP可視化
-│       ├── tsne_visualization.py # t-SNE可視化
-│       └── musical_distance.py   # 音楽的距離計算
 ├── data/
 │   ├── jtotal/                 # J-Total Musicのデータ
 │   ├── ufret/                  # U-FRETのデータ
 │   ├── combined/               # 結合データ
 │   └── analyzed/               # 分析済みデータ
-├── vis_system/scattergraph/    # 散布図 可視化Webアプリケーション
-├── vis_system_modulation/      # 転調（modulation_index）可視化HTML
-│   ├── index.html              # メインページ
-│   └── data/                   # 可視化用JSONデータ
-│       ├── mds_odo_pie_data.json     # MDS - 王道進行ベース
-│       ├── mds_komuro_pie_data.json  # MDS - 小室進行ベース
-│       ├── mds_marusa_pie_data.json  # MDS - 丸サ進行ベース
-│       ├── umap_odo_pie_data.json    # UMAP - 王道進行ベース
-│       ├── umap_komuro_pie_data.json # UMAP - 小室進行ベース
-│       ├── umap_marusa_pie_data.json # UMAP - 丸サ進行ベース
-│       ├── tsne_odo_pie_data.json    # t-SNE - 王道進行ベース
-│       ├── tsne_komuro_pie_data.json # t-SNE - 小室進行ベース
-│       └── tsne_marusa_pie_data.json # t-SNE - 丸サ進行ベース
+├── vis_system/
+│   ├── scattergraph/           # 散布図可視化Webアプリケーション（基準進行ベース）
+│   │   ├── index.html          # メインページ
+│   │   └── data/               # 可視化用JSONデータ
+│   │       ├── umap_pie_data.json    # UMAP - all
+│   │       ├── tsne_pie_data.json    # t-SNE - all
+│   └── modulation/             # 転調（modulation_index）可視化HTML
+│       ├── index.html          # メインページ
+│       └── modulation_index_data.json  # 可視化用JSONデータ
 ├── run_*.py                    # 各処理のエントリーポイント
 ├── requirements.txt            # 依存パッケージ
 └── .env                        # 環境変数（API認証情報）
@@ -900,8 +895,11 @@ python run_combine_data.py
 # 5. データ分析（感情分析・コード進行分析）
 python run_analyze_data.py
 
-# 6. 可視化データ生成（MDS + UMAP + t-SNE）
+# 6. 可視化データ生成（基準進行ベース：MDS + UMAP + t-SNE）
 python run_visualize_scattergraph_data.py
+
+# 7. 感情別可視化データ生成（感情別：MDS + UMAP + t-SNE）
+python run_visualize_scattergraph2_data.py
 ```
 
 ### 可視化データ生成の詳細オプション
@@ -925,16 +923,66 @@ python run_visualize_scattergraph_data.py data/analyzed 100 umap
 # t-SNE のみ生成
 python run_visualize_scattergraph_data.py data/analyzed 100 tsne
 
-転調（`modulation_index`）の階段グラフHTML生成:
-
+# 転調（`modulation_index`）の階段グラフHTML生成:
 python run_visualize_modulation_data.py data/analyzed vis_system/modulation/modulation_index.html
 ```
 
-| 引数        | 説明                                 | デフォルト      |
-| ----------- | ------------------------------------ | --------------- |
-| `data_dir`  | 分析済みデータのディレクトリ         | `data/analyzed` |
-| `max_files` | 処理する最大ファイル数               | 無制限          |
-| `method`    | 手法（`mds`, `umap`, `tsne`, `all`） | `all`           |
+### 単一楽曲の再分析
+
+特定の楽曲のみを再分析する場合:
+
+```bash
+# 使用方法
+python run_analyze_single_song.py <spotify_id> [options]
+
+# 例
+python run_analyze_single_song.py 5XURwUMd9vo0YoFJXQ0feh
+
+# オプション指定
+python run_analyze_single_song.py 5XURwUMd9vo0YoFJXQ0feh \
+    --input_dir data/combined \
+    --output_dir data/analyzed \
+    --W 16 \
+    --H 4 \
+    --switch_penalty 4.0
+```
+
+| オプション         | 説明                   | デフォルト      |
+| ------------------ | ---------------------- | --------------- |
+| `spotify_id`       | 対象楽曲の Spotify ID  | （必須）        |
+| `--input_dir`      | 入力データディレクトリ | `data/combined` |
+| `--output_dir`     | 出力データディレクトリ | `data/analyzed` |
+| `--W`              | ウィンドウサイズ       | 16              |
+| `--H`              | ステップサイズ         | 4               |
+| `--switch_penalty` | 転調ペナルティ         | 4.0             |
+
+### 感情別可視化データ生成の詳細オプション
+
+```bash
+# 使用方法
+python run_visualize_scattergraph2_data.py [data_dir] [max_files] [method] [max_items]
+
+# 全手法で生成（デフォルト）
+python run_visualize_scattergraph2_data.py
+
+# 特定のディレクトリとファイル数を指定
+python run_visualize_scattergraph2_data.py data/analyzed 100
+
+# UMAP のみ生成
+python run_visualize_scattergraph2_data.py data/analyzed 100 umap
+
+# 感情ごとの最大アイテム数を制限（MDSのメモリ不足対策）
+python run_visualize_scattergraph2_data.py data/analyzed 100 all 5000
+```
+
+| 引数        | 説明                                   | デフォルト      |
+| ----------- | -------------------------------------- | --------------- |
+| `data_dir`  | 分析済みデータのディレクトリ           | `data/analyzed` |
+| `max_files` | 処理する最大ファイル数                 | 無制限          |
+| `method`    | 手法（`mds`, `umap`, `tsne`, `all`）   | `all`           |
+| `max_items` | 感情ごとの最大アイテム数（メモリ対策） | 10000           |
+
+**注意**: MDS はデータ量が多い場合メモリ不足で kill される可能性があります。その場合は `max_items` を減らすか、`umap` または `tsne` のみを指定してください。
 
 ### 可視化システムの起動
 
@@ -944,6 +992,15 @@ python3 -m http.server 8000
 ```
 
 ブラウザで `http://localhost:8000` を開く
+
+#### 感情別散布図可視化（scattergraph2）の起動
+
+```bash
+cd vis_system/scattergraph2
+python3 -m http.server 8002
+```
+
+ブラウザで `http://localhost:8002` を開く
 
 #### 転調（modulation_index）可視化の起動
 
@@ -997,13 +1054,36 @@ Spotify 人気度フィルタを活用することで、ヒット曲に共通す
 
 ### 選択可能なデータセット
 
+#### scattergraph（基準進行ベース可視化）
+
 | 手法      | 特徴                                     | データセット                   |
 | --------- | ---------------------------------------- | ------------------------------ |
 | **MDS**   | 大域的な距離関係を保持                   | 王道進行 / 小室進行 / 丸サ進行 |
 | **UMAP**  | 局所・大域のバランス、クラスタが見やすい | 王道進行 / 小室進行 / 丸サ進行 |
 | **t-SNE** | クラスタ分離に特化、パターン発見向け     | 王道進行 / 小室進行 / 丸サ進行 |
 
-### 円グラフの解釈
+#### scattergraph2（感情別可視化）
+
+感情ごとにコード進行を可視化するシステム。各感情（JOY、SADNESS、ANGER、FEAR、ANTICIPATION、SURPRISE、DISGUST、TRUST）におけるコード進行パターンの分布を分析できる。
+
+**特徴**:
+
+- 各コード進行は「王道進行」「小室進行」「丸サ進行」への距離に基づいて色分けされる
+  - **青（#0000ff）**: 王道進行に最も近い
+  - **赤（#ff0000）**: 小室進行に最も近い
+  - **緑（#00ff00）**: 丸サ進行に最も近い
+- 感情ごとに MDS/UMAP/t-SNE の 3 手法で可視化可能
+- 同じ感情を持つコード進行フレーズのみを表示するため、感情とコード進行の関係性を明確に分析できる
+
+**この可視化からわかること**:
+
+- 感情ごとに使われやすいコード進行パターンの違い
+- 感情表現とコード進行の関係性
+- 人気度・リリース年・アーティストによるコード進行パターンの傾向の違い
+
+詳細な説明は `vis_system/scattergraph2/EXPLAIN.md` を参照してください。
+
+### 円グラフの解釈（scattergraph）
 
 - **位置**: 次元削減後の座標（類似したコード進行が近くに配置）
 - **サイズ**: 該当する歌詞フレーズの数
@@ -1189,9 +1269,14 @@ Spotify 人気度フィルタを活用することで、ヒット曲に共通す
 - 収集したデータは研究目的でのみ使用すること
 - Spotify API 認証情報は`.env`ファイルで管理し、公開リポジトリにコミットしないこと
 
-# latex 作成
+# latex 作成方法
 
-cd thesis/output
+cd thesis/m-thesis/\*
 uplatex MSthesis.tex
 uplatex MSthesis.tex
 dvipdfmx MSthesis.dvi
+
+cd thesis/DEIM/\*
+uplatex main-j.tex
+uplatex main-j.tex # 相互参照を解決するため 2 回実行
+dvipdfmx main-j.dvi

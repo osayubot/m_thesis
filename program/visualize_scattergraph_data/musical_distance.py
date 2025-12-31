@@ -304,32 +304,19 @@ def musical_levenshtein_distance(
 
 def circular_distance(seq1: List[str], seq2: List[str], consider_tension: bool = True) -> float:
     """
-    循環性を考慮した距離（全回転を試して最小距離を返す）
+    距離計算（循環性の考慮は削除して計算時間を短縮）
     文脈調整は無効化（use_context=False）
+    
+    注意: 循環性を考慮しないため、同じ進行でも開始位置が違う場合（例: IV-V-iii-vi と V-iii-vi-IV）
+    は正確に比較できませんが、計算時間が約87.5%短縮されます。
     
     Args:
         seq1: コード進行1
         seq2: コード進行2
         consider_tension: テンションを考慮するか（デフォルト: True）
     """
-    if len(seq1) == 0 or len(seq2) == 0:
+    # 循環性の計算を削除して、直接距離を計算（約8倍高速化）
         return musical_levenshtein_distance(seq1, seq2, use_context=False, consider_tension=consider_tension)
-    
-    min_dist = float('inf')
-    
-    # seq1の全回転を試す
-    for i in range(len(seq1)):
-        rotated = seq1[i:] + seq1[:i]
-        dist = musical_levenshtein_distance(rotated, seq2, use_context=False, consider_tension=consider_tension)
-        min_dist = min(min_dist, dist)
-    
-    # seq2の全回転も試す（必要に応じて）
-    for i in range(len(seq2)):
-        rotated = seq2[i:] + seq2[:i]
-        dist = musical_levenshtein_distance(seq1, rotated, use_context=False, consider_tension=consider_tension)
-        min_dist = min(min_dist, dist)
-    
-    return min_dist
 
 def _compute_pair_distance(args: Tuple[int, int, List[str], List[str]]) -> Tuple[int, int, float]:
     """

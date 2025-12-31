@@ -9,8 +9,8 @@ import sys
 from program.scraping_ufret_data.main import main
 
 # 設定定数
-START_ID = 59712  # 開始ID
-END_ID = 188318   # 終了ID
+START_ID = 188743 # 開始ID
+END_ID = 189753  # 終了ID
 
 if __name__ == "__main__":
     # コマンドライン引数から処理件数を取得（指定がない場合は全件）

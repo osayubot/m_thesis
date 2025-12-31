@@ -1,10 +1,21 @@
 .cache
+cache/
 data/analyzed/*
 data/combined/*
 data/jtotal/*
 data/ufret/*
+related_research/*
 thesis/*
-__pycache__/*
+**/__pycache__/
+__pycache__/
+*.pyc
+__trash/*
+
+# 大きなデータファイル
+*.parquet
+vis_system/modulation/modulation_index_data.json
+vis_system/scattergraph_bertopic/data/topic_analysis.json
+vis_system/modulation_emotion/modulation_emotion_vectors.png
 
 # 環境変数ファイル（機密情報）
 .env

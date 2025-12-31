@@ -11,8 +11,7 @@ from .scraper import MusicScraper
 from .file_utils import save_to_json, is_file_exists
 
 # 設定定数
-START_ID = 59712  # 開始ID
-END_ID = 188318   # 終了ID
+# python run_scraping_ufret_data.py から実行する場合は、START_ID と END_ID をrun_scraping_ufret_data に指定する
 
 def main(max_items=500, start_id=1, end_id=188318):
     """

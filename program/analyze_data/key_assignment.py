@@ -10,7 +10,7 @@ from .data_extraction import (
 )
 from .transposition import estimate_transposition_shift, transpose_key, lyric_initial_match
 from .modulation import sliding_window_probs, viterbi_hmm, build_chord_index_map
-from .emotion_analysis import analyze_emotion
+from .emotion_analysis import analyze_emotion, add_emotion_to_sections
 
 def assign_keys_to_ufret_with_transposition(song_json, vec_all, clf, W=16, H=4, switch_penalty=4.0):
     """
@@ -98,14 +98,11 @@ def assign_keys_to_ufret_with_transposition(song_json, vec_all, clf, W=16, H=4, 
         analyzed_sec["key_confidence"] = round(float(conf), 3)
         analyzed_sec["lyric_match_quality"] = lyric_match
         
-        # Add emotion analysis
-        lyric = uf_sec.get("lyric", "")
-        emotion_scores = analyze_emotion(lyric)
-        if emotion_scores:
-            analyzed_sec["emotion"] = emotion_scores
-        
         analyzed_sections.append(analyzed_sec)
         flat_idx = section_end_idx
+    
+    # Add emotion analysis to all sections (batch processing)
+    analyzed_sections = add_emotion_to_sections(analyzed_sections)
     
     return analyzed_sections
 
@@ -184,14 +181,11 @@ def assign_keys_with_probabilities(song_json, vec_all, clf, W=16, H=4, switch_pe
             "end": section_end_idx
         }
         
-        # Add emotion analysis
-        lyric = sec.get("lyric", "")
-        emotion_scores = analyze_emotion(lyric)
-        if emotion_scores:
-            analyzed_sec["emotion"] = emotion_scores
-        
         analyzed_sections.append(analyzed_sec)
         flat_idx = section_end_idx
+    
+    # Add emotion analysis to all sections (batch processing)
+    analyzed_sections = add_emotion_to_sections(analyzed_sections)
     
     return analyzed_sections
 
@@ -252,13 +246,10 @@ def assign_keys_to_jtotal_sections(song_json, vec_all, clf, W=16, H=4, switch_pe
         analyzed_sec["key"] = section_key
         analyzed_sec["key_confidence"] = round(float(conf), 3)
         
-        # Add emotion analysis
-        lyric = sec.get("lyric", "")
-        emotion_scores = analyze_emotion(lyric)
-        if emotion_scores:
-            analyzed_sec["emotion"] = emotion_scores
-        
         analyzed_sections.append(analyzed_sec)
+    
+    # Add emotion analysis to all sections (batch processing)
+    analyzed_sections = add_emotion_to_sections(analyzed_sections)
     
     return analyzed_sections
 

@@ -1,0 +1,70 @@
+# 小規模データ用設定（トピック数を増やす）
+
+# 基本設定
+random_seed: 42
+log_level: INFO
+cache_dir: cache
+output_dir: output
+
+# Embedding設定
+embedding:
+  model_name: "intfloat/multilingual-e5-base"
+  normalize_embeddings: true
+  use_e5_prefix: true
+  batch_size: 32
+  device: null
+  cache_dir: null
+
+# UMAP設定（より細かいクラスタを検出するため調整）
+umap:
+  n_neighbors: 15 # 20→15に減らして局所構造を重視
+  n_components: 5
+  min_dist: 0.05 # 0.1→0.05に減らしてクラスタを分離
+  metric: "cosine"
+  random_state: 42
+
+# HDBSCAN設定（小規模データ用に調整）
+hdbscan:
+  min_cluster_size: 30 # 120→30に大幅に減らしてトピック数を増やす
+  min_samples: 3 # 5→3に減らす
+  cluster_selection_method: "eom"
+  prediction_data: true
+
+# Vectorizer設定
+vectorizer:
+  ngram_range: [1, 2]
+  min_df: 2
+  max_df: 0.7
+  stop_words:
+    - "yeah"
+    - "oh"
+    - "ah"
+    - "woo"
+    - "na"
+    - "lalala"
+    - "ららら"
+    - "ラララ"
+
+# c-TF-IDF設定
+ctfidf:
+  reduce_frequent_words: true
+
+# データ前処理設定
+data_processing:
+  min_phrase_length: 10 # 12→10に減らしてより多くのフレーズを保持
+  max_duplicate_count: 2
+  combine_window: 3
+  remove_empty: true
+  remove_single_char: true
+
+# トピックモデル設定
+topic_model:
+  calculate_probabilities: true
+  top_k_free_topics: 3
+  target_free_topics: 15 # 20→15に減らす（データ規模に合わせて）
+  reduce_topics: true
+
+# マッピング設定
+mapping:
+  use_softmax: true
+  temperature: 1.0

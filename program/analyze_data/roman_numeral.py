@@ -74,8 +74,10 @@ def chord_to_roman(chord_raw: str, key_label: str):
     """
     chord_raw: original chord string (e.g., 'G', 'D/F#', 'Em7')
     key_label: section key like 'G' or 'Em'
-    returns: roman token like 'V', 'vi', 'V7', 'bVII', 'ivsus'
+    returns: roman token like 'V', 'vi', 'V7', 'bVII', 'ivsus', 'IVM7', 'vi7'
     """
+    import re
+    
     key_root, is_minor_key = split_key_label(key_label)
     if not key_root:
         return None
@@ -98,8 +100,24 @@ def chord_to_roman(chord_raw: str, key_label: str):
     else:
         base = deg  # uppercase
 
+    # Extract tension information from original chord string
+    # This is important for preserving maj7/M7 and m7 information
+    # Check for maj7/M7 (major 7th) - look for 'maj7' or 'M7' (but not 'm7')
+    # Must check for 'maj7' first, then 'M7' that is not preceded by lowercase letter
+    chord_lower = chord_raw.lower()
+    has_maj7 = 'maj7' in chord_lower or bool(re.search(r'(?<!m)M7(?!\d)', chord_raw))
+    # Check for m7 (minor 7th) - lowercase 'm' followed by '7' (not maj7)
+    # Pattern: letter + 'm' + '7' (e.g., 'Em7', 'Am7', 'Dm7')
+    has_minor7 = bool(re.search(r'[A-G][a-z]?m7', chord_raw)) and 'maj7' not in chord_lower
+    
+    # If normalize_chord collapsed maj7/M7 to triad, restore M7 suffix
+    if has_maj7 and qual != "dom7":
+        base = base + "M7"
+    # If normalize_chord collapsed m7 to minor, restore 7 suffix
+    elif has_minor7 and qual == "min":
+        base = base + "7"
     # keep some quality tags (helps islands separate: V vs V7 vs IVsus)
-    if qual == "dom7":
+    elif qual == "dom7":
         base = base + "7"
     elif qual == "sus":
         base = base + "sus"

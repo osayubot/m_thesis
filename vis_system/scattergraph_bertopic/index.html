@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Topic Analysis Scattergraph (BERTopic)</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+        margin: 16px;
+      }
+      .controls {
+        margin-bottom: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+      }
+      .controls label {
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .controls select {
+        padding: 6px 12px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        min-width: 150px;
+      }
+      .info-panel {
+        margin-top: 16px;
+        padding: 12px;
+        background: #f5f5f5;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+      .topic-info {
+        margin-top: 8px;
+        padding: 8px;
+        background: white;
+        border-radius: 4px;
+        border-left: 3px solid #4caf50;
+      }
+      .reference-info {
+        margin-top: 8px;
+        padding: 8px;
+        background: white;
+        border-radius: 4px;
+        border-left: 3px solid #2196f3;
+      }
+      #topicsContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 16px;
+        margin-top: 16px;
+      }
+      .topic-card {
+        padding: 12px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        border-left: 4px solid #4caf50;
+      }
+      .topic-card h3 {
+        margin: 0 0 8px 0;
+        font-size: 16px;
+        color: #333;
+      }
+      .topic-card .topic-meta {
+        font-size: 12px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+      #topicDetails {
+        margin-top: 16px;
+        padding: 12px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        max-height: 400px;
+        overflow-y: auto;
+      }
+      .topic-detail-item {
+        margin-bottom: 12px;
+        padding: 8px;
+        background: #f9f9f9;
+        border-radius: 4px;
+      }
+      .topic-words {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        margin-top: 4px;
+      }
+      .topic-word {
+        padding: 2px 8px;
+        background: #e3f2fd;
+        border-radius: 3px;
+        font-size: 12px;
+      }
+      .distance-item {
+        margin-left: 16px;
+        font-size: 12px;
+        color: #666;
+      }
+      .wrap {
+        position: relative;
+        width: min(2000px, 100%);
+      }
+      canvas {
+        width: 100%;
+        height: 1200px;
+        background: #fff;
+      }
+      .pie-tooltip {
+        position: absolute;
+        pointer-events: auto;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.85);
+        color: #fff;
+        border-radius: 12px;
+        padding: 10px 12px;
+        font: 13px/1.35 system-ui, -apple-system, Segoe UI, sans-serif;
+        min-width: 240px;
+        max-width: 420px;
+        max-height: 520px;
+        overflow: auto;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+        transform: translate(10px, 10px);
+        opacity: 0;
+        transition: opacity 0.06s linear;
+      }
+      .pie-tooltip .title {
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 8px;
+        opacity: 0.95;
+        white-space: nowrap;
+      }
+      .pie-tooltip .rows {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .pie-tooltip .row {
+        display: grid;
+        grid-template-columns: 16px 1fr auto;
+        align-items: center;
+        column-gap: 8px;
+      }
+      .pie-tooltip .swatch {
+        width: 12px;
+        height: 12px;
+        border-radius: 3px;
+        border: 2px solid rgba(255, 255, 255, 0.95);
+        display: inline-block;
+      }
+      .pie-tooltip .name {
+        font-weight: 650;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .pie-tooltip .val {
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+        opacity: 0.95;
+        white-space: nowrap;
+      }
+      .pie-tooltip .hint {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        font-size: 12px;
+        opacity: 0.85;
+      }
+      .pie-tooltip .songs {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        font-size: 12px;
+        opacity: 0.95;
+      }
+      .pie-tooltip .songs .head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 900;
+        margin-bottom: 6px;
+        font-size: 12px;
+        opacity: 0.95;
+      }
+      .pie-tooltip .songs ul {
+        margin: 0;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .pie-tooltip .row.activeRow {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+        padding: 2px 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BERTopic トピック分析と基準進行との関係可視化</h1>
+
+    <div class="controls">
+      <div>
+        <label for="jsonSelect">データファイル:</label>
+        <select id="jsonSelect">
+          <option value="tsne_all_topics.json">t-SNE - トピック分析</option>
+          <option value="umap_all_topics.json">UMAP - トピック分析</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="wrap" class="wrap">
+      <canvas id="scatterChart"></canvas>
+    </div>
+
+    <div class="info-panel">
+      <div id="currentInfo">データを読み込み中...</div>
+    </div>
+
+    <div id="topicDetails"></div>
+
+    <div id="allTopicsList" style="margin-top: 24px">
+      <h2>すべてのトピック一覧</h2>
+      <div id="topicsContainer"></div>
+    </div>
+
+    <script>
+      let chart = null;
+      let allData = null;
+      let selected = null; // { datasetIndex, index, topic }
+      let allPoints = []; // 全ポイントデータ
+      let clickHandler = null; // クリックハンドラを保存
+
+      const REFERENCE_COLORS = {
+        odo: "rgba(255, 152, 0, 0.8)", // オレンジ（王道進行）
+        komuro: "rgba(76, 175, 80, 0.8)", // 緑（小室進行）
+        marusa: "rgba(156, 39, 176, 0.8)", // 紫（丸サ進行）
+      };
+
+      const REFERENCE_NAMES = {
+        odo: "王道進行",
+        komuro: "小室進行",
+        marusa: "丸サ進行",
+      };
+
+      /* ====== tooltip要素（1回だけ作る） ====== */
+      function ensureTooltipEl() {
+        const wrap = document.getElementById("wrap");
+        let el = wrap.querySelector(".pie-tooltip");
+        if (!el) {
+          el = document.createElement("div");
+          el.className = "pie-tooltip";
+          wrap.appendChild(el);
+        }
+        return el;
+      }
+
+      /* ========= ミニ円グラフを drawImage で貼る（キャッシュ + hover拡大） ========= */
+      const piePointsCachedHover = {
+        id: "piePointsCachedHover",
+        _cache: new Map(),
+
+        _makeKey(pie, r, strokeStyle, lineWidth) {
+          // トピックの順序に基づいてソートしてからキーを生成（一貫性のため）
+          const sortedPie = [...pie].sort((a, b) =>
+            a.label.localeCompare(b.label)
+          );
+          return JSON.stringify({ pie: sortedPie, r, strokeStyle, lineWidth });
+        },
+
+        _renderPieToCanvas(pie, r, strokeStyle, lineWidth, dpr) {
+          // トピックの順序に基づいてソート
+          const sortedPie = [...pie].sort((a, b) =>
+            a.label.localeCompare(b.label)
+          );
+
+          // 半径が0以下の場合は最小サイズのcanvasを返す
+          const minR = 1;
+          const safeR = Math.max(minR, r);
+
+          const pad = lineWidth;
+          const size = Math.max(1, Math.ceil((safeR * 2 + pad * 2) * dpr));
+          const c = document.createElement("canvas");
+          c.width = size;
+          c.height = size;
+          const ctx = c.getContext("2d");
+
+          const cx = size / 2;
+          const cy = size / 2;
+          const rr = safeR * dpr;
+
+          const total = sortedPie.reduce((a, s) => a + s.v, 0);
+          if (total <= 0 || size <= 0) {
+            // 空のcanvasを返す（最小サイズを保証）
+            return { canvas: c, w: Math.max(1, size), h: Math.max(1, size) };
+          }
+
+          let start = -Math.PI / 2;
+          for (const s of sortedPie) {
+            const ang = (s.v / total) * Math.PI * 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.arc(cx, cy, rr, start, start + ang);
+            ctx.closePath();
+            // 色が設定されていない場合はデフォルト色を使用
+            const color = s.c || "#808080";
+            ctx.fillStyle = color;
+            ctx.fill();
+            start += ang;
+          }
+
+          if (lineWidth > 0) {
+            ctx.strokeStyle = strokeStyle;
+            ctx.lineWidth = lineWidth * dpr;
+            ctx.beginPath();
+            ctx.arc(cx, cy, rr, 0, Math.PI * 2);
+            ctx.stroke();
+          }
+
+          return { canvas: c, w: size, h: size };
+        },
+
+        afterDatasetsDraw(chart, args, opts) {
+          const { ctx } = chart;
+          const dpr =
+            chart.currentDevicePixelRatio || window.devicePixelRatio || 1;
+          const defaultStrokeStyle = opts?.strokeStyle ?? "#fff";
+          const lineWidth = opts?.lineWidth ?? 0;
+          const minR = opts?.minRadius ?? 6;
+          const hoverBoost = opts?.hoverBoost ?? 3;
+
+          const active = chart.getActiveElements?.() ?? [];
+
+          chart.data.datasets.forEach((ds, di) => {
+            const meta = chart.getDatasetMeta(di);
+
+            meta.data.forEach((pt, i) => {
+              const d = ds.data[i];
+              const { x, y } = pt.getProps(["x", "y"], true);
+
+              // 基準進行の場合は小さな点として表示
+              if (d.isReferenceProgression) {
+                const refName = d.referenceProgressionName || d.referenceName;
+                // 基準進行の色を取得
+                let pointColor = "#FFD700";
+                if (refName === "odo") {
+                  pointColor = "rgb(255, 152, 0)";
+                } else if (refName === "komuro") {
+                  pointColor = "rgb(76, 175, 80)";
+                } else if (refName === "marusa") {
+                  pointColor = "rgb(156, 39, 176)";
+                }
+                // 小さな点を描画
+                ctx.fillStyle = pointColor;
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                return;
+              }
+
+              // 通常の点の処理
+              const pie = d.pie;
+              if (!pie?.length) return;
+
+              const isActive = active.some(
+                (a) => a.datasetIndex === di && a.index === i
+              );
+
+              const baseR = d.r ?? 6;
+              const r = Math.max(minR, baseR) + (isActive ? hoverBoost : 0);
+
+              // 各点のstrokeColorがあればそれを使う、なければデフォルト
+              const strokeStyle = d.strokeColor ?? defaultStrokeStyle;
+
+              // トピックの順序に基づいてソート
+              const sortedPie = [...pie].sort((a, b) =>
+                a.label.localeCompare(b.label)
+              );
+
+              const key = this._makeKey(sortedPie, r, strokeStyle, lineWidth);
+              let img = this._cache.get(key);
+              if (!img) {
+                img = this._renderPieToCanvas(
+                  sortedPie,
+                  r,
+                  strokeStyle,
+                  lineWidth,
+                  dpr
+                );
+                this._cache.set(key, img);
+              }
+
+              const drawW = img.w / dpr;
+              const drawH = img.h / dpr;
+
+              // canvasのサイズが0の場合は描画をスキップ
+              if (
+                drawW <= 0 ||
+                drawH <= 0 ||
+                img.canvas.width <= 0 ||
+                img.canvas.height <= 0
+              ) {
+                return;
+              }
+
+              // 通常の点は円グラフを描画
+              ctx.drawImage(
+                img.canvas,
+                x - drawW / 2,
+                y - drawH / 2,
+                drawW,
+                drawH
+              );
+            });
+          });
+        },
+      };
+      Chart.register(piePointsCachedHover);
+
+      async function loadData() {
+        const jsonSelect = document.getElementById("jsonSelect");
+        const fileName = jsonSelect.value;
+
+        if (!fileName) {
+          return;
+        }
+
+        try {
+          // 現在のHTMLファイルの場所を基準にパスを構築
+          const currentPath = window.location.pathname;
+          const basePath = currentPath.substring(
+            0,
+            currentPath.lastIndexOf("/")
+          );
+          // キャッシュ対策: タイムスタンプを追加
+          const jsonPath = basePath + "/data/" + fileName + "?t=" + Date.now();
+
+          console.log("Current path:", currentPath);
+          console.log("Base path:", basePath);
+          console.log("Trying to load JSON from:", jsonPath);
+          console.log("Current location:", window.location.href);
+
+          const response = await fetch(jsonPath);
+          if (!response.ok) {
+            throw new Error(
+              `HTTP ${response.status}: ${response.statusText}\nTried path: ${jsonPath}\nCurrent location: ${window.location.href}`
+            );
+          }
+          allData = await response.json();
+          console.log("Data loaded:", allData);
+
+          updateChart();
+        } catch (e) {
+          console.error("Error loading data:", e);
+          let errorMessage = `データの読み込みに失敗しました: ${e.message}`;
+
+          // file://プロトコルの場合、ローカルサーバーの使用を促す
+          if (window.location.protocol === "file:") {
+            errorMessage +=
+              "\n\nローカルファイルシステムから開いている場合、CORSの制限によりデータを読み込めません。\n\n解決方法:\n1. Pythonのローカルサーバーを起動:\n   cd vis_system/scattergraph_bertopic\n   python3 -m http.server 8000\n2. ブラウザで http://localhost:8000 にアクセス";
+          }
+
+          alert(errorMessage);
+        }
+      }
+
+      /* ========= セグメント判定（角度→どのトピックか） ========= */
+      function getSegmentTopic(rawPoint, px, py, minRadius) {
+        if (!rawPoint || !rawPoint.pie || !rawPoint.pie.length) return null;
+
+        const dx = px - rawPoint._px;
+        const dy = py - rawPoint._py;
+
+        const baseR = rawPoint.r ?? 6;
+        const r = Math.max(minRadius, baseR);
+
+        if (Math.hypot(dx, dy) > r) return null;
+
+        // トピックの順序に基づいてソート
+        const sortedPie = [...rawPoint.pie].sort((a, b) =>
+          a.label.localeCompare(b.label)
+        );
+
+        // start = -PI/2 を基準に 0..2PI
+        let ang = Math.atan2(dy, dx) - -Math.PI / 2;
+        while (ang < 0) ang += Math.PI * 2;
+        while (ang >= Math.PI * 2) ang -= Math.PI * 2;
+
+        const total = sortedPie.reduce((a, s) => a + s.v, 0) || 1;
+        let acc = 0;
+        for (const s of sortedPie) {
+          const span = (s.v / total) * Math.PI * 2;
+          if (ang >= acc && ang < acc + span) return s.label;
+          acc += span;
+        }
+        return sortedPie[sortedPie.length - 1]?.label ?? null;
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function extractYear(releaseDate) {
+        if (!releaseDate) return null;
+        const match = String(releaseDate).match(/^(\d{4})/);
+        return match ? parseInt(match[1], 10) : null;
+      }
+
+      /* ========= external tooltip（hover + クリック選択で歌詞表示） ========= */
+      function externalTopicTooltip(context) {
+        const { chart, tooltip } = context;
+        const el = ensureTooltipEl();
+        const wrap = chart.canvas.parentNode;
+
+        const active = chart.getActiveElements?.() ?? [];
+
+        // 選択状態の場合は、ホバーを無視して選択した点を表示
+        // 選択がない場合のみ、ホバーを表示
+        let datasetIndex, index, raw, caretX, caretY;
+
+        if (selected) {
+          // 選択状態：選択した点を表示（ホバーを無視）
+          datasetIndex = selected.datasetIndex;
+          index = selected.index;
+          raw = chart.data.datasets[datasetIndex].data[index];
+
+          // 選択点の中心にtooltipを置く
+          const meta = chart.getDatasetMeta(datasetIndex);
+          const elem = meta.data[index];
+          const { x, y } = elem.getProps(["x", "y"], true);
+          caretX = x;
+          caretY = y;
+        } else if (active.length && tooltip && tooltip.opacity > 0) {
+          // ホバー状態：ホバーしている点を表示
+          datasetIndex = active[0].datasetIndex;
+          index = active[0].index;
+          raw = chart.data.datasets[datasetIndex].data[index];
+          caretX = tooltip.caretX;
+          caretY = tooltip.caretY;
+        } else {
+          // 何もない場合は非表示
+          el.style.opacity = 0;
+          return;
+        }
+
+        // 点の中心(px/py)を保存（クリック判定で使う）
+        const meta = chart.getDatasetMeta(datasetIndex);
+        const elem = meta.data[index];
+        const { x, y } = elem.getProps(["x", "y"], true);
+        raw._px = x;
+        raw._py = y;
+
+        const minRadius =
+          chart.options.plugins.piePointsCachedHover.minRadius ?? 6;
+
+        // 選択状態の場合は、選択したトピックを使用（ホバーを無視）
+        // ホバー状態の場合は、ホバーしているトピックを使用
+        let hoverTopic = null;
+        let selectedTopic = null;
+
+        if (
+          selected &&
+          selected.datasetIndex === datasetIndex &&
+          selected.index === index
+        ) {
+          // 選択状態：選択したトピックを使用
+          selectedTopic = selected.topic;
+        } else if (!selected && active.length) {
+          // ホバー状態：ホバーしているトピックを計算
+          hoverTopic = getSegmentTopic(raw, caretX, caretY, minRadius);
+        }
+
+        // 基準進行名を表示（基準進行そのものの点の場合）
+        let referenceProgressionTitle = "";
+        if (raw.isReferenceProgression && raw.referenceProgressionName) {
+          const progressionName =
+            REFERENCE_NAMES[raw.referenceProgressionName] ||
+            raw.referenceProgressionName;
+          referenceProgressionTitle = `
+              <div class="reference-progression-title" style="
+                background: ${
+                  REFERENCE_COLORS[raw.referenceProgressionName] || "#fff"
+                };
+                color: #000;
+                padding: 8px 12px;
+                border-radius: 4px;
+                margin-bottom: 8px;
+                font-weight: bold;
+                font-size: 14px;
+                text-align: center;
+              ">
+                ⭐ ${escapeHtml(progressionName)}
+              </div>
+            `;
+        }
+
+        // トピックの順序に基づいてソート
+        const sortedPie = raw.pie
+          ? [...raw.pie].sort((a, b) => a.label.localeCompare(b.label))
+          : [];
+        const rows = sortedPie
+          .map((s) => {
+            const isSelected = selectedTopic && s.label === selectedTopic;
+            const isHover =
+              !selectedTopic && hoverTopic && s.label === hoverTopic;
+            const cls = isSelected || isHover ? "activeRow" : "";
+            return `
+            <div class="row ${cls}">
+              <span class="swatch" style="background:${s.c}"></span>
+              <span class="name">${escapeHtml(s.label)}</span>
+              <span class="val">${Number(s.v).toFixed(2)}%</span>
+            </div>
+          `;
+          })
+          .join("");
+
+        let lyricsHtml = "";
+        if (selectedTopic) {
+          // raw.pieが存在するか確認
+          if (!raw.pie || !Array.isArray(raw.pie) || raw.pie.length === 0) {
+            lyricsHtml = `
+              <div class="songs">
+                <div class="head">
+                  <span class="swatch" style="background:#808080; width:12px; height:12px;"></span>
+                  <span>${escapeHtml(selectedTopic)} の歌詞</span>
+                </div>
+                <div style="opacity:.85">歌詞データがありません</div>
+              </div>
+            `;
+          } else {
+            const seg = raw.pie.find((s) => s.label === selectedTopic);
+            if (!seg) {
+              lyricsHtml = `
+                <div class="songs">
+                  <div class="head">
+                    <span class="swatch" style="background:#808080; width:12px; height:12px;"></span>
+                    <span>${escapeHtml(selectedTopic)} の歌詞</span>
+                  </div>
+                  <div style="opacity:.85">歌詞データがありません</div>
+                </div>
+              `;
+            } else {
+              const lyrics = seg?.lyrics ?? [];
+              if (lyrics.length) {
+                lyricsHtml = `
+              <div class="songs">
+                <div class="head">
+                  <span class="swatch" style="background:${
+                    seg.c
+                  }; width:12px; height:12px;"></span>
+                  <span>${escapeHtml(selectedTopic)} の歌詞 (${
+                  lyrics.length
+                }件)</span>
+                </div>
+                <ul>
+                  ${lyrics
+                    .map((l) => {
+                      const lyricText =
+                        typeof l === "string"
+                          ? `「${l}」`
+                          : `「${l?.lyric}」` || "";
+                      const songInfo =
+                        typeof l === "object" && l?.song ? l.song : null;
+
+                      if (
+                        songInfo &&
+                        (songInfo.title ||
+                          songInfo.artist ||
+                          songInfo.composer ||
+                          songInfo.lyricist)
+                      ) {
+                        const parts = [];
+                        if (songInfo.title)
+                          parts.push(`歌名: ${songInfo.title}`);
+                        if (songInfo.artist)
+                          parts.push(`アーティスト: ${songInfo.artist}`);
+                        if (songInfo.lyricist)
+                          parts.push(`作詞: ${songInfo.lyricist}`);
+                        if (songInfo.composer)
+                          parts.push(`作曲: ${songInfo.composer}`);
+
+                        const songInfoStr =
+                          parts.length > 0 ? parts.join(", ") : "";
+
+                        // リリース年と人気度を追加
+                        const additionalInfo = [];
+                        if (songInfo.release_date) {
+                          const year = extractYear(songInfo.release_date);
+                          if (year) {
+                            additionalInfo.push(`(${year})`);
+                          }
+                        }
+                        if (
+                          songInfo.spotify_popularity !== null &&
+                          songInfo.spotify_popularity !== undefined
+                        ) {
+                          additionalInfo.push(
+                            `人気度: ${songInfo.spotify_popularity}`
+                          );
+                        }
+
+                        const additionalInfoStr =
+                          additionalInfo.length > 0
+                            ? " " + additionalInfo.join(" ")
+                            : "";
+
+                        return `<li>${escapeHtml(lyricText)}<br />${escapeHtml(
+                          songInfoStr
+                        )}${escapeHtml(additionalInfoStr)}</li>`;
+                      } else {
+                        return `<li>${escapeHtml(lyricText)}</li>`;
+                      }
+                    })
+                    .join("")}
+                </ul>
+              </div>
+            `;
+              } else {
+                lyricsHtml = `
+                  <div class="songs">
+                    <div class="head">
+                      <span class="swatch" style="background:${
+                        seg.c
+                      }; width:12px; height:12px;"></span>
+                      <span>${escapeHtml(selectedTopic)} の歌詞</span>
+                    </div>
+                    <div style="opacity:.85">歌詞データがありません</div>
+                  </div>
+                `;
+              }
+            }
+          }
+        } else {
+          lyricsHtml = `<div class="hint">円グラフの扇形をクリックすると、そのトピックの歌詞を表示します。</div>`;
+        }
+
+        const lyricCount = raw.lyricCount ?? 0;
+        const progression =
+          raw.progression ||
+          raw.roman_progression?.join(" - ") ||
+          raw.chord_progression?.join(" - ") ||
+          "N/A";
+
+        // 基準進行との類似度を表示
+        let progressionSuffix = "";
+        if (raw.progressionType && !raw.isReferenceProgression) {
+          const progressionTypeName =
+            REFERENCE_NAMES[raw.progressionType] || raw.progressionType;
+          progressionSuffix = ` (${progressionTypeName}似)`;
+        }
+
+        let titleHtml = `<div class="title">progression: ${escapeHtml(
+          progression
+        )}${escapeHtml(
+          progressionSuffix
+        )}<br />total: ${lyricCount}phrase</div>`;
+
+        // トピックを選択している場合は、パーセンテージ行を非表示にする
+        const rowsHtml = selectedTopic ? "" : `<div class="rows">${rows}</div>`;
+
+        el.innerHTML = `
+          ${titleHtml}
+          ${referenceProgressionTitle}
+          ${rowsHtml}
+          ${lyricsHtml}
+        `;
+
+        // 位置（はみ出し調整あり）
+        const canvasRect = chart.canvas.getBoundingClientRect();
+        const wrapRect = wrap.getBoundingClientRect();
+
+        let left = canvasRect.left - wrapRect.left + caretX + 10;
+        let top = canvasRect.top - wrapRect.top + caretY + 10;
+
+        el.style.opacity = 1;
+        const tr = el.getBoundingClientRect();
+
+        if (left + tr.width > wrapRect.width)
+          left = canvasRect.left - wrapRect.left + caretX - tr.width - 10;
+        if (top + tr.height > wrapRect.height)
+          top = canvasRect.top - wrapRect.top + caretY - tr.height - 10;
+
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
+
+        el.style.left = left + "px";
+        el.style.top = top + "px";
+      }
+
+      function updateChart() {
+        if (!allData || !allData.points) {
+          return;
+        }
+
+        const points = allData.points || [];
+        allPoints = points; // 全ポイントデータを保存
+
+        // Chart.js用のデータ形式に変換
+        const chartData = {
+          datasets: [
+            {
+              label: "Topics and References",
+              data: points.map((p) => ({
+                x: p.x,
+                y: p.y,
+                r: p.r || 5,
+                ...p,
+              })),
+              backgroundColor: "rgba(0, 0, 0, 0)",
+              borderColor: "rgba(0, 0, 0, 0)",
+              pointRadius: points.map((p) => p.r || 5),
+              pointHoverRadius: points.map((p) => (p.r || 5) * 1.2),
+            },
+          ],
+        };
+
+        const config = {
+          type: "scatter",
+          data: chartData,
+          options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: 1,
+            plugins: {
+              legend: {
+                display: false,
+              },
+              tooltip: {
+                enabled: false,
+                external: externalTopicTooltip,
+              },
+              piePointsCachedHover: {
+                minRadius: 6,
+                hoverBoost: 3,
+                strokeStyle: "#fff",
+                lineWidth: 0,
+              },
+            },
+            scales: {
+              x: {
+                min: 0,
+                max: 100,
+                title: {
+                  display: true,
+                  text: "X座標",
+                },
+              },
+              y: {
+                min: 0,
+                max: 100,
+                title: {
+                  display: true,
+                  text: "Y座標",
+                },
+              },
+            },
+          },
+        };
+
+        if (chart) {
+          chart.destroy();
+        }
+
+        const canvas = document.getElementById("scatterChart");
+        chart = new Chart(canvas, config);
+
+        // 古いクリックハンドラを削除
+        if (clickHandler) {
+          canvas.removeEventListener("click", clickHandler);
+        }
+
+        // クリック：点を選択して固定表示（スクロール可能にするため）
+        clickHandler = (ev) => {
+          const pos = Chart.helpers.getRelativePosition(ev, chart);
+          const px = pos.x;
+          const py = pos.y;
+
+          const hits = chart.getElementsAtEventForMode(
+            ev,
+            "nearest",
+            { intersect: true },
+            true
+          );
+          if (!hits.length) {
+            // クリックした場所に点がない場合は選択解除
+            selected = null;
+            chart.update();
+            return;
+          }
+
+          const { datasetIndex, index } = hits[0];
+          const raw = chart.data.datasets[datasetIndex].data[index];
+
+          // 中心座標更新
+          const meta = chart.getDatasetMeta(datasetIndex);
+          const elem = meta.data[index];
+          const { x, y } = elem.getProps(["x", "y"], true);
+          raw._px = x;
+          raw._py = y;
+
+          const minRadius =
+            chart.options.plugins.piePointsCachedHover.minRadius ?? 6;
+          const topic = getSegmentTopic(raw, px, py, minRadius);
+
+          // 同じ点をクリックした場合は選択解除、違う点またはトピックをクリックした場合は選択
+          if (
+            selected &&
+            selected.datasetIndex === datasetIndex &&
+            selected.index === index &&
+            selected.topic === topic
+          ) {
+            // 同じ点・同じトピックをクリック → 選択解除
+            selected = null;
+          } else if (topic) {
+            // トピックセグメントをクリック → そのトピックを選択
+            selected = { datasetIndex, index, topic };
+          } else {
+            // 点の中心付近をクリック（トピックセグメント外） → 点のみ選択（トピックなし）
+            selected = { datasetIndex, index, topic: null };
+          }
+          chart.update();
+        };
+        canvas.addEventListener("click", clickHandler);
+
+        // 情報パネルを更新
+        updateInfoPanel();
+
+        // すべてのトピックを表示
+        displayAllTopics();
+      }
+
+      function updateInfoPanel() {
+        const infoDiv = document.getElementById("currentInfo");
+        if (!allData || !allData.points) {
+          return;
+        }
+
+        const points = allData.points || [];
+        const topicPoints = points.filter((p) => p.pie && p.pie.length > 0);
+        const uniqueTopics = new Set();
+        topicPoints.forEach((p) => {
+          p.pie.forEach((pieItem) => {
+            uniqueTopics.add(pieItem.label);
+          });
+        });
+
+        infoDiv.innerHTML = `
+          <strong>現在の設定:</strong><br>
+          コード進行数: ${points.length}<br>
+          トピック数: ${uniqueTopics.size}<br>
+          基準進行: ${REFERENCE_NAMES.odo}, ${REFERENCE_NAMES.komuro}, ${REFERENCE_NAMES.marusa}
+        `;
+      }
+
+      function showTopicDetails(point) {
+        const detailsDiv = document.getElementById("topicDetails");
+
+        if (point.isReferenceProgression) {
+          const refName = point.referenceProgressionName || point.referenceName;
+          const progression =
+            point.roman_progression || point.progression || [];
+          detailsDiv.innerHTML = `
+            <div class="reference-info">
+              <h3>${REFERENCE_NAMES[refName] || refName}</h3>
+              <p><strong>コード進行:</strong> ${progression.join(" → ")}</p>
+            </div>
+          `;
+        } else if (point.pie && point.pie.length > 0) {
+          // トピック割合の円グラフがある場合
+          let pieHtml =
+            '<div class="topic-info"><h3>コード進行: ' +
+            (point.progression ||
+              point.roman_progression?.join(" → ") ||
+              "N/A") +
+            "</h3>";
+          pieHtml += "<p><strong>トピック割合:</strong></p><ul>";
+
+          point.pie.forEach((pieItem) => {
+            pieHtml += `<li style="color: ${pieItem.c}">${
+              pieItem.label
+            }: ${pieItem.v.toFixed(2)}%</li>`;
+            if (pieItem.lyrics && pieItem.lyrics.length > 0) {
+              pieHtml += '<ul style="font-size: 12px; margin-left: 20px;">';
+              pieItem.lyrics.slice(0, 5).forEach((lyricItem) => {
+                const song = lyricItem.song || {};
+                const songInfo = [song.title, song.artist]
+                  .filter((s) => s)
+                  .join(" - ");
+                pieHtml += `<li>${lyricItem.lyric.substring(0, 50)}${
+                  lyricItem.lyric.length > 50 ? "..." : ""
+                } ${songInfo ? `(${songInfo})` : ""}</li>`;
+              });
+              pieHtml += "</ul>";
+            }
+          });
+
+          pieHtml += "</ul></div>";
+          detailsDiv.innerHTML = pieHtml;
+        } else {
+          detailsDiv.innerHTML = "";
+        }
+      }
+
+      // イベントリスナー
+      document
+        .getElementById("jsonSelect")
+        .addEventListener("change", loadData);
+
+      function displayAllTopics() {
+        const container = document.getElementById("topicsContainer");
+        if (!container || !allData || !allData.points) return;
+
+        const points = allData.points || [];
+        const topicSongs = allData.topicSongs || {};
+
+        // トピックを集計
+        const topicMap = new Map();
+        points.forEach((point) => {
+          if (point.pie && point.pie.length > 0) {
+            point.pie.forEach((pieItem) => {
+              const topicName = pieItem.label;
+              if (!topicMap.has(topicName)) {
+                topicMap.set(topicName, {
+                  name: topicName,
+                  color: pieItem.c,
+                  count: 0,
+                  lyrics: [],
+                });
+              }
+              const topic = topicMap.get(topicName);
+              topic.count += pieItem.lyrics ? pieItem.lyrics.length : 0;
+              if (pieItem.lyrics) {
+                topic.lyrics.push(...pieItem.lyrics);
+              }
+            });
+          }
+        });
+
+        let html = "";
+        Array.from(topicMap.values()).forEach((topic) => {
+          html += `
+            <div class="topic-card" style="border-left-color: ${topic.color}">
+              <h3>${topic.name}</h3>
+              <div class="topic-meta">
+                フレーズ数: ${topic.count}
+              </div>
+              ${
+                topic.lyrics.length > 0
+                  ? `
+                <div style="margin-top: 8px; font-size: 12px;">
+                  <strong>関連フレーズ (${Math.min(
+                    topic.lyrics.length,
+                    5
+                  )}件):</strong>
+                  <ul style="margin: 4px 0 0 0; padding-left: 20px;">
+                    ${topic.lyrics
+                      .slice(0, 5)
+                      .map((lyricItem) => {
+                        const song = lyricItem.song || {};
+                        const songInfo = [song.title, song.artist]
+                          .filter((s) => s)
+                          .join(" - ");
+                        return `<li>${
+                          lyricItem.lyric
+                            ? lyricItem.lyric.substring(0, 50) +
+                              (lyricItem.lyric.length > 50 ? "..." : "")
+                            : ""
+                        } ${songInfo ? `(${songInfo})` : ""}</li>`;
+                      })
+                      .join("")}
+                  </ul>
+                </div>
+              `
+                  : ""
+              }
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      }
+
+      // 初期読み込み
+      loadData();
+    </script>
+  </body>
+</html>

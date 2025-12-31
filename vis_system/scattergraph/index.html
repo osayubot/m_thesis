@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Emotion Pie Scatter (stable)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
     <style>
       body {
         font-family: system-ui, -apple-system, Segoe UI, sans-serif;
@@ -20,6 +21,37 @@
         display: flex;
         flex-wrap: wrap;
         gap: 12px;
+      }
+      .zoom-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      .zoom-controls button {
+        padding: 8px 16px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+      .zoom-controls button:hover {
+        background: #f0f0f0;
+      }
+      .zoom-controls button:active {
+        background: #e0e0e0;
+      }
+      .zoom-hint {
+        font-size: 12px;
+        color: #666;
+        margin-left: 8px;
+      }
+      .cluster-info {
+        font-size: 12px;
+        color: #666;
+        margin-top: 8px;
       }
       .controls label {
         font-weight: 600;
@@ -80,7 +112,7 @@
 
       .pie-tooltip {
         position: absolute;
-        pointer-events: none; /* クリックはcanvasで判定する（安定） */
+        pointer-events: auto; /* tooltip内でのイベントを有効化（スクロールのため） */
         z-index: 1000;
         background: rgba(0, 0, 0, 0.85);
         color: #fff;
@@ -163,6 +195,23 @@
         display: flex;
         flex-direction: column;
         gap: 6px;
+        max-height: 400px;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+      .pie-tooltip .songs ul::-webkit-scrollbar {
+        width: 8px;
+      }
+      .pie-tooltip .songs ul::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      .pie-tooltip .songs ul::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      .pie-tooltip .songs ul::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
       }
       .activeRow {
         outline: 1px solid rgba(255, 255, 255, 0.25);
@@ -178,30 +227,14 @@
   <body>
     <div class="controls">
       <div class="json-selector">
-        <label for="jsonSelector">データセット</label>
+        <label for="jsonSelector" id="jsonSelectorLabel">データセット</label>
         <br />
         <select id="jsonSelector">
           <optgroup label="UMAP">
-            <option value="umap_odo_pie_data.json">
-              UMAP - 王道進行ベース
-            </option>
-            <option value="umap_komuro_pie_data.json">
-              UMAP - 小室進行ベース
-            </option>
-            <option value="umap_marusa_pie_data.json">
-              UMAP - 丸サ進行ベース
-            </option>
+            <option value="umap_all.json">UMAP - 統合（3つの基準進行）</option>
           </optgroup>
           <optgroup label="t-SNE">
-            <option value="tsne_odo_pie_data.json">
-              t-SNE - 王道進行ベース
-            </option>
-            <option value="tsne_komuro_pie_data.json">
-              t-SNE - 小室進行ベース
-            </option>
-            <option value="tsne_marusa_pie_data.json">
-              t-SNE - 丸サ進行ベース
-            </option>
+            <option value="tsne_all.json">t-SNE - 統合（3つの基準進行）</option>
           </optgroup>
         </select>
       </div>
@@ -227,7 +260,6 @@
           <option value="" selected>すべて</option>
         </select>
       </div>
-
       <div class="filter-group">
         <label for="releaseDateMinInput"><strong>リリース年</strong></label>
         <div class="date-range">
@@ -275,28 +307,68 @@
     </div>
 
     <script>
-      /* ====== 色定義 ====== */
+      /* ====== プルチックの感情の輪 - 8つの基本感情の色定義 ====== */
       const EMOTION_COLORS = {
-        JOY: "#FFFF73",
-        SADNESS: "#5150F8",
-        ANTICIPATION: "#F3AB63",
-        SURPRISE: "#74BBF9",
-        ANGER: "#E93323",
-        FEAR: "#429429",
-        DISGUST: "#EB60F8",
-        TRUST: "#88FC6E",
+        JOY: "#FFFF73", // 黄色（喜び）
+        SADNESS: "#5150F8", // 青（悲しみ）
+        ANTICIPATION: "#F3AB63", // オレンジ（期待）
+        SURPRISE: "#74BBF9", // 水色（驚き）
+        ANGER: "#E93323", // 赤（怒り）
+        FEAR: "#429429", // 緑（恐れ）
+        DISGUST: "#EB60F8", // 紫（嫌悪）
+        TRUST: "#88FC6E", // 黄緑（信頼）
       };
 
-      /* ====== 感情の順序定義（ポジティブ → ネガティブ → 中立） ====== */
+      // 後方互換性のため
+      const SENTIMENT_COLORS = {
+        positive: "#FF0000", // 真っ赤（ポジティブ）
+        negative: "#0000FF", // 真っ青（ネガティブ）
+        neutral: "#9E9E9E", // グレー（中立）
+      };
+
+      /* ====== 基準進行別の色定義 ====== */
+      // 【新しい基準進行を追加する場合】
+      // 1. program/visualize_scattergraph_data/common.py の REFERENCE_PROGRESSIONS と REFERENCE_COLORS を更新
+      // 2. 以下の3つのオブジェクトにも同じキーで追加してください：
+      //    - PROGRESSION_COLORS: 星の色（rgba形式、透明度0.8推奨）
+      //    - PROGRESSION_BORDER_COLORS: 背景色（透明度0で非表示）
+      //    - PROGRESSION_NAMES: 表示名（日本語）
+      const PROGRESSION_COLORS = {
+        odo: "rgba(255, 152, 0, 1.0)", // オレンジ（王道進行）- 星マーク用に不透明度1.0
+        komuro: "rgba(76, 175, 80, 1.0)", // 緑（小室進行）- 星マーク用に不透明度1.0
+        marusa: "rgba(156, 39, 176, 1.0)", // 紫（丸サ進行）- 星マーク用に不透明度1.0
+      };
+
+      const PROGRESSION_BORDER_COLORS = {
+        odo: "rgba(0, 0, 0, 0)",
+        komuro: "rgba(0, 0, 0, 0)",
+        marusa: "rgba(0, 0, 0, 0)",
+      };
+
+      // 基準進行名の日本語マッピング（ツールチップで表示される名前）
+      const PROGRESSION_NAMES = {
+        odo: "王道進行",
+        komuro: "小室進行",
+        marusa: "丸サ進行",
+      };
+
+      /* ====== 感情の順序定義（プルチックの感情の輪） ====== */
       const EMOTION_ORDER = [
-        "JOY", // ポジティブ
-        "TRUST", // ポジティブ
-        "SADNESS", // ネガティブ
-        "ANGER", // ネガティブ
-        "FEAR", // ネガティブ
-        "DISGUST", // ネガティブ
-        "ANTICIPATION", // 中立
-        "SURPRISE", // 中立
+        "JOY", // 喜び
+        "SADNESS", // 悲しみ
+        "ANTICIPATION", // 期待
+        "SURPRISE", // 驚き
+        "ANGER", // 怒り
+        "FEAR", // 恐れ
+        "DISGUST", // 嫌悪
+        "TRUST", // 信頼
+      ];
+
+      // 後方互換性のため
+      const SENTIMENT_ORDER = [
+        "positive", // ポジティブ
+        "negative", // ネガティブ
+        "neutral", // 中立
       ];
 
       /* ====== 感情の順序に基づいてpieデータをソート ====== */
@@ -320,6 +392,8 @@
       let releaseDateRange = { min: 1900, max: 2025 }; // release_dateの範囲
       let popularityRange = { min: 0, max: 100 }; // spotify_popularityの範囲
       let clickHandler = null; // クリックハンドラを保存
+      let clusteredPoints = []; // クラスタリング後のポイント
+      let jsonFileName = ""; // 現在読み込まれているJSONファイル名
 
       /* ====== tooltip要素（1回だけ作る） ====== */
       function ensureTooltipEl() {
@@ -376,7 +450,13 @@
             ctx.moveTo(cx, cy);
             ctx.arc(cx, cy, rr, start, start + ang);
             ctx.closePath();
-            ctx.fillStyle = s.c;
+            // 色が設定されていない場合は、EMOTION_COLORSから取得
+            const color =
+              s.c ||
+              EMOTION_COLORS[s.label] ||
+              SENTIMENT_COLORS[s.label] ||
+              "#808080";
+            ctx.fillStyle = color;
             ctx.fill();
             start += ang;
           }
@@ -397,7 +477,7 @@
           const dpr =
             chart.currentDevicePixelRatio || window.devicePixelRatio || 1;
           const defaultStrokeStyle = opts?.strokeStyle ?? "#fff";
-          const lineWidth = opts?.lineWidth ?? 2;
+          const lineWidth = opts?.lineWidth ?? 0;
           const minR = opts?.minRadius ?? 6;
           const hoverBoost = opts?.hoverBoost ?? 3;
 
@@ -408,6 +488,24 @@
 
             meta.data.forEach((pt, i) => {
               const d = ds.data[i];
+              const { x, y } = pt.getProps(["x", "y"], true);
+
+              // 基準進行の場合は円グラフではなく星マークのみを表示（最初にチェック）
+              if (d.isReferenceProgression) {
+                const isActive = active.some(
+                  (a) => a.datasetIndex === di && a.index === i
+                );
+                const baseR = d.r ?? 12;
+                const r = Math.max(minR, baseR) + (isActive ? hoverBoost : 0);
+                const starSize = r * 2.5; // 星のサイズを大きく（半径の2.5倍）
+                // 基準進行の色を黒に統一
+                const starColor = "rgb(0, 0, 0)"; // 全ての基準進行を黒で表示
+                // 星マークのみを描画（円グラフは描画しない）
+                drawStar(ctx, x, y, starSize, starColor);
+                return; // 基準進行の場合はここで終了
+              }
+
+              // 通常の点の処理
               const pie = d.pie;
               if (!pie?.length) return;
 
@@ -418,10 +516,8 @@
               const baseR = d.r ?? 6;
               const r = Math.max(minR, baseR) + (isActive ? hoverBoost : 0);
 
-              const { x, y } = pt.getProps(["x", "y"], true);
-
-              // 各点のstrokeColorがあればそれを使う、なければデフォルト
-              const strokeStyle = d.strokeColor ?? defaultStrokeStyle;
+              // borderを表示しないため、strokeStyleは使用しない
+              const strokeStyle = "#fff"; // 使用されないが、キー生成のために必要
 
               // 感情の順序に基づいてソート
               const sortedPie = sortPieByEmotionOrder(pie);
@@ -452,6 +548,7 @@
                 return;
               }
 
+              // 通常の点は円グラフを描画
               ctx.drawImage(
                 img.canvas,
                 x - drawW / 2,
@@ -465,11 +562,155 @@
       };
       Chart.register(piePointsCachedHover);
 
-      /* ====== “曲数の合計” で半径を決める ======
-   1点の pie の各セグメント label ごとに
-   EMOTION_SONGS[label].length を取り、v(%) で重み付けして合計。
-   → それを sqrt スケールで半径にする
-*/
+      /* ====== 星を描画する関数 ====== */
+      function drawStar(ctx, x, y, size, color) {
+        const spikes = 5;
+        const outerRadius = size;
+        const innerRadius = size * 0.4;
+        let rot = (Math.PI / 2) * 3;
+        let xPos = x;
+        let yPos = y;
+        const step = Math.PI / spikes;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(x, y - outerRadius);
+        for (let i = 0; i < spikes; i++) {
+          xPos = x + Math.cos(rot) * outerRadius;
+          yPos = y + Math.sin(rot) * outerRadius;
+          ctx.lineTo(xPos, yPos);
+          rot += step;
+
+          xPos = x + Math.cos(rot) * innerRadius;
+          yPos = y + Math.sin(rot) * innerRadius;
+          ctx.lineTo(xPos, yPos);
+          rot += step;
+        }
+        ctx.lineTo(x, y - outerRadius);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.restore();
+      }
+
+      /* ====== クラスタリング関数 ====== */
+      function clusterPointsByProgression(points, gridSize = 20) {
+        // 基準進行別にグループ化
+        const groups = {
+          odo: [],
+          komuro: [],
+          marusa: [],
+        };
+
+        points.forEach((point) => {
+          if (point.progressionType) {
+            groups[point.progressionType].push(point);
+          }
+        });
+
+        const clusters = [];
+
+        // 各基準進行グループ内でクラスタリング
+        Object.keys(groups).forEach((progressionType) => {
+          const groupPoints = groups[progressionType];
+          if (groupPoints.length === 0) return;
+
+          // 座標の範囲を計算
+          const xs = groupPoints.map((p) => p.x);
+          const ys = groupPoints.map((p) => p.y);
+          const minX = Math.min(...xs);
+          const maxX = Math.max(...xs);
+          const minY = Math.min(...ys);
+          const maxY = Math.max(...ys);
+
+          const cellWidth = (maxX - minX) / gridSize;
+          const cellHeight = (maxY - minY) / gridSize;
+
+          // グリッドセルにポイントを分類
+          const grid = {};
+          groupPoints.forEach((point) => {
+            const cellX = Math.floor((point.x - minX) / cellWidth);
+            const cellY = Math.floor((point.y - minY) / cellHeight);
+            const cellKey = `${cellX}_${cellY}`;
+
+            if (!grid[cellKey]) {
+              grid[cellKey] = [];
+            }
+            grid[cellKey].push(point);
+          });
+
+          // 各セルをクラスタとして処理
+          Object.keys(grid).forEach((cellKey) => {
+            const cellPoints = grid[cellKey];
+            if (cellPoints.length === 0) return;
+
+            // クラスタの中心座標
+            const centerX =
+              cellPoints.reduce((sum, p) => sum + p.x, 0) / cellPoints.length;
+            const centerY =
+              cellPoints.reduce((sum, p) => sum + p.y, 0) / cellPoints.length;
+
+            // 平均感情分布を計算
+            const emotionSums = {};
+            const emotionLyrics = {}; // 各感情の歌詞を集約
+            let totalLyricCount = 0;
+
+            cellPoints.forEach((point) => {
+              if (point.pie && Array.isArray(point.pie)) {
+                point.pie.forEach((emotion) => {
+                  if (!emotionSums[emotion.label]) {
+                    emotionSums[emotion.label] = { v: 0, c: emotion.c };
+                    emotionLyrics[emotion.label] = []; // 歌詞リストを初期化
+                  }
+                  emotionSums[emotion.label].v += emotion.v;
+                  // 歌詞を集約（lyricsが存在する場合）
+                  if (emotion.lyrics && Array.isArray(emotion.lyrics)) {
+                    emotionLyrics[emotion.label].push(...emotion.lyrics);
+                  }
+                });
+              }
+              totalLyricCount += point.lyricCount || 0;
+            });
+
+            // 平均化（lyricsも含める）
+            const avgPie = Object.keys(emotionSums).map((label) => ({
+              label,
+              v: emotionSums[label].v / cellPoints.length,
+              c: emotionSums[label].c,
+              lyrics: emotionLyrics[label] || [], // 集約した歌詞を追加
+            }));
+
+            // クラスタの半径（セル内の点の数に基づく）
+            const clusterRadius = Math.max(
+              8,
+              Math.min(30, 8 + Math.sqrt(cellPoints.length) * 2)
+            );
+
+            clusters.push({
+              x: centerX,
+              y: centerY,
+              r: clusterRadius,
+              pie: avgPie,
+              lyricCount: totalLyricCount,
+              pointCount: cellPoints.length,
+              progressionType: progressionType,
+              progression: cellPoints[0].progression || "N/A",
+              points: cellPoints, // 元のポイントを保持（詳細表示用）
+            });
+          });
+        });
+
+        return clusters;
+      }
+
+      /* ====== "曲数の合計" で半径を決める ======
+         1点の pie の各セグメント label ごとに
+         EMOTION_SONGS[label].length を取り、v(%) で重み付けして合計。
+         → それを sqrt スケールで半径にする
+      */
       function radiusFromLyricCount(count, minC, maxC) {
         const minR = 4;
         const maxR = 36;
@@ -522,22 +763,12 @@
 
         const active = chart.getActiveElements?.() ?? [];
 
-        // hoverも選択もないなら消す
-        if (tooltip.opacity === 0 && !selected) {
-          el.style.opacity = 0;
-          return;
-        }
-
-        // 表示対象の点：hoverがあればそれ、なければ selected
+        // 選択状態の場合は、ホバーを無視して選択した点を表示
+        // 選択がない場合のみ、ホバーを表示
         let datasetIndex, index, raw, caretX, caretY;
 
-        if (active.length) {
-          datasetIndex = active[0].datasetIndex;
-          index = active[0].index;
-          raw = chart.data.datasets[datasetIndex].data[index];
-          caretX = tooltip.caretX;
-          caretY = tooltip.caretY;
-        } else if (selected) {
+        if (selected) {
+          // 選択状態：選択した点を表示（ホバーを無視）
           datasetIndex = selected.datasetIndex;
           index = selected.index;
           raw = chart.data.datasets[datasetIndex].data[index];
@@ -548,7 +779,15 @@
           const { x, y } = elem.getProps(["x", "y"], true);
           caretX = x;
           caretY = y;
+        } else if (active.length && tooltip.opacity > 0) {
+          // ホバー状態：ホバーしている点を表示
+          datasetIndex = active[0].datasetIndex;
+          index = active[0].index;
+          raw = chart.data.datasets[datasetIndex].data[index];
+          caretX = tooltip.caretX;
+          caretY = tooltip.caretY;
         } else {
+          // 何もない場合は非表示
           el.style.opacity = 0;
           return;
         }
@@ -560,16 +799,61 @@
         raw._px = x;
         raw._py = y;
 
+        // デバッグ: raw.pieの内容を確認
+        console.log("Tooltip: raw object:", {
+          hasPie: !!raw.pie,
+          pieLength: raw.pie?.length || 0,
+          pieLabels: raw.pie?.map((s) => s.label) || [],
+          pieItems:
+            raw.pie?.map((s) => ({
+              label: s.label,
+              lyricsCount: s.lyrics?.length || 0,
+            })) || [],
+        });
+
         const minRadius =
           chart.options.plugins.piePointsCachedHover.minRadius ?? 6;
-        const hoverEmotion = getSegmentEmotion(raw, caretX, caretY, minRadius);
 
-        const selectedEmotion =
+        // 選択状態の場合は、選択した感情を使用（ホバーを無視）
+        // ホバー状態の場合は、ホバーしている感情を使用
+        let hoverEmotion = null;
+        let selectedEmotion = null;
+
+        if (
           selected &&
           selected.datasetIndex === datasetIndex &&
           selected.index === index
-            ? selected.emotion
-            : null;
+        ) {
+          // 選択状態：選択した感情を使用
+          selectedEmotion = selected.emotion;
+        } else if (!selected && active.length) {
+          // ホバー状態：ホバーしている感情を計算
+          hoverEmotion = getSegmentEmotion(raw, caretX, caretY, minRadius);
+        }
+
+        // 基準進行名を表示（基準進行そのものの点の場合）
+        let referenceProgressionTitle = "";
+        if (raw.isReferenceProgression && raw.referenceProgressionName) {
+          const progressionName =
+            PROGRESSION_NAMES[raw.referenceProgressionName] ||
+            raw.referenceProgressionName;
+          referenceProgressionTitle = `
+              <div class="reference-progression-title" style="
+                background: ${
+                  PROGRESSION_COLORS[raw.referenceProgressionName] || "#fff"
+                };
+                color: #000;
+                padding: 8px 12px;
+                border-radius: 4px;
+                margin-bottom: 8px;
+                font-weight: bold;
+                font-size: 14px;
+                text-align: center;
+              ">
+                ⭐ ${escapeHtml(progressionName)}
+              </div>
+            `;
+        }
 
         // 感情の順序に基づいてソート
         const sortedPie = sortPieByEmotionOrder(raw.pie);
@@ -580,104 +864,160 @@
               !selectedEmotion && hoverEmotion && s.label === hoverEmotion;
             const cls = isSelected || isHover ? "activeRow" : "";
             return `
-      <div class="row ${cls}">
-        <span class="swatch" style="background:${s.c}"></span>
-        <span class="name">${escapeHtml(s.label)}</span>
-        <span class="val">${Number(s.v).toFixed(2)}%</span>
-      </div>
-    `;
+            <div class="row ${cls}">
+              <span class="swatch" style="background:${s.c}"></span>
+              <span class="name">${escapeHtml(s.label)}</span>
+              <span class="val">${Number(s.v).toFixed(2)}%</span>
+            </div>
+          `;
           })
           .join("");
 
         let lyricsHtml = "";
         if (selectedEmotion) {
-          const seg = raw.pie.find((s) => s.label === selectedEmotion);
-          const lyrics = seg?.lyrics ?? [];
-          if (lyrics.length) {
+          // raw.pieが存在するか確認
+          if (!raw.pie || !Array.isArray(raw.pie) || raw.pie.length === 0) {
+            console.warn("raw.pie is missing or empty:", raw);
             lyricsHtml = `
-        <div class="songs">
-          <div class="head">
-            <span class="swatch" style="background:${
-              EMOTION_COLORS[selectedEmotion]
-            }; width:12px; height:12px;"></span>
-            <span>${escapeHtml(selectedEmotion)} の歌詞 (${
-              lyrics.length
-            }件)</span>
-          </div>
-          <ul>
-            ${lyrics
-              .map((l) => {
-                const lyricText =
-                  typeof l === "string" ? `「${l}」` : `「${l?.lyric}」` || "";
-                const songInfo =
-                  typeof l === "object" && l?.song ? l.song : null;
-
-                // デバッグ用（必要に応じてコメントアウト）
-                // console.log("Lyric item:", l, "Song info:", songInfo);
-
-                if (
-                  songInfo &&
-                  (songInfo.title ||
-                    songInfo.artist ||
-                    songInfo.composer ||
-                    songInfo.lyricist)
-                ) {
-                  const parts = [];
-                  if (songInfo.title) parts.push(`歌名: ${songInfo.title}`);
-                  if (songInfo.artist)
-                    parts.push(`アーティスト: ${songInfo.artist}`);
-                  if (songInfo.lyricist)
-                    parts.push(`作詞: ${songInfo.lyricist}`);
-                  if (songInfo.composer)
-                    parts.push(`作曲: ${songInfo.composer}`);
-
-                  const songInfoStr = parts.length > 0 ? parts.join(", ") : "";
-
-                  // リリース年と人気度を追加
-                  const additionalInfo = [];
-                  if (songInfo.release_date) {
-                    const year = extractYear(songInfo.release_date);
-                    if (year) {
-                      additionalInfo.push(`(${year})`);
-                    }
-                  }
-                  if (
-                    songInfo.spotify_popularity !== null &&
-                    songInfo.spotify_popularity !== undefined
-                  ) {
-                    additionalInfo.push(
-                      `人気度: ${songInfo.spotify_popularity}`
-                    );
-                  }
-
-                  const additionalInfoStr =
-                    additionalInfo.length > 0
-                      ? " " + additionalInfo.join(" ")
-                      : "";
-
-                  return `<li>${escapeHtml(lyricText)}<br />${escapeHtml(
-                    songInfoStr
-                  )}${escapeHtml(additionalInfoStr)}</li>`;
-                } else {
-                  return `<li>${escapeHtml(lyricText)}</li>`;
-                }
-              })
-              .join("")}
-          </ul>
-        </div>
-      `;
+              <div class="songs">
+                <div class="head">
+                  <span class="swatch" style="background:${
+                    EMOTION_COLORS[selectedEmotion] ||
+                    SENTIMENT_COLORS[selectedEmotion] ||
+                    "#808080"
+                  }; width:12px; height:12px;"></span>
+                  <span>${escapeHtml(selectedEmotion)} の歌詞</span>
+                </div>
+                <div style="opacity:.85">歌詞データがありません</div>
+              </div>
+            `;
           } else {
-            lyricsHtml = `
-        <div class="songs">
-          <div class="head">
-            <span class="swatch" style="background:${
-              EMOTION_COLORS[selectedEmotion]
-            }; width:12px; height:12px;"></span>
-            <span>${escapeHtml(selectedEmotion)} の歌詞</span>
-          </div>
-          <div style="opacity:.85">歌詞データがありません</div>
-        </div>
-      `;
+            const seg = raw.pie.find((s) => s.label === selectedEmotion);
+            if (!seg) {
+              console.warn(
+                "Segment not found for emotion:",
+                selectedEmotion,
+                "Available segments:",
+                raw.pie.map((s) => s.label)
+              );
+              lyricsHtml = `
+                <div class="songs">
+                  <div class="head">
+                    <span class="swatch" style="background:${
+                      EMOTION_COLORS[selectedEmotion] ||
+                      SENTIMENT_COLORS[selectedEmotion] ||
+                      "#808080"
+                    }; width:12px; height:12px;"></span>
+                    <span>${escapeHtml(selectedEmotion)} の歌詞</span>
+                  </div>
+                  <div style="opacity:.85">歌詞データがありません</div>
+                </div>
+              `;
+            } else {
+              const lyrics = seg?.lyrics ?? [];
+              console.log(
+                "Tooltip: Found segment for emotion:",
+                selectedEmotion,
+                "Lyrics count:",
+                lyrics.length,
+                "Segment:",
+                seg
+              );
+              if (lyrics.length) {
+                lyricsHtml = `
+              <div class="songs">
+                <div class="head">
+                  <span class="swatch" style="background:${
+                    EMOTION_COLORS[selectedEmotion] ||
+                    SENTIMENT_COLORS[selectedEmotion] ||
+                    "#808080"
+                  }; width:12px; height:12px;"></span>
+                  <span>${escapeHtml(selectedEmotion)} の歌詞 (${
+                  lyrics.length
+                }件)</span>
+                </div>
+                <ul>
+                  ${lyrics
+                    .map((l) => {
+                      const lyricText =
+                        typeof l === "string"
+                          ? `「${l}」`
+                          : `「${l?.lyric}」` || "";
+                      const songInfo =
+                        typeof l === "object" && l?.song ? l.song : null;
+
+                      // デバッグ用（必要に応じてコメントアウト）
+                      // console.log("Lyric item:", l, "Song info:", songInfo);
+
+                      if (
+                        songInfo &&
+                        (songInfo.title ||
+                          songInfo.artist ||
+                          songInfo.composer ||
+                          songInfo.lyricist)
+                      ) {
+                        const parts = [];
+                        if (songInfo.title)
+                          parts.push(`歌名: ${songInfo.title}`);
+                        if (songInfo.artist)
+                          parts.push(`アーティスト: ${songInfo.artist}`);
+                        if (songInfo.lyricist)
+                          parts.push(`作詞: ${songInfo.lyricist}`);
+                        if (songInfo.composer)
+                          parts.push(`作曲: ${songInfo.composer}`);
+
+                        const songInfoStr =
+                          parts.length > 0 ? parts.join(", ") : "";
+
+                        // リリース年と人気度を追加
+                        const additionalInfo = [];
+                        if (songInfo.release_date) {
+                          const year = extractYear(songInfo.release_date);
+                          if (year) {
+                            additionalInfo.push(`(${year})`);
+                          }
+                        }
+                        if (
+                          songInfo.spotify_popularity !== null &&
+                          songInfo.spotify_popularity !== undefined
+                        ) {
+                          additionalInfo.push(
+                            `人気度: ${songInfo.spotify_popularity}`
+                          );
+                        }
+
+                        const additionalInfoStr =
+                          additionalInfo.length > 0
+                            ? " " + additionalInfo.join(" ")
+                            : "";
+
+                        return `<li>${escapeHtml(lyricText)}<br />${escapeHtml(
+                          songInfoStr
+                        )}${escapeHtml(additionalInfoStr)}</li>`;
+                      } else {
+                        return `<li>${escapeHtml(lyricText)}</li>`;
+                      }
+                    })
+                    .join("")}
+                </ul>
+              </div>
+            `;
+              } else {
+                lyricsHtml = `
+                  <div class="songs">
+                    <div class="head">
+                      <span class="swatch" style="background:${
+                        SENTIMENT_COLORS[selectedEmotion] ||
+                        EMOTION_COLORS[selectedEmotion] ||
+                        "#808080"
+                      }; width:12px; height:12px;"></span>
+                      <span>${escapeHtml(selectedEmotion)} の歌詞</span>
+                    </div>
+                    <div style="opacity:.85">歌詞データがありません</div>
+                  </div>
+                `;
+              }
+            }
           }
         } else {
           lyricsHtml = `<div class="hint">円グラフの扇形をクリックすると、その感情の歌詞を表示します。</div>`;
@@ -690,13 +1030,31 @@
           raw.chord_progression?.join(" - ") ||
           "N/A";
 
+        // 基準進行との類似度を表示
+        let progressionSuffix = "";
+        if (raw.progressionType && !raw.isReferenceProgression) {
+          const progressionTypeName =
+            PROGRESSION_NAMES[raw.progressionType] || raw.progressionType;
+          progressionSuffix = ` (${progressionTypeName}似)`;
+        }
+
+        let titleHtml = `<div class="title">progression: ${escapeHtml(
+          progression
+        )}${escapeHtml(
+          progressionSuffix
+        )}<br />total: ${lyricCount}phrase</div>`;
+
+        // 感情を選択している場合は、パーセンテージ行を非表示にする
+        const rowsHtml = selectedEmotion
+          ? ""
+          : `<div class="rows">${rows}</div>`;
+
         el.innerHTML = `
-    <div class="title">progression: ${escapeHtml(
-      progression
-    )}<br />total: ${lyricCount}phrase</div>
-    <div class="rows">${rows}</div>
-    ${lyricsHtml}
-  `;
+          ${titleHtml}
+          ${referenceProgressionTitle}
+          ${rowsHtml}
+          ${lyricsHtml}
+        `;
 
         // 位置（はみ出し調整あり）
         const canvasRect = chart.canvas.getBoundingClientRect();
@@ -715,6 +1073,64 @@
 
         el.style.left = left + "px";
         el.style.top = top + "px";
+
+        // tooltip全体でwheelイベントをキャプチャ（キャプチャフェーズで処理）
+        // Chart.jsのズーム機能が優先されないようにする
+        // 既存のイベントリスナーを削除（重複防止）
+        el.removeEventListener("wheel", handleTooltipWheel, true);
+        el.removeEventListener("wheel", handleTooltipWheel, {
+          capture: true,
+          passive: false,
+        });
+
+        // wheelイベントをキャプチャフェーズで追加（Chart.jsより先に処理）
+        el.addEventListener("wheel", handleTooltipWheel, {
+          capture: true,
+          passive: false,
+        });
+      }
+
+      // tooltip内のwheelイベントハンドラー
+      function handleTooltipWheel(ev) {
+        // tooltip内のスクロール可能な要素を探す
+        const scrollableElement = ev.target.closest(".songs ul");
+
+        if (
+          scrollableElement &&
+          scrollableElement.scrollHeight > scrollableElement.clientHeight
+        ) {
+          // スクロール可能な要素内でwheelイベントが発生した場合
+          // イベントの伝播を確実に停止してChart.jsのズームを防ぐ
+          ev.stopPropagation();
+          ev.stopImmediatePropagation();
+
+          // スクロールの上限・下限をチェック
+          const isAtTop = scrollableElement.scrollTop === 0;
+          const isAtBottom =
+            scrollableElement.scrollTop + scrollableElement.clientHeight >=
+            scrollableElement.scrollHeight - 1;
+
+          // 上方向にスクロールしようとしているが、すでに最上部にいる場合
+          if (ev.deltaY < 0 && isAtTop) {
+            ev.preventDefault();
+            return false;
+          }
+
+          // 下方向にスクロールしようとしているが、すでに最下部にいる場合
+          if (ev.deltaY > 0 && isAtBottom) {
+            ev.preventDefault();
+            return false;
+          }
+
+          // スクロール可能な範囲内の場合、手動でスクロールを処理
+          const scrollAmount = ev.deltaY;
+          scrollableElement.scrollTop += scrollAmount;
+          ev.preventDefault();
+        } else {
+          // tooltip内だがスクロール可能な要素外の場合、イベントの伝播を停止
+          ev.stopPropagation();
+          ev.stopImmediatePropagation();
+        }
       }
 
       function escapeHtml(s) {
@@ -764,13 +1180,298 @@
         maxInput.placeholder = popularityRange.max.toString();
       }
 
+      /* ========= URLクエリパラメータ管理 ========= */
+      function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        const result = {
+          dataset: params.get("dataset"),
+          artists: params.getAll("artist"),
+          composers: params.getAll("composer"),
+          lyricists: params.getAll("lyricist"),
+          releaseDateMin: params.get("releaseDateMin"),
+          releaseDateMax: params.get("releaseDateMax"),
+          popularityMin: params.get("popularityMin"),
+          popularityMax: params.get("popularityMax"),
+        };
+        console.log("getQueryParams result:", result);
+        return result;
+      }
+
+      function updateURL(filters) {
+        const params = new URLSearchParams();
+
+        // データセット
+        if (filters.dataset) {
+          params.set("dataset", filters.dataset);
+        }
+
+        // アーティスト
+        if (filters.artists && filters.artists.length > 0) {
+          filters.artists.forEach((artist) => {
+            if (artist && artist !== "") {
+              params.append("artist", artist);
+            }
+          });
+        }
+
+        // 作曲家
+        if (filters.composers && filters.composers.length > 0) {
+          filters.composers.forEach((composer) => {
+            if (composer && composer !== "") {
+              params.append("composer", composer);
+            }
+          });
+        }
+
+        // 作詞家
+        if (filters.lyricists && filters.lyricists.length > 0) {
+          filters.lyricists.forEach((lyricist) => {
+            if (lyricist && lyricist !== "") {
+              params.append("lyricist", lyricist);
+            }
+          });
+        }
+
+        // リリース日
+        if (filters.releaseDateMin) {
+          params.set("releaseDateMin", filters.releaseDateMin);
+        }
+        if (filters.releaseDateMax) {
+          params.set("releaseDateMax", filters.releaseDateMax);
+        }
+
+        // 人気度
+        if (filters.popularityMin) {
+          params.set("popularityMin", filters.popularityMin);
+        }
+        if (filters.popularityMax) {
+          params.set("popularityMax", filters.popularityMax);
+        }
+
+        // URLを更新（履歴に追加）
+        const newURL = params.toString()
+          ? `${window.location.pathname}?${params.toString()}`
+          : window.location.pathname;
+
+        // 現在のURLと異なる場合のみ更新（無限ループを防ぐ）
+        if (window.location.href !== window.location.origin + newURL) {
+          window.history.pushState({}, "", newURL);
+        }
+      }
+
+      function updateURLFromFilters() {
+        const selector = document.getElementById("jsonSelector");
+        const artistFilter = document.getElementById("artistFilter");
+        const composerFilter = document.getElementById("composerFilter");
+        const lyricistFilter = document.getElementById("lyricistFilter");
+        const releaseDateMinInput = document.getElementById(
+          "releaseDateMinInput"
+        );
+        const releaseDateMaxInput = document.getElementById(
+          "releaseDateMaxInput"
+        );
+        const popularityMinInput =
+          document.getElementById("popularityMinInput");
+        const popularityMaxInput =
+          document.getElementById("popularityMaxInput");
+
+        const selectedArtists = artistFilter
+          ? Array.from(artistFilter.selectedOptions)
+              .map((opt) => opt.value)
+              .filter((v) => v !== "")
+          : [];
+        const selectedComposers = composerFilter
+          ? Array.from(composerFilter.selectedOptions)
+              .map((opt) => opt.value)
+              .filter((v) => v !== "")
+          : [];
+        const selectedLyricists = lyricistFilter
+          ? Array.from(lyricistFilter.selectedOptions)
+              .map((opt) => opt.value)
+              .filter((v) => v !== "")
+          : [];
+
+        updateURL({
+          dataset: selector?.value || null,
+          artists: selectedArtists,
+          composers: selectedComposers,
+          lyricists: selectedLyricists,
+          releaseDateMin: releaseDateMinInput?.value || null,
+          releaseDateMax: releaseDateMaxInput?.value || null,
+          popularityMin: popularityMinInput?.value || null,
+          popularityMax: popularityMaxInput?.value || null,
+        });
+      }
+
+      function applyFiltersFromURL(shouldUpdateChart = true) {
+        const queryParams = getQueryParams();
+        console.log(
+          "applyFiltersFromURL called with queryParams:",
+          queryParams
+        );
+
+        // アーティストフィルタ
+        const artistFilter = document.getElementById("artistFilter");
+        if (artistFilter) {
+          if (queryParams.artists.length > 0) {
+            console.log("Applying artist filter:", queryParams.artists);
+            // すべての選択を解除
+            for (let i = 0; i < artistFilter.options.length; i++) {
+              artistFilter.options[i].selected = false;
+            }
+            // URLパラメータで指定されたアーティストを選択
+            queryParams.artists.forEach((artist) => {
+              console.log("Looking for artist:", artist);
+              let found = false;
+              for (let i = 0; i < artistFilter.options.length; i++) {
+                if (artistFilter.options[i].value === artist) {
+                  artistFilter.options[i].selected = true;
+                  console.log("Found and selected artist:", artist);
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) {
+                console.warn("Artist not found in options:", artist);
+              }
+            });
+          } else {
+            // URLパラメータにアーティストがない場合は「すべて」を選択
+            for (let i = 0; i < artistFilter.options.length; i++) {
+              artistFilter.options[i].selected = false;
+            }
+            if (artistFilter.options.length > 0) {
+              artistFilter.options[0].selected = true;
+            }
+          }
+        }
+
+        // 作曲家フィルタ
+        const composerFilter = document.getElementById("composerFilter");
+        if (composerFilter) {
+          if (queryParams.composers.length > 0) {
+            console.log("Applying composer filter:", queryParams.composers);
+            // すべての選択を解除
+            for (let i = 0; i < composerFilter.options.length; i++) {
+              composerFilter.options[i].selected = false;
+            }
+            // URLパラメータで指定された作曲家を選択
+            queryParams.composers.forEach((composer) => {
+              console.log("Looking for composer:", composer);
+              let found = false;
+              for (let i = 0; i < composerFilter.options.length; i++) {
+                if (composerFilter.options[i].value === composer) {
+                  composerFilter.options[i].selected = true;
+                  console.log("Found and selected composer:", composer);
+                  found = true;
+                  break;
+                }
+              }
+              if (!found) {
+                console.warn("Composer not found in options:", composer);
+              }
+            });
+          } else {
+            // URLパラメータに作曲家がない場合は「すべて」を選択
+            for (let i = 0; i < composerFilter.options.length; i++) {
+              composerFilter.options[i].selected = false;
+            }
+            if (composerFilter.options.length > 0) {
+              composerFilter.options[0].selected = true;
+            }
+          }
+        }
+
+        // 作詞家フィルタ
+        const lyricistFilter = document.getElementById("lyricistFilter");
+        if (lyricistFilter) {
+          if (queryParams.lyricists.length > 0) {
+            // すべての選択を解除
+            for (let i = 0; i < lyricistFilter.options.length; i++) {
+              lyricistFilter.options[i].selected = false;
+            }
+            // URLパラメータで指定された作詞家を選択
+            queryParams.lyricists.forEach((lyricist) => {
+              for (let i = 0; i < lyricistFilter.options.length; i++) {
+                if (lyricistFilter.options[i].value === lyricist) {
+                  lyricistFilter.options[i].selected = true;
+                  break;
+                }
+              }
+            });
+          } else {
+            // URLパラメータに作詞家がない場合は「すべて」を選択
+            for (let i = 0; i < lyricistFilter.options.length; i++) {
+              lyricistFilter.options[i].selected = false;
+            }
+            if (lyricistFilter.options.length > 0) {
+              lyricistFilter.options[0].selected = true;
+            }
+          }
+        }
+
+        // リリース日フィルタ
+        const releaseDateMinInput = document.getElementById(
+          "releaseDateMinInput"
+        );
+        const releaseDateMaxInput = document.getElementById(
+          "releaseDateMaxInput"
+        );
+        if (releaseDateMinInput && queryParams.releaseDateMin) {
+          releaseDateMinInput.value = queryParams.releaseDateMin;
+        }
+        if (releaseDateMaxInput && queryParams.releaseDateMax) {
+          releaseDateMaxInput.value = queryParams.releaseDateMax;
+        }
+
+        // 人気度フィルタ
+        const popularityMinInput =
+          document.getElementById("popularityMinInput");
+        const popularityMaxInput =
+          document.getElementById("popularityMaxInput");
+        if (popularityMinInput && queryParams.popularityMin) {
+          popularityMinInput.value = queryParams.popularityMin;
+        }
+        if (popularityMaxInput && queryParams.popularityMax) {
+          popularityMaxInput.value = queryParams.popularityMax;
+        } else if (popularityMaxInput && !queryParams.popularityMax) {
+          popularityMaxInput.value = "";
+        }
+
+        // リリース日フィルタがクリアされた場合
+        if (releaseDateMinInput && !queryParams.releaseDateMin) {
+          releaseDateMinInput.value = "";
+        }
+        if (releaseDateMaxInput && !queryParams.releaseDateMax) {
+          releaseDateMaxInput.value = "";
+        }
+
+        // 人気度フィルタがクリアされた場合
+        if (popularityMinInput && !queryParams.popularityMin) {
+          popularityMinInput.value = "";
+        }
+
+        // チャートが存在する場合は再描画
+        if (shouldUpdateChart && chart && allPoints.length > 0) {
+          console.log("Updating chart from applyFiltersFromURL");
+          updateChart();
+        } else {
+          console.log("Chart update skipped:", {
+            shouldUpdateChart,
+            hasChart: !!chart,
+            pointsCount: allPoints.length,
+          });
+        }
+      }
+
       /* ========= フィルタリング機能 ========= */
       function extractFilterOptions(points) {
-        const artists = new Set();
-        const composers = new Set();
-        const lyricists = new Set();
+        const artists = new Map(); // Map<name, phraseCount>
+        const composers = new Map(); // Map<name, phraseCount>
+        const lyricists = new Map(); // Map<name, phraseCount>
         const releaseDates = [];
         const popularities = [];
+        const uniqueSongs = new Set(); // 楽曲の重複を避けるためのSet（spotify_idまたはtitle+artist）
 
         // 各ポイントからアーティスト、作曲家、作詞家、リリース日、人気度を抽出
         for (const point of points) {
@@ -779,9 +1480,27 @@
             if (!pieItem.lyrics) continue;
             for (const lyric of pieItem.lyrics) {
               if (lyric.song) {
-                if (lyric.song.artist) artists.add(lyric.song.artist);
-                if (lyric.song.composer) composers.add(lyric.song.composer);
-                if (lyric.song.lyricist) lyricists.add(lyric.song.lyricist);
+                // 楽曲のユニークIDを生成（spotify_idがあればそれを使用、なければtitle+artist）
+                const songId =
+                  lyric.song.spotify_id ||
+                  (lyric.song.title && lyric.song.artist
+                    ? `${lyric.song.title}|${lyric.song.artist}`
+                    : null);
+                if (songId) uniqueSongs.add(songId);
+
+                // フレーズ数をカウント
+                if (lyric.song.artist) {
+                  const count = artists.get(lyric.song.artist) || 0;
+                  artists.set(lyric.song.artist, count + 1);
+                }
+                if (lyric.song.composer) {
+                  const count = composers.get(lyric.song.composer) || 0;
+                  composers.set(lyric.song.composer, count + 1);
+                }
+                if (lyric.song.lyricist) {
+                  const count = lyricists.get(lyric.song.lyricist) || 0;
+                  lyricists.set(lyric.song.lyricist, count + 1);
+                }
                 if (lyric.song.release_date) {
                   // release_dateから年を抽出（"1973" または "1973-04-10" 形式）
                   const year = extractYear(lyric.song.release_date);
@@ -822,43 +1541,105 @@
         console.log("Number of release dates found:", releaseDates.length);
         console.log("Number of popularities found:", popularities.length);
 
+        // 総フレーズ数を計算
+        // 注意: これは可視化データに含まれるフレーズ数のみです
+        // 実際の分析済みデータ（data/analyzed）の全てが可視化データに含まれているわけではありません
+        // 可視化データは、感情閾値（最大値 ≥ 0.4）などのフィルタリングを経た後に生成されています
+        let totalPhrases = 0;
+        for (const point of points) {
+          if (point.lyricCount) {
+            totalPhrases += point.lyricCount;
+          } else if (point.pie) {
+            for (const pieItem of point.pie) {
+              if (pieItem.lyrics) {
+                totalPhrases += pieItem.lyrics.length;
+              }
+            }
+          }
+        }
+
+        // 各カテゴリの総フレーズ数を計算
+        const totalArtistPhrases = Array.from(artists.values()).reduce(
+          (sum, count) => sum + count,
+          0
+        );
+        const totalComposerPhrases = Array.from(composers.values()).reduce(
+          (sum, count) => sum + count,
+          0
+        );
+        const totalLyricistPhrases = Array.from(lyricists.values()).reduce(
+          (sum, count) => sum + count,
+          0
+        );
+
+        // 統計情報を更新
+        updateStatistics(uniqueSongs.size, totalPhrases);
+
         // セレクターにオプションを追加
         const artistSelect = document.getElementById("artistFilter");
         const composerSelect = document.getElementById("composerFilter");
         const lyricistSelect = document.getElementById("lyricistFilter");
 
         // 既存のオプションをクリア（"すべて"以外）
-        artistSelect.innerHTML = '<option value="" selected>すべて</option>';
-        composerSelect.innerHTML = '<option value="" selected>すべて</option>';
-        lyricistSelect.innerHTML = '<option value="" selected>すべて</option>';
+        artistSelect.innerHTML = `<option value="" selected>すべて (${totalArtistPhrases})</option>`;
+        composerSelect.innerHTML = `<option value="" selected>すべて (${totalComposerPhrases})</option>`;
+        lyricistSelect.innerHTML = `<option value="" selected>すべて (${totalLyricistPhrases})</option>`;
 
-        // ソートして追加
-        Array.from(artists)
-          .sort()
-          .forEach((artist) => {
+        // ソートして追加（フレーズ数の降順）
+        Array.from(artists.entries())
+          .sort((a, b) => {
+            // まずフレーズ数で降順ソート
+            if (b[1] !== a[1]) return b[1] - a[1];
+            // 同じフレーズ数の場合は名前でソート
+            return a[0].localeCompare(b[0], "ja");
+          })
+          .forEach(([artist, count]) => {
             const option = document.createElement("option");
             option.value = artist;
-            option.textContent = artist;
+            option.textContent = `${artist} (${count})`;
             artistSelect.appendChild(option);
           });
 
-        Array.from(composers)
-          .sort()
-          .forEach((composer) => {
+        Array.from(composers.entries())
+          .sort((a, b) => {
+            if (b[1] !== a[1]) return b[1] - a[1];
+            return a[0].localeCompare(b[0], "ja");
+          })
+          .forEach(([composer, count]) => {
             const option = document.createElement("option");
             option.value = composer;
-            option.textContent = composer;
+            option.textContent = `${composer} (${count})`;
             composerSelect.appendChild(option);
           });
 
-        Array.from(lyricists)
-          .sort()
-          .forEach((lyricist) => {
+        Array.from(lyricists.entries())
+          .sort((a, b) => {
+            if (b[1] !== a[1]) return b[1] - a[1];
+            return a[0].localeCompare(b[0], "ja");
+          })
+          .forEach(([lyricist, count]) => {
             const option = document.createElement("option");
             option.value = lyricist;
-            option.textContent = lyricist;
+            option.textContent = `${lyricist} (${count})`;
             lyricistSelect.appendChild(option);
           });
+      }
+
+      /* ========= 統計情報の更新 ========= */
+      function updateStatistics(totalSongs, totalPhrases) {
+        const statsEl = document.getElementById("statistics");
+        if (statsEl) {
+          statsEl.innerHTML = `
+            <h2>分析対象データの統計（可視化データに含まれるデータ）</h2>
+            <p><strong>可視化データに含まれる楽曲数：${totalSongs}曲</strong></p>
+            <p><strong>可視化データに含まれる歌詞フレーズ数：${totalPhrases}フレーズ</strong></p>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+              ※ 注意: この統計は可視化用に生成されたデータに基づいています。<br>
+              ※ 可視化データは、感情閾値（最大値 ≥ 0.4）などのフィルタリング条件を経た後に生成されています。<br>
+              ※ 実際の分析済みデータ（data/analyzed）には約8,000曲以上が含まれていますが、感情が検出されたもののみが可視化データに含まれます。
+            </p>
+          `;
+        }
       }
 
       function applyFilters(points) {
@@ -986,158 +1767,315 @@
         });
 
         // フィルタリング
-        return points.filter((point) => {
-          if (!point.pie) return false;
+        return points
+          .filter((point) => {
+            if (!point.pie) return false;
 
-          // release_dateフィルタが有効な場合
-          if (isReleaseDateFilterActive) {
-            // このポイントに関連するリリース年を収集
-            const pointReleaseYears = [];
+            // release_dateフィルタが有効な場合
+            if (isReleaseDateFilterActive) {
+              // このポイントに関連するリリース年を収集
+              const pointReleaseYears = [];
 
-            for (const pieItem of point.pie) {
-              if (!pieItem.lyrics) continue;
-              for (const lyric of pieItem.lyrics) {
-                // デバッグ: 最初のポイントのlyric構造を確認
-                if (
-                  point === points[0] &&
-                  pieItem === point.pie[0] &&
-                  lyric === pieItem.lyrics[0]
-                ) {
-                  console.log("First lyric structure:", lyric);
-                  console.log("lyric.song:", lyric.song);
-                  console.log(
-                    "lyric.song?.release_date:",
-                    lyric.song?.release_date
-                  );
-                }
-                if (lyric.song && lyric.song.release_date) {
-                  const year = extractYear(lyric.song.release_date);
-                  if (year) pointReleaseYears.push(year);
+              for (const pieItem of point.pie) {
+                if (!pieItem.lyrics) continue;
+                for (const lyric of pieItem.lyrics) {
+                  // デバッグ: 最初のポイントのlyric構造を確認
+                  if (
+                    point === points[0] &&
+                    pieItem === point.pie[0] &&
+                    lyric === pieItem.lyrics[0]
+                  ) {
+                    console.log("First lyric structure:", lyric);
+                    console.log("lyric.song:", lyric.song);
+                    console.log(
+                      "lyric.song?.release_date:",
+                      lyric.song?.release_date
+                    );
+                  }
+                  if (lyric.song && lyric.song.release_date) {
+                    const year = extractYear(lyric.song.release_date);
+                    if (year) pointReleaseYears.push(year);
+                  }
                 }
               }
-            }
 
-            // リリース年がない場合は除外
-            if (pointReleaseYears.length === 0) {
-              // デバッグ用
-              if (point === points[0]) {
-                console.log("First point excluded: no release dates found");
-                console.log("Point pie structure:", point.pie);
-              }
-              return false;
-            }
-
-            // 少なくとも1つの歌詞が指定範囲内にあるかチェック
-            const hasYearInRange = pointReleaseYears.some((year) => {
-              if (minReleaseYear !== null && year < minReleaseYear)
+              // リリース年がない場合は除外
+              if (pointReleaseYears.length === 0) {
+                // デバッグ用
+                if (point === points[0]) {
+                  console.log("First point excluded: no release dates found");
+                  console.log("Point pie structure:", point.pie);
+                }
                 return false;
-              if (maxReleaseYear !== null && year > maxReleaseYear)
-                return false;
-              return true;
-            });
-
-            // リリース年フィルタに一致しない場合は除外
-            if (!hasYearInRange) {
-              return false;
-            }
-          }
-
-          // spotify_popularityフィルタが有効な場合
-          if (isPopularityFilterActive) {
-            // このポイントに関連する人気度を収集
-            const pointPopularities = [];
-
-            for (const pieItem of point.pie) {
-              if (!pieItem.lyrics) continue;
-              for (const lyric of pieItem.lyrics) {
-                if (
-                  lyric.song &&
-                  lyric.song.spotify_popularity !== null &&
-                  lyric.song.spotify_popularity !== undefined
-                ) {
-                  pointPopularities.push(lyric.song.spotify_popularity);
-                }
               }
-            }
 
-            // 人気度がない場合は除外
-            if (pointPopularities.length === 0) {
-              return false;
-            }
-
-            // 少なくとも1つの歌詞が指定範囲内にあるかチェック
-            const hasPopularityInRange = pointPopularities.some(
-              (popularity) => {
-                if (minPopularity !== null && popularity < minPopularity)
+              // 少なくとも1つの歌詞が指定範囲内にあるかチェック
+              const hasYearInRange = pointReleaseYears.some((year) => {
+                if (minReleaseYear !== null && year < minReleaseYear)
                   return false;
-                if (maxPopularity !== null && popularity > maxPopularity)
+                if (maxReleaseYear !== null && year > maxReleaseYear)
                   return false;
                 return true;
-              }
-            );
+              });
 
-            // 人気度フィルタに一致しない場合は除外
-            if (!hasPopularityInRange) {
-              return false;
-            }
-          }
-
-          // artist/composer/lyricistフィルタが有効な場合
-          // このポイントに関連するアーティスト、作曲家、作詞家を収集
-          const pointArtists = new Set();
-          const pointComposers = new Set();
-          const pointLyricists = new Set();
-
-          for (const pieItem of point.pie) {
-            if (!pieItem.lyrics) continue;
-            for (const lyric of pieItem.lyrics) {
-              if (lyric.song) {
-                if (lyric.song.artist) pointArtists.add(lyric.song.artist);
-                if (lyric.song.composer)
-                  pointComposers.add(lyric.song.composer);
-                if (lyric.song.lyricist)
-                  pointLyricists.add(lyric.song.lyricist);
+              // リリース年フィルタに一致しない場合は除外
+              if (!hasYearInRange) {
+                return false;
               }
             }
-          }
 
-          // フィルタリング条件をチェック
-          if (selectedArtists.length > 0) {
-            const hasSelectedArtist = selectedArtists.some((artist) =>
-              pointArtists.has(artist)
-            );
-            if (!hasSelectedArtist) return false;
-          }
+            // spotify_popularityフィルタが有効な場合
+            if (isPopularityFilterActive) {
+              // このポイントに関連する人気度を収集
+              const pointPopularities = [];
 
-          if (selectedComposers.length > 0) {
-            const hasSelectedComposer = selectedComposers.some((composer) =>
-              pointComposers.has(composer)
-            );
-            if (!hasSelectedComposer) return false;
-          }
+              for (const pieItem of point.pie) {
+                if (!pieItem.lyrics) continue;
+                for (const lyric of pieItem.lyrics) {
+                  if (
+                    lyric.song &&
+                    lyric.song.spotify_popularity !== null &&
+                    lyric.song.spotify_popularity !== undefined
+                  ) {
+                    pointPopularities.push(lyric.song.spotify_popularity);
+                  }
+                }
+              }
 
-          if (selectedLyricists.length > 0) {
-            const hasSelectedLyricist = selectedLyricists.some((lyricist) =>
-              pointLyricists.has(lyricist)
-            );
-            if (!hasSelectedLyricist) return false;
-          }
+              // 人気度がない場合は除外
+              if (pointPopularities.length === 0) {
+                return false;
+              }
 
-          return true;
-        });
+              // 少なくとも1つの歌詞が指定範囲内にあるかチェック
+              const hasPopularityInRange = pointPopularities.some(
+                (popularity) => {
+                  if (minPopularity !== null && popularity < minPopularity)
+                    return false;
+                  if (maxPopularity !== null && popularity > maxPopularity)
+                    return false;
+                  return true;
+                }
+              );
+
+              // 人気度フィルタに一致しない場合は除外
+              if (!hasPopularityInRange) {
+                return false;
+              }
+            }
+
+            // artist/composer/lyricistフィルタが有効な場合
+            // このポイントに関連するアーティスト、作曲家、作詞家を収集
+            const pointArtists = new Set();
+            const pointComposers = new Set();
+            const pointLyricists = new Set();
+
+            for (const pieItem of point.pie) {
+              if (!pieItem.lyrics) continue;
+              for (const lyric of pieItem.lyrics) {
+                if (lyric.song) {
+                  if (lyric.song.artist) pointArtists.add(lyric.song.artist);
+                  if (lyric.song.composer)
+                    pointComposers.add(lyric.song.composer);
+                  if (lyric.song.lyricist)
+                    pointLyricists.add(lyric.song.lyricist);
+                }
+              }
+            }
+
+            // フィルタリング条件をチェック（AND検索：選択されたすべてに一致する必要がある）
+            if (selectedArtists.length > 0) {
+              // 選択されたすべてのアーティストがポイントに含まれているかチェック
+              const hasAllSelectedArtists = selectedArtists.every((artist) =>
+                pointArtists.has(artist)
+              );
+              if (!hasAllSelectedArtists) return false;
+            }
+
+            if (selectedComposers.length > 0) {
+              // 選択されたすべての作曲家がポイントに含まれているかチェック
+              const hasAllSelectedComposers = selectedComposers.every(
+                (composer) => pointComposers.has(composer)
+              );
+              if (!hasAllSelectedComposers) return false;
+            }
+
+            if (selectedLyricists.length > 0) {
+              // 選択されたすべての作詞家がポイントに含まれているかチェック
+              const hasAllSelectedLyricists = selectedLyricists.every(
+                (lyricist) => pointLyricists.has(lyricist)
+              );
+              if (!hasAllSelectedLyricists) return false;
+            }
+
+            return true;
+          })
+          .map((point) => {
+            // フィルタリング条件に一致するポイントのpieデータをフィルタリング
+            // 選択されたアーティスト/作曲家/作詞家に一致する歌詞のみを表示
+            if (
+              selectedArtists.length === 0 &&
+              selectedComposers.length === 0 &&
+              selectedLyricists.length === 0
+            ) {
+              return point; // フィルタがない場合はそのまま返す
+            }
+
+            // ポイントのコピーを作成
+            const filteredPoint = { ...point };
+            if (filteredPoint.pie) {
+              filteredPoint.pie = filteredPoint.pie
+                .map((pieItem) => {
+                  if (!pieItem.lyrics) return pieItem;
+
+                  // 歌詞をフィルタリング
+                  const filteredLyrics = pieItem.lyrics.filter((lyric) => {
+                    if (!lyric.song) return false;
+
+                    // アーティストフィルタ
+                    if (selectedArtists.length > 0) {
+                      const matchesArtist = selectedArtists.some(
+                        (artist) => lyric.song.artist === artist
+                      );
+                      if (!matchesArtist) return false;
+                    }
+
+                    // 作曲家フィルタ
+                    if (selectedComposers.length > 0) {
+                      const matchesComposer = selectedComposers.some(
+                        (composer) => lyric.song.composer === composer
+                      );
+                      if (!matchesComposer) return false;
+                    }
+
+                    // 作詞家フィルタ
+                    if (selectedLyricists.length > 0) {
+                      const matchesLyricist = selectedLyricists.some(
+                        (lyricist) => lyric.song.lyricist === lyricist
+                      );
+                      if (!matchesLyricist) return false;
+                    }
+
+                    return true;
+                  });
+
+                  // フィルタリング後の歌詞がない場合は、pieItemをnullにする（後で除外）
+                  if (filteredLyrics.length === 0) {
+                    return null;
+                  }
+
+                  // フィルタリング後の歌詞でpieItemを更新
+                  return {
+                    ...pieItem,
+                    lyrics: filteredLyrics,
+                    // 割合を再計算（フィルタリング後の歌詞数に基づく）
+                    v:
+                      (filteredLyrics.length / (pieItem.lyrics.length || 1)) *
+                      (pieItem.v || 0),
+                  };
+                })
+                .filter((pieItem) => pieItem !== null); // nullのpieItemを除外
+
+              // フィルタリング後にpieが空になった場合は、ポイントを除外
+              if (filteredPoint.pie.length === 0) {
+                return null;
+              }
+
+              // pieの合計が100になるように正規化
+              const totalV = filteredPoint.pie.reduce(
+                (sum, p) => sum + (p.v || 0),
+                0
+              );
+              if (totalV > 0) {
+                filteredPoint.pie = filteredPoint.pie.map((p) => ({
+                  ...p,
+                  v: (p.v / totalV) * 100,
+                }));
+              }
+
+              // lyricCountを再計算（フィルタリング後の歌詞数）
+              let totalLyricCount = 0;
+              filteredPoint.pie.forEach((pieItem) => {
+                if (pieItem.lyrics && Array.isArray(pieItem.lyrics)) {
+                  totalLyricCount += pieItem.lyrics.length;
+                }
+              });
+              filteredPoint.lyricCount = totalLyricCount;
+            } else {
+              // pieがない場合でも、フィルタリング後の歌詞数を0に設定
+              filteredPoint.lyricCount = 0;
+            }
+
+            return filteredPoint;
+          })
+          .filter((point) => point !== null); // nullのポイントを除外
       }
 
       function updateChart() {
-        if (!chart || allPoints.length === 0) return;
+        if (!chart || allPoints.length === 0) {
+          console.log("updateChart: chart or allPoints is empty", {
+            chart: !!chart,
+            allPointsLength: allPoints.length,
+          });
+          return;
+        }
 
         const filteredPoints = applyFilters(allPoints);
         console.log(
-          "Filtered points:",
+          "updateChart: Filtered points:",
           filteredPoints.length,
           "of",
           allPoints.length
         );
 
+        // クラスタリングを再実行（統合データの場合）
+        if (jsonFileName.includes("_all.json")) {
+          clusteredPoints = clusterPointsByProgression(filteredPoints, 25);
+
+          // lyricCountの最小値と最大値を再計算（クラスタ用）
+          const lyricCounts = clusteredPoints
+            .map((p) => p.lyricCount ?? 0)
+            .filter((c) => c > 0);
+          const minC = lyricCounts.length > 0 ? Math.min(...lyricCounts) : 0;
+          const maxC = lyricCounts.length > 0 ? Math.max(...lyricCounts) : 1;
+
+          // クラスタの半径を調整
+          for (const cluster of clusteredPoints) {
+            cluster.r = radiusFromLyricCount(cluster.lyricCount, minC, maxC);
+            if (cluster.r <= 0) {
+              cluster.r = 8;
+            }
+          }
+
+          // 基準進行別にデータセットを分ける
+          const datasets = {
+            odo: [],
+            komuro: [],
+            marusa: [],
+          };
+
+          clusteredPoints.forEach((cluster) => {
+            datasets[cluster.progressionType].push(cluster);
+          });
+
+          // チャートのデータを更新（配列をクリアしてから新しいデータを追加）
+          chart.data.datasets[0].data.length = 0;
+          chart.data.datasets[0].data.push(...datasets.odo);
+          chart.data.datasets[1].data.length = 0;
+          chart.data.datasets[1].data.push(...datasets.komuro);
+          chart.data.datasets[2].data.length = 0;
+          chart.data.datasets[2].data.push(...datasets.marusa);
+          // チャートを強制的に再描画（アニメーションなし）
+          console.log("updateChart: Updating clustered chart", {
+            odo: datasets.odo.length,
+            komuro: datasets.komuro.length,
+            marusa: datasets.marusa.length,
+          });
+          chart.update("none");
+          return;
+        }
+
+        // 通常モードの場合
         // lyricCountの最小値と最大値を再計算
         const lyricCounts = filteredPoints
           .map((p) => p.lyricCount ?? 0)
@@ -1165,21 +2103,30 @@
           }
         }
 
-        // チャートのデータを更新
-        chart.data.datasets[0].data = filteredPoints;
-        chart.update();
+        // チャートのデータを更新（配列をクリアしてから新しいデータを追加）
+        const dataset = chart.data.datasets[0];
+        dataset.data.length = 0;
+        dataset.data.push(...filteredPoints);
+        // チャートを強制的に再描画（アニメーションなし）
+        console.log(
+          "updateChart: Updating chart with",
+          filteredPoints.length,
+          "points"
+        );
+        chart.update("none");
       }
 
       /* ========= データ読み込み → rを曲数合計で作り直す → 描画 ========= */
-      async function loadAndRender(jsonFileName) {
+      async function loadAndRender(fileName) {
+        // グローバル変数に保存（updateChart関数で使用するため）
+        jsonFileName = fileName;
         const canvas = document.getElementById("myChart");
 
         // 現在のHTMLファイルの場所を基準にパスを構築
         const currentPath = window.location.pathname;
         const basePath = currentPath.substring(0, currentPath.lastIndexOf("/"));
         // キャッシュ対策: タイムスタンプを追加
-        const jsonPath =
-          basePath + "/data/" + jsonFileName + "?t=" + Date.now();
+        const jsonPath = basePath + "/data/" + fileName + "?t=" + Date.now();
 
         console.log("Current path:", currentPath);
         console.log("Base path:", basePath);
@@ -1211,12 +2158,64 @@
             );
           }
 
-          const points = data.points ?? [];
+          let points = data.points ?? [];
+
+          // 統合データファイル（umap_all.json, tsne_all.json）の場合は基準進行ラベルを付与
+          if (jsonFileName.includes("_all.json")) {
+            // 基準進行の定義
+            const referenceProgressions = {
+              odo: ["IV", "V", "iii", "vi"],
+              komuro: ["vi", "IV", "V", "I"],
+              marusa: ["IVM7", "III7", "vi7", "I7"],
+            };
+
+            // 各ポイントに最も近い基準進行を判定
+            points = points.map((point) => {
+              const romanProg = point.roman_progression || [];
+              if (!romanProg.length) {
+                return { ...point, progressionType: "odo" }; // デフォルト
+              }
+
+              // 各基準進行との一致度を計算
+              let bestMatch = "odo";
+              let bestScore = 0;
+
+              Object.keys(referenceProgressions).forEach((type) => {
+                const refProg = referenceProgressions[type];
+                let matchCount = 0;
+                // 循環的に比較
+                for (let offset = 0; offset < romanProg.length; offset++) {
+                  let matches = 0;
+                  for (
+                    let i = 0;
+                    i < refProg.length && i + offset < romanProg.length;
+                    i++
+                  ) {
+                    if (romanProg[i + offset] === refProg[i]) {
+                      matches++;
+                    }
+                  }
+                  matchCount = Math.max(matchCount, matches);
+                }
+                if (matchCount > bestScore) {
+                  bestScore = matchCount;
+                  bestMatch = type;
+                }
+              });
+
+              return { ...point, progressionType: bestMatch };
+            });
+          }
+
           allPoints = points; // 全ポイントを保存
           EMOTION_SONGS = data.emotionSongs ?? {};
 
           // アーティスト、作曲家、作詞家のリストを抽出
           extractFilterOptions(points);
+
+          // URLクエリパラメータからフィルタを適用（チャート作成前なので、shouldUpdateChart=false）
+          // チャート作成後にupdateChart()を呼び出すため、ここではフィルタの選択のみ行う
+          applyFiltersFromURL(false);
 
           // lyricCountの最小値と最大値を計算
           const lyricCounts = points
@@ -1264,41 +2263,136 @@
             existingChart.destroy();
           }
 
+          // 統合データファイルの場合は色分け表示
+          const isUnifiedData = jsonFileName.includes("_all.json");
+          let datasets = [];
+
+          if (isUnifiedData) {
+            // 基準進行別にデータセットを分ける
+            const groupedData = {
+              odo: [],
+              komuro: [],
+              marusa: [],
+            };
+
+            filteredPoints.forEach((point) => {
+              const type = point.progressionType || "odo";
+              if (groupedData[type]) {
+                groupedData[type].push(point);
+              }
+            });
+
+            datasets = [
+              {
+                label: "王道進行",
+                data: groupedData.odo,
+                pointBackgroundColor: PROGRESSION_COLORS.odo,
+                pointBorderColor: PROGRESSION_BORDER_COLORS.odo,
+                pointBorderWidth: 0,
+                pointRadius: (c) =>
+                  c.raw?.isReferenceProgression ? 0 : c.raw?.r ?? 8,
+                pointHitRadius: (c) => (c.raw?.r ?? 8) + 6,
+                pointHoverRadius: 0,
+              },
+              {
+                label: "小室進行",
+                data: groupedData.komuro,
+                pointBackgroundColor: PROGRESSION_COLORS.komuro,
+                pointBorderColor: PROGRESSION_BORDER_COLORS.komuro,
+                pointBorderWidth: 0,
+                pointRadius: (c) =>
+                  c.raw?.isReferenceProgression ? 0 : c.raw?.r ?? 8,
+                pointHitRadius: (c) => (c.raw?.r ?? 8) + 6,
+                pointHoverRadius: 0,
+              },
+              {
+                label: "丸サ進行",
+                data: groupedData.marusa,
+                pointBackgroundColor: PROGRESSION_COLORS.marusa,
+                pointBorderColor: PROGRESSION_BORDER_COLORS.marusa,
+                pointBorderWidth: 0,
+                pointRadius: (c) =>
+                  c.raw?.isReferenceProgression ? 0 : c.raw?.r ?? 8,
+                pointHitRadius: (c) => (c.raw?.r ?? 8) + 6,
+                pointHoverRadius: 0,
+              },
+            ];
+          } else {
+            // 通常のデータファイル
+            datasets = [
+              {
+                label: "Emotion points",
+                data: filteredPoints,
+                pointBackgroundColor: "rgba(0,0,0,0)",
+                pointBorderColor: "rgba(0,0,0,0)",
+                pointBorderWidth: 0,
+                pointRadius: (c) =>
+                  c.raw?.isReferenceProgression ? 0 : c.raw?.r ?? 6,
+                pointHitRadius: (c) => (c.raw?.r ?? 6) + 6,
+                pointHoverRadius: 0,
+              },
+            ];
+          }
+
           chart = new Chart(canvas, {
             type: "bubble",
             data: {
-              datasets: [
-                {
-                  label: "Emotion points",
-                  data: filteredPoints,
-
-                  // 元の点は透明（当たり判定だけ使う）
-                  pointBackgroundColor: "rgba(0,0,0,0)",
-                  pointBorderColor: "rgba(0,0,0,0)",
-                  pointBorderWidth: 0,
-
-                  pointRadius: (c) => c.raw?.r ?? 6,
-                  pointHitRadius: (c) => (c.raw?.r ?? 6) + 6,
-                  pointHoverRadius: 0,
-                },
-              ],
+              datasets: datasets,
             },
             options: {
               animation: false,
               normalized: true,
               plugins: {
-                legend: { display: false },
+                legend: { display: false }, // 凡例を非表示
                 tooltip: { enabled: false, external: externalEmotionTooltip },
                 piePointsCachedHover: {
                   strokeStyle: "#fff",
-                  lineWidth: 2,
+                  lineWidth: 0,
                   minRadius: 6,
                   hoverBoost: 3,
                 },
+                zoom: {
+                  zoom: {
+                    wheel: {
+                      enabled: true,
+                      speed: 0.1,
+                      // tooltip内ではズームを無効化
+                      filter: function (e) {
+                        // tooltip要素内でwheelイベントが発生した場合は無視
+                        const tooltip = document.querySelector(".pie-tooltip");
+                        if (tooltip && tooltip.contains(e.target)) {
+                          return false; // ズームを無効化
+                        }
+                        return true; // 通常通りズームを有効化
+                      },
+                    },
+                    pinch: {
+                      enabled: true,
+                    },
+                    mode: "xy",
+                  },
+                  pan: {
+                    enabled: true,
+                    mode: "xy",
+                    modifierKey: null, // ドラッグでパン（修飾キー不要）
+                  },
+                  limits: {
+                    x: { min: 0, max: 100 },
+                    y: { min: 0, max: 100 },
+                  },
+                },
               },
               scales: {
-                x: { min: 0, max: 100, grid: { color: "rgba(0,0,0,.08)" } },
-                y: { min: 0, max: 100, grid: { color: "rgba(0,0,0,.08)" } },
+                x: {
+                  min: 0,
+                  max: 100,
+                  grid: { color: "rgba(0,0,0,.08)" },
+                },
+                y: {
+                  min: 0,
+                  max: 100,
+                  grid: { color: "rgba(0,0,0,.08)" },
+                },
               },
             },
           });
@@ -1308,7 +2402,7 @@
             canvas.removeEventListener("click", clickHandler);
           }
 
-          // クリック：扇形を判定して歌詞表示
+          // クリック：点を選択して固定表示（スクロール可能にするため）
           clickHandler = (ev) => {
             const pos = Chart.helpers.getRelativePosition(ev, chart);
             const px = pos.x;
@@ -1321,6 +2415,7 @@
               true
             );
             if (!hits.length) {
+              // クリックした場所に点がない場合は選択解除
               selected = null;
               chart.update();
               return;
@@ -1339,26 +2434,29 @@
             const minRadius =
               chart.options.plugins.piePointsCachedHover.minRadius ?? 6;
             const emotion = getSegmentEmotion(raw, px, py, minRadius);
-            if (!emotion) {
-              selected = null;
-              chart.update();
-              return;
-            }
 
-            // 同じならトグル解除
+            // 同じ点をクリックした場合は選択解除、違う点または感情をクリックした場合は選択
             if (
               selected &&
               selected.datasetIndex === datasetIndex &&
               selected.index === index &&
               selected.emotion === emotion
             ) {
+              // 同じ点・同じ感情をクリック → 選択解除
               selected = null;
-            } else {
+            } else if (emotion) {
+              // 感情セグメントをクリック → その感情を選択
               selected = { datasetIndex, index, emotion };
+            } else {
+              // 点の中心付近をクリック（感情セグメント外） → 点のみ選択（感情なし）
+              selected = { datasetIndex, index, emotion: null };
             }
             chart.update();
           };
           canvas.addEventListener("click", clickHandler);
+
+          // チャート作成後にフィルタを適用して再描画
+          updateChart();
         } catch (e) {
           throw e;
         }
@@ -1366,13 +2464,23 @@
 
       async function main() {
         const selector = document.getElementById("jsonSelector");
-        const defaultFile = selector.value;
+
+        // URLクエリパラメータからデータセットを読み込む
+        const queryParams = getQueryParams();
+        let defaultFile = selector.value;
+        if (queryParams.dataset) {
+          // URLパラメータで指定されたデータセットを選択
+          selector.value = queryParams.dataset;
+          defaultFile = queryParams.dataset;
+        }
 
         // セレクターの変更イベント
         selector.addEventListener("change", async (e) => {
           const selectedFile = e.target.value;
           try {
             await loadAndRender(selectedFile);
+            // URLを更新
+            updateURLFromFilters();
           } catch (err) {
             console.error("Error loading data:", err);
             alert(`データの読み込みに失敗しました: ${err.message}`);
@@ -1413,15 +2521,48 @@
         }
 
         artistFilter.addEventListener("change", (e) => {
-          resetOtherFilters(artistFilter);
+          // 「すべて」が選択されている場合は、他の選択を解除しない
+          const selectedOptions = Array.from(artistFilter.selectedOptions);
+          const hasAllSelected = selectedOptions.some(
+            (opt) => opt.value === ""
+          );
+          if (hasAllSelected && selectedOptions.length > 1) {
+            // 「すべて」と他のオプションが同時に選択されている場合は、「すべて」を解除
+            artistFilter.options[0].selected = false;
+          } else if (hasAllSelected) {
+            // 「すべて」のみが選択されている場合は、他のフィルタはそのまま
+          }
+          updateURLFromFilters();
           updateChart();
         });
         composerFilter.addEventListener("change", (e) => {
-          resetOtherFilters(composerFilter);
+          // 「すべて」が選択されている場合は、他の選択を解除しない
+          const selectedOptions = Array.from(composerFilter.selectedOptions);
+          const hasAllSelected = selectedOptions.some(
+            (opt) => opt.value === ""
+          );
+          if (hasAllSelected && selectedOptions.length > 1) {
+            // 「すべて」と他のオプションが同時に選択されている場合は、「すべて」を解除
+            composerFilter.options[0].selected = false;
+          } else if (hasAllSelected) {
+            // 「すべて」のみが選択されている場合は、他のフィルタはそのまま
+          }
+          updateURLFromFilters();
           updateChart();
         });
         lyricistFilter.addEventListener("change", (e) => {
-          resetOtherFilters(lyricistFilter);
+          // 「すべて」が選択されている場合は、他の選択を解除しない
+          const selectedOptions = Array.from(lyricistFilter.selectedOptions);
+          const hasAllSelected = selectedOptions.some(
+            (opt) => opt.value === ""
+          );
+          if (hasAllSelected && selectedOptions.length > 1) {
+            // 「すべて」と他のオプションが同時に選択されている場合は、「すべて」を解除
+            lyricistFilter.options[0].selected = false;
+          } else if (hasAllSelected) {
+            // 「すべて」のみが選択されている場合は、他のフィルタはそのまま
+          }
+          updateURLFromFilters();
           updateChart();
         });
 
@@ -1435,18 +2576,22 @@
 
         if (releaseDateMinInput) {
           releaseDateMinInput.addEventListener("input", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
           releaseDateMinInput.addEventListener("change", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
         }
 
         if (releaseDateMaxInput) {
           releaseDateMaxInput.addEventListener("input", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
           releaseDateMaxInput.addEventListener("change", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
         }
@@ -1459,19 +2604,87 @@
 
         if (popularityMinInput) {
           popularityMinInput.addEventListener("input", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
           popularityMinInput.addEventListener("change", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
         }
 
         if (popularityMaxInput) {
           popularityMaxInput.addEventListener("input", (e) => {
+            updateURLFromFilters();
             updateChart();
           });
           popularityMaxInput.addEventListener("change", (e) => {
+            updateURLFromFilters();
             updateChart();
+          });
+        }
+
+        // URL変更（ブラウザの戻る/進むボタン）をリッスン
+        window.addEventListener("popstate", (e) => {
+          console.log("URL changed, applying filters from URL");
+          applyFiltersFromURL(true); // チャートを更新
+        });
+
+        // ズームコントロールのイベントリスナー
+        const zoomInBtn = document.getElementById("zoomInBtn");
+        const zoomOutBtn = document.getElementById("zoomOutBtn");
+        const resetZoomBtn = document.getElementById("resetZoomBtn");
+
+        function zoomChart(factor) {
+          if (!chart) return;
+          const xScale = chart.scales.x;
+          const yScale = chart.scales.y;
+
+          const centerX = (xScale.min + xScale.max) / 2;
+          const centerY = (yScale.min + yScale.max) / 2;
+
+          const rangeX = xScale.max - xScale.min;
+          const rangeY = yScale.max - yScale.min;
+
+          const newRangeX = rangeX / factor;
+          const newRangeY = rangeY / factor;
+
+          xScale.min = centerX - newRangeX / 2;
+          xScale.max = centerX + newRangeX / 2;
+          yScale.min = centerY - newRangeY / 2;
+          yScale.max = centerY + newRangeY / 2;
+
+          chart.update("none");
+        }
+
+        function resetZoomChart() {
+          if (!chart) return;
+          const xScale = chart.scales.x;
+          const yScale = chart.scales.y;
+
+          xScale.min = 0;
+          xScale.max = 100;
+          yScale.min = 0;
+          yScale.max = 100;
+
+          chart.update("none");
+        }
+
+        if (zoomInBtn) {
+          zoomInBtn.addEventListener("click", () => {
+            zoomChart(1.2);
+          });
+        }
+
+        if (zoomOutBtn) {
+          zoomOutBtn.addEventListener("click", () => {
+            zoomChart(0.8);
+          });
+        }
+
+        if (resetZoomBtn) {
+          resetZoomBtn.addEventListener("click", () => {
+            resetZoomChart();
           });
         }
 
@@ -1489,16 +2702,16 @@
     </script>
 
     <div
-      id="content"
-      style="margin-top: 40px; border: 1px solid #000; padding: 20px"
-    ></div>
-
-    <script>
-      fetch("./README.html")
-        .then((res) => res.text())
-        .then((html) => {
-          document.getElementById("content").innerHTML = html;
-        });
-    </script>
+      id="statistics"
+      style="
+        margin-top: 40px;
+        border: 1px solid #000;
+        padding: 20px;
+        background-color: #f9f9f9;
+      "
+    >
+      <h2>分析対象データの統計</h2>
+      <p>データを読み込み中...</p>
+    </div>
   </body>
 </html>
